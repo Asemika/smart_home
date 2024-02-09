@@ -67,20 +67,20 @@ public class Configuration {
 
         TV tv = new TV();
         AirCondition airCondition = new AirCondition();
-        AirCondition airCondition2 = new AirCondition();
+//        AirCondition airCondition2 = new AirCondition();
 
         List<AirCondition> airConditions = new ArrayList<>();
         airConditions.add(airCondition);
-        airConditions.add(airCondition2);
+//        airConditions.add(airCondition2);
 
         SmartSpeaker smartSpeaker = new SmartSpeaker();
-        Owen owen = new Owen();
+        Oven oven = new Oven();
         WashingMachine washingMachine = new WashingMachine();
         Microwave microwave = new Microwave();
         LightSystem lightSystem = new LightSystem();
 
-        addDevicesWithConsumption(devicesWithConsumption, fridge, tv, airCondition, airCondition2, smartSpeaker,
-                owen, washingMachine, microwave, lightSystem);
+        addDevicesWithConsumption(devicesWithConsumption, fridge, tv, airCondition, smartSpeaker,
+                oven, washingMachine, microwave, lightSystem);
 
         ElectronicAPI electronicApi = new ElectronicAPI()
                 .setFridgeApi(new FridgeAPI(fridge))
@@ -88,7 +88,7 @@ public class Configuration {
                 .setBlindsApi(new BlindsAPI(allBlinds))
                 .setMicrowaveApi(new MicrowaveAPI(microwave))
                 .setSmartSpeakerApi(new SmartSpeakerAPI(smartSpeaker))
-                .setOwenApi(new OwenAPI(owen))
+                .setOwenApi(new OwenAPI(oven))
                 .setAirConditionApi(new AirConditionAPI(airConditions))
                 .setLightSystemApi(new LightSystemAPI(lightSystem))
                 .setWashingMachineApi(new WashingMachineAPI(washingMachine));
@@ -101,12 +101,12 @@ public class Configuration {
 
         init_pets(pets, livingRoom);
 
-        fillRoomWithDevices(kitchen, owen, fridge, microwave);
+        fillRoomWithDevices(kitchen, oven, fridge, microwave);
         fillRoomWithDevices(livingRoom, tv);
         fillRoomWithDevices(bathRoom, washingMachine);
         fillRoomWithDevices(entertainmentRoom, smartSpeaker);
         fillRoomWithDevices(bedRoom, airCondition);
-        fillRoomWithDevices(bedRoom2, airCondition2);
+//        fillRoomWithDevices(bedRoom2, airCondition2);
 
         setUpFireSensors(house.getFireSystem(), devicesWithConsumption, sensors, kitchen, livingRoom, bathRoom, entertainmentRoom, bedRoom);
 
@@ -116,7 +116,7 @@ public class Configuration {
 
 //        setUpStrongWindSensor(allBlinds, livingRoom, devicesWithConsumption, sensors);
 
-        attachPeopleToBreakableDevices(people, fridge, tv, airCondition, airCondition2, owen, microwave, washingMachine, smartSpeaker);
+        attachPeopleToBreakableDevices(people, fridge, tv, airCondition, oven, microwave, washingMachine, smartSpeaker);
 
         for (Device d : devicesWithConsumption) {
             sensors.add(d);

@@ -1,7 +1,6 @@
 package entity.device;
 
 public enum DeviceState {
-    ON,
-    OFF
+    ON, OFF
 }
 

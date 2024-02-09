@@ -1,5 +1,7 @@
 package entity.device;
 
+import entity.device.interfaces.FridgeState;
+
 public class Fridge extends Device{
     private boolean isTurnedOn;
     private int foodPercentage;
@@ -47,6 +49,15 @@ public class Fridge extends Device{
             System.out.println("Food percentage is low. Ordering more food...");
         } else {
             System.out.println("Food percentage is sufficient. No need to order.");
+        }
+    }
+    public void setState(DeviceState state) {
+        if (state == DeviceState.ON && !isTurnedOn) {
+            turnOn();
+        } else if (state == DeviceState.OFF && isTurnedOn) {
+            turnOff();
+        } else {
+            System.out.println("Fridge is already in the desired state.");
         }
     }
 }
