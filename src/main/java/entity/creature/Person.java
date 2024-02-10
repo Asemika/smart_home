@@ -1,30 +1,35 @@
 package entity.creature;
 
+import API.BicycleAPI;
+import API.CarAPI;
+import entity.device.remote.AirConditionRemote;
+import entity.device.remote.SmartSpeakerRemote;
+import entity.device.remote.TVRemote;
 import house.Room;
+import house.Storey;
 
 import java.util.List;
 
-public class Person extends Creature{
-    private ElectronicAPI electronicAPI;
+public class Person extends Creature {
     private CarAPI carAPI;
     private BicycleAPI bicycleAPI;
     private SmartSpeakerRemote smartSpeakerRemote;
-    private AirCondRemote airCondRemote;
+    private AirConditionRemote airCondRemote;
     private TVRemote tvRemote;
     private String name;
     private int age;
 
-    public Person(String name, Storey storey, Room initialRoom, ElectronicAPI electronicAPI,
+    public Person(String name, Storey storey, Room initialRoom,
                   CarAPI carAPI, BicycleAPI bicycleAPI, SmartSpeakerRemote smartSpeakerRemote,
-                  AirCondRemote airCondRemote, TVRemote tvRemote) {
+                  AirConditionRemote airCondRemote, TVRemote tvRemote) {
         super(name, initialRoom);
-        this.electronicAPI = electronicAPI;
         this.carAPI = carAPI;
         this.bicycleAPI = bicycleAPI;
         this.smartSpeakerRemote = smartSpeakerRemote;
         this.airCondRemote = airCondRemote;
         this.tvRemote = tvRemote;
     }
+
 
 
     @Override

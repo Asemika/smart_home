@@ -1,5 +1,8 @@
 package entity.device;
 
+import entity.creature.Person;
+import event.Event;
+
 public abstract class Device {
     private String name;
     private DeviceType type;
@@ -7,6 +10,7 @@ public abstract class Device {
     private double activeConsumption;
     private double idleConsumption;
     private double turnedOffConsumption;
+    private double kWPerHour;
 
     public Device(String name, DeviceType type, double activeConsumption, double idleConsumption, double turnedOffConsumption) {
         this.name = name;
@@ -49,5 +53,19 @@ public abstract class Device {
 
     public double getTurnedOffConsumption() {
         return turnedOffConsumption;
+    }
+
+    public void attach(Person person) {
+    }
+
+    public double getkWPerHour() {
+        return kWPerHour;
+    }
+
+    public void setkWPerHour(double kWPerHour) {
+        this.kWPerHour = kWPerHour;
+    }
+
+    public void notifyAllObservers(Event event) {
     }
 }

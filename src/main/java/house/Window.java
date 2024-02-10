@@ -1,14 +1,24 @@
 package house;
 
 import entity.device.Blinds;
+import entity.device.AirCondition;
+import entity.device.DeviceType;
+
 
 public class Window {
     private boolean isOpen;
     private boolean hasShutter;
+    private Blinds blinds;
 
     public Window(boolean hasShutter) {
         this.isOpen = false;
         this.hasShutter = hasShutter;
+        this.blinds = new Blinds("Living Room Blinds", DeviceType.BLINDS, 5.0, 2.0, 1.0);
+
+    }
+
+    public Window() {
+
     }
 
     public boolean isOpen() {
@@ -30,5 +40,12 @@ public class Window {
     }
 
     public Blinds getBlinds() {
+        return blinds;
+    }
+
+    public void closeWindowsWhenAirConditionerOn() {
+        if (AirCondition.isTurnedOn()) {
+            close();
+        }
     }
 }
