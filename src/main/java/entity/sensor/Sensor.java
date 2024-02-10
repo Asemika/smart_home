@@ -1,5 +1,7 @@
 package entity.sensor;
 
+import event.Event;
+
 public class Sensor {
     private SensorType type;
     private boolean isWorking;
@@ -17,4 +19,6 @@ public class Sensor {
         return isWorking;
     }
 
+    public void notifyAllObservers(Event event) {
+    }
 }

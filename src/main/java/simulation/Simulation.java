@@ -9,6 +9,7 @@ import report.*;
 import event.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class Simulation {
@@ -69,12 +70,12 @@ public class Simulation {
         }
 
         for (Pet pet : pets) {
-            pet.changeRoom(getRandomStorey(house.getStoreys()).getRooms());
+            pet.changeRoom((List<Room>) getRandomStorey(house.getStoreys()).getRooms());
         }
 
-        List<Room> rooms = getRandomStorey(house.getStoreys()).getRooms();
+        Room rooms = getRandomStorey(house.getStoreys()).getRooms();
         for (Person person : people) {
-            person.changeRoom(rooms);
+            person.changeRoom((List<Room>) rooms);
         }
 
         for (Person person : people) {
@@ -86,7 +87,7 @@ public class Simulation {
             person.doRandomActivity();
         }
         for (Pet pet : pets) {
-            pet.changeRoom(getRandomStorey(house.getStoreys()).getRooms());
+            pet.changeRoom((List<Room>) getRandomStorey(house.getStoreys()).getRooms());
         }
     }
 
@@ -95,42 +96,66 @@ public class Simulation {
      *
      * @param house
      */
-    public static void simulateFireEvent(House house) {
+    private static void simulateFireEvent(House house) {
         Event event = new Event(EventType.FIRE);
-        for (Room room : getRandomStorey(house.getStoreys()).getRooms()) {
-            for (Sensor s : room.getSensors()) {
-                if (s instanceof FireSensor) s.notifyAllObservers(event);
+        Storey randomStorey = getRandomStorey(house);
+        if (randomStorey != null) {
+            for (Room room : randomStorey.getRooms()) {
+                for (Sensor sensor : room.getSensors()) {
+                    if (sensor instanceof FireSensor) {
+                        sensor.notifyAllObservers(event);
+                        break;
+                    }
+                }
             }
         }
     }
+
 
     /**
      * generates water leak event and simulates it
      *
      * @param house
      */
-    public static void simulateWaterLeakEvent(House house) {
+    private static void simulateWaterLeakEvent(House house) {
         Event event = new Event(EventType.WATER_LEAK);
-        for (Room room : getRandomStorey(house.getStoreys()).getRooms()) {
-            for (Sensor s : room.getSensors()) {
-                if (s instanceof WaterLeakSensor) s.notifyAllObservers(event);
+        Storey randomStorey = getRandomStorey(house);
+        if (randomStorey != null) {
+            for (Room room : randomStorey.getRooms()) {
+                for (Sensor sensor : room.getSensors()) {
+                    if (sensor instanceof WaterLeakSensor) {
+                        sensor.notifyAllObservers(event);
+                        break;
+                    }
+                }
             }
         }
     }
+
 
     /**
      * generates power outage event and simulates it
      *
      * @param house
      */
-    public static void simulatePowerOutageEvent(House house) {
+    private static void simulatePowerOutageEvent(House house) {
         Event event = new Event(EventType.POWER_OUTAGE);
-        for (Room room : getRandomStorey(house.getStoreys()).getRooms()) {
-            for (Sensor s : room.getSensors()) {
-                if (s instanceof PowerOutageSensor) s.notifyAllObservers(event);
-            }
+        for (Storey storey : house.getStoreys()) {
+            for (Room room : storey.getRooms())
+                for (Device device : room.getDevices()) {
+                    device.notifyAllObservers(event);
+                }
         }
+    }
 
+
+    private static Storey getRandomStorey(House house) {
+        House storeys = house.getStoreys();
+        if (!storeys.isEmpty()) {
+            Random random = new Random();
+            return storeys.get(random.nextInt(storeys.size()));
+        }
+        return null;
     }
 
     public static void simulateRandomEvent(House house) {

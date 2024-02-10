@@ -1,6 +1,8 @@
 package house;
 
 import entity.device.Device;
+import entity.sensor.FireSensor;
+import entity.sensor.Sensor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,10 @@ public class Room {
         this.windows = new ArrayList<>();
         this.devices = new ArrayList<>();
         initializeWindows(numberOfWindows, windowsHaveShutter);
+    }
+
+
+    public Room(String room) {
     }
 
     private void initializeWindows(int numberOfWindows, boolean windowsHaveShutter) {
@@ -39,5 +45,12 @@ public class Room {
     }
 
     public void addWindow(Window window) {
+    }
+
+    public void addSensor(FireSensor fireSensor) {
+    }
+
+    public Iterable<? extends Sensor> getSensors() {
+        return null;
     }
 }

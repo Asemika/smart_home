@@ -1,39 +1,53 @@
 package entity.device;
 
-import entity.device.interfaces.VolumeControlStrategy;
-
 public class TV extends Device {
-    private int currentChannel;
-    private VolumeControlStrategy volumeControlStrategy;
+
+    private boolean isTurnedOn;
+    private int volume;
 
     public TV() {
-        super("TV", DeviceType.TV, 20.0, 10.0, 5.0);
-        this.currentChannel = 1;  // Default initial channel
+        super(name, type, activeConsumption, idleConsumption, turnedOffConsumption);
+        this.isTurnedOn = false;
+        this.volume = 50; // Default volume
     }
 
-    public void changeChannel(int newChannel) {
-        this.currentChannel = newChannel;
-        System.out.println("TV channel changed to " + newChannel);
-    }
-
-    public void adjustVolume(int volumeLevel) {
-        if (volumeControlStrategy != null) {
-            volumeControlStrategy.adjustVolume(volumeLevel);
-        } else {
-            System.out.println("No volume control strategy set for TV.");
+    @Override
+    public void turnOn() {
+        if (!isTurnedOn) {
+            isTurnedOn = true;
+            System.out.println(getName() + " is turned on.");
         }
     }
 
-    public void setVolumeControlStrategy(VolumeControlStrategy volumeControlStrategy) {
-        this.volumeControlStrategy = volumeControlStrategy;
+    @Override
+    public void turnOff() {
+        if (isTurnedOn) {
+            isTurnedOn = false;
+            System.out.println(getName() + " is turned off.");
+        }
     }
 
-    public void setVolumeMute() {
-        if (volumeControlStrategy != null) {
-            volumeControlStrategy.mute();
+    public boolean isTurnedOn() {
+        return isTurnedOn;
+    }
+
+    public int getVolume() {
+        return volume;
+    }
+
+    public void adjustVolume(int amount) {
+        if (isTurnedOn) {
+            volume = Math.min(100, Math.max(0, volume + amount)); // Adjust volume between 0 and 100
+            System.out.println(getName() + " volume adjusted to " + volume);
         } else {
-            System.out.println("No volume control strategy set for TV.");
+            System.out.println(getName() + " is turned off. Please turn it on first.");
+        }
+    }
+    public void detectPeopleInRoom(boolean peopleInRoom) {
+        if (peopleInRoom && !isTurnedOn) {
+            turnOn();
+        } else if (!peopleInRoom && isTurnedOn) {
+            turnOff();
         }
     }
 }
-
