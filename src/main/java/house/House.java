@@ -1,6 +1,5 @@
 package house;
 
-import jdk.internal.icu.text.UnicodeSet;
 import systems.FireSystem;
 import systems.WaterLeakSystem;
 
@@ -8,23 +7,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class House {
-    private List<Floor> floors;
+    private List<Storey> storeys;
     private FireSystem fireSystem;
     private WaterLeakSystem waterLeakSystem;
-    private UnicodeSet rooms;
+    private List<Room> rooms;
 
     public House() {
-        this.floors = new ArrayList<>();
+        this.storeys = new ArrayList<>();
         this.fireSystem = new FireSystem();
         this.waterLeakSystem = new WaterLeakSystem();
+        this.rooms = new ArrayList<>();
     }
 
-    public void addFloor(Floor floor) {
-        floors.add(floor);
+    public void addStorey(Storey storey) {
+        storeys.add(storey);
     }
 
-    public List<Floor> getFloors() {
-        return floors;
+    public List<Storey> getStoreys() {
+        return storeys;
     }
 
     public FireSystem getFireSystem() {
@@ -35,27 +35,23 @@ public class House {
         return waterLeakSystem;
     }
 
-    public FireSystem getBackupGenerator() {
+    public List<Room> getRooms() {
+        return rooms;
     }
 
-    public void addStorey(Storey storey) {
-    }
-
-    public House addRoom(Room room) {
+    public void addRoom(Room room) {
         rooms.add(room);
-        return this;
-    }
-
-    public House getStoreys() {
     }
 
     public boolean isEmpty() {
+        return storeys.isEmpty();
     }
 
-    public Storey get(int nextInt) {
+    public Storey get(int index) {
+        return storeys.get(index);
     }
 
     public int size() {
-        return 0;
+        return storeys.size();
     }
 }

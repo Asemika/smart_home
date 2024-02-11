@@ -1,7 +1,7 @@
 package entity.device;
 
 public class AirCondition extends Device {
-    private static boolean isTurnedOn;
+    private  boolean isTurnedOn;
     private int temperature;
     private int externalTemperature;
 
@@ -10,10 +10,6 @@ public class AirCondition extends Device {
         this.isTurnedOn = false;
         this.temperature = 20; // Default temperature
         this.externalTemperature = 25; // Default external temperature
-    }
-
-    public AirCondition() {
-        super();
     }
 
     @Override
@@ -32,7 +28,7 @@ public class AirCondition extends Device {
         }
     }
 
-    public static boolean isTurnedOn() {
+    public boolean isTurnedOn() {
         return isTurnedOn;
     }
 

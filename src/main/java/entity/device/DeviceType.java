@@ -1,6 +1,6 @@
 package entity.device;
 
 public enum DeviceType {
-   TV, FRIDGE, OVEN, MICROWAVE, WASHINGMASHINE,
+   TV, FRIDGE, OVEN, MICROWAVE, WASHINGMASHINE,BLINDS,
 
 }

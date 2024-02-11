@@ -1,8 +1,10 @@
 package API;
 
-import entity.device.Car;
-
-public class CarAPI {
-    public CarAPI(Car car) {
-    }
+public interface CarAPI {
+    void start();
+    void stop();
+    void drive(int distance);
+    void turnLightsOn();
+    void turnLightsOff();
 }
+

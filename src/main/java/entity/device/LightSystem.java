@@ -1,75 +1,9 @@
 package entity.device;
 
-// Interface defining the states of the light system
-interface LightSystemState {
-    /**
-     * Turns on the light system.
-     */
-    void turnOn();
 
-    /**
-     * Turns off the light system.
-     */
-    void turnOff();
-
-    /**
-     * Adjusts the brightness level of the light system.
-     *
-     * @param brightness The brightness level to set (percentage).
-     */
-    void adjustBrightness(int brightness);
-}
-
-// Concrete implementation of the light system in the turned on state
-class TurnedOnState implements LightSystemState {
-    private LightSystem lightSystem;
-
-    public TurnedOnState(LightSystem lightSystem) {
-        this.lightSystem = lightSystem;
-    }
-
-    @Override
-    public void turnOn() {
-        System.out.println(lightSystem.getName() + " is already turned on.");
-    }
-
-    @Override
-    public void turnOff() {
-        lightSystem.setState(lightSystem.getTurnedOffState());
-        System.out.println(lightSystem.getName() + " is turned off.");
-    }
-
-    @Override
-    public void adjustBrightness(int brightness) {
-        lightSystem.setBrightness(brightness);
-        System.out.println(lightSystem.getName() + " brightness set to " + brightness + "%.");
-    }
-}
-
-// Concrete implementation of the light system in the turned off state
-class TurnedOffState implements LightSystemState {
-    private LightSystem lightSystem;
-
-    public TurnedOffState(LightSystem lightSystem) {
-        this.lightSystem = lightSystem;
-    }
-
-    @Override
-    public void turnOn() {
-        lightSystem.setState(lightSystem.getTurnedOnState());
-        System.out.println(lightSystem.getName() + " is turned on.");
-    }
-
-    @Override
-    public void turnOff() {
-        System.out.println(lightSystem.getName() + " is already turned off.");
-    }
-
-    @Override
-    public void adjustBrightness(int brightness) {
-        System.out.println(lightSystem.getName() + " is turned off. Please turn it on first.");
-    }
-}
+import entity.device.interfaces.LightSystemState;
+import entity.device.patterns.TurnOnLight;
+import entity.device.patterns.TurnOffLight;
 
 /**
  * Represents a light system in a smart home.
@@ -83,10 +17,10 @@ public class LightSystem extends Device {
     /**
      * Constructs a new `LightSystem` object.
      */
-    public LightSystem() {
+    public LightSystem(String name, DeviceType type, double activeConsumption, double idleConsumption, double turnedOffConsumption) {
         super(name, type, activeConsumption, idleConsumption, turnedOffConsumption);
-        this.turnedOnState = new TurnedOnState(this);
-        this.turnedOffState = new TurnedOffState(this);
+        this.turnedOnState = new TurnOnLight(this);
+        this.turnedOffState = new TurnOffLight(this);
         this.state = turnedOffState; // By default, the light system is turned off
         this.brightness = 0; // Default brightness level
     }
