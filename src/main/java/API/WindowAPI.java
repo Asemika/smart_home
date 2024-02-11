@@ -5,3 +5,4 @@ public interface WindowAPI {
     void close();
     void setBlindsPosition(int position);
 }
+

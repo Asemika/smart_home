@@ -51,14 +51,8 @@ public class Fridge extends Device{
             System.out.println("Food percentage is sufficient. No need to order.");
         }
     }
-    public void setState(DeviceState state) {
-        if (state == DeviceState.ON && !isTurnedOn) {
-            turnOn();
-        } else if (state == DeviceState.OFF && isTurnedOn) {
-            turnOff();
-        } else {
-            System.out.println("Fridge is already in the desired state.");
-        }
+    public void setState(FridgeState state) {
+        state.setState(this);
     }
 }
 //package entity.device;

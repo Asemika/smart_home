@@ -82,7 +82,7 @@ public class Configuration {
         airConditions.add(airCondition2);
 
         SmartSpeaker smartSpeaker = new SmartSpeaker();
-        Owen owen = new Owen();
+        Oven owen = new Oven();
         WashingMachine washingMachine = new WashingMachine();
         Microwave microwave = new Microwave();
         LightSystem lightSystem = new LightSystem();
@@ -90,16 +90,16 @@ public class Configuration {
         addDevicesWithConsumption(devicesWithConsumption, fridge, tv, airCondition, airCondition2, smartSpeaker,
                 owen, washingMachine, microwave, lightSystem);
 
-//        ElectronicAPI electronicApi = new ElectronicAPI()
-//                .setFridgeApi(new FridgeAPI(fridge))
-//                .setTvApi(new TvAPI(tv))
-//                .setBlindsApi(new BlindsAPI(allBlinds))
-//                .setMicrowaveApi(new MicrowaveAPI(microwave))
-//                .setSmartSpeakerApi(new SmartSpeakerAPI(smartSpeaker))
-//                .setOwenApi(new OwenAPI(owen))
-//                .setAirConditionApi(new AirConditionAPI(airConditions))
-//                .setLightSystemApi(new LightSystemAPI(lightSystem))
-//                .setWashingMachineApi(new WashingMachineAPI(washingMachine));
+        ElectronicAPI electronicApi = new ElectronicAPI()
+                .setFridgeApi(new FridgeAPI(fridge))
+                .setTvApi(new TvAPI(tv))
+                .setBlindsApi(new BlindsAPI(allBlinds))
+                .setMicrowaveApi(new MicrowaveAPI(microwave))
+                .setSmartSpeakerApi(new SmartSpeakerAPI(smartSpeaker))
+                .setOwenApi(new OwenAPI(owen))
+                .setAirConditionApi(new AirConditionAPI(airConditions))
+                .setLightSystemApi(new LightSystemAPI(lightSystem))
+                .setWashingMachineApi(new WashingMachineAPI(washingMachine));
 
         SmartSpeakerRemote speakerRemote = new SmartSpeakerRemote(smartSpeaker);
         AirConditionRemote airCondRemote = new AirConditionRemote(airCondition);

@@ -1,6 +1,6 @@
 package entity.device;
-public class SmartSpeaker extends Device {
 
+public class SmartSpeaker extends Device {
     private boolean isTurnedOn;
 
     public SmartSpeaker(String name, DeviceType type, double activeConsumption, double idleConsumption, double turnedOffConsumption) {
@@ -8,14 +8,7 @@ public class SmartSpeaker extends Device {
         this.isTurnedOn = false;
     }
 
-    public SmartSpeaker() {
-        super();
-    }
-
-    public boolean isTurnedOn() {
-        return isTurnedOn;
-    }
-
+    @Override
     public void turnOn() {
         if (!isTurnedOn) {
             isTurnedOn = true;
@@ -23,10 +16,15 @@ public class SmartSpeaker extends Device {
         }
     }
 
+    @Override
     public void turnOff() {
         if (isTurnedOn) {
             isTurnedOn = false;
             System.out.println(getName() + " is turned off.");
         }
+    }
+
+    public boolean isTurnedOn() {
+        return isTurnedOn;
     }
 }

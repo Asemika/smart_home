@@ -1,11 +1,10 @@
 package entity.device;
 
 public class TV extends Device {
-
     private boolean isTurnedOn;
     private int volume;
 
-    public TV() {
+    public TV(String name, DeviceType type, double activeConsumption, double idleConsumption, double turnedOffConsumption) {
         super(name, type, activeConsumption, idleConsumption, turnedOffConsumption);
         this.isTurnedOn = false;
         this.volume = 50; // Default volume
@@ -43,6 +42,7 @@ public class TV extends Device {
             System.out.println(getName() + " is turned off. Please turn it on first.");
         }
     }
+
     public void detectPeopleInRoom(boolean peopleInRoom) {
         if (peopleInRoom && !isTurnedOn) {
             turnOn();

@@ -65,6 +65,7 @@ public class Simulation {
             person.rideBicycle();
             person.useSkis();
         }
+
         for (Person person : people) {
             person.doRandomActivity();
         }
@@ -73,9 +74,16 @@ public class Simulation {
             pet.changeRoom((List<Room>) getRandomStorey(house.getStoreys()).getRooms());
         }
 
-        Room rooms = getRandomStorey(house.getStoreys()).getRooms();
+        List<Room> rooms = getRandomStorey(house.getStoreys()).getRooms();
         for (Person person : people) {
-            person.changeRoom((List<Room>) rooms);
+            person.changeRoom(rooms);
+        }
+
+        // Close blinds when needed
+        for (Room room : rooms) {
+            for (Window window : room.getWindows()) {
+                window.closeBlindsWhenNeeded();
+            }
         }
 
         for (Person person : people) {
@@ -86,10 +94,12 @@ public class Simulation {
         for (Person person : people) {
             person.doRandomActivity();
         }
+
         for (Pet pet : pets) {
             pet.changeRoom((List<Room>) getRandomStorey(house.getStoreys()).getRooms());
         }
     }
+
 
     /**
      * generates fire event and simulates it
