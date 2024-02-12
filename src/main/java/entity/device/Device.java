@@ -21,6 +21,10 @@ public abstract class Device {
         this.turnedOffConsumption = turnedOffConsumption;
     }
 
+    public Device() {
+
+    }
+
     public void turnOn() {
         this.state = DeviceState.ON;
         System.out.println(name + " is turned on.");
@@ -68,4 +72,6 @@ public abstract class Device {
 
     public void notifyAllObservers(Event event) {
     }
+
+    public abstract Object getElectricityAPI();
 }

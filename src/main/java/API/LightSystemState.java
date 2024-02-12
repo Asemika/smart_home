@@ -1,4 +1,4 @@
-package entity.device.interfaces;
+package API;
 
 public interface LightSystemState {
     /**

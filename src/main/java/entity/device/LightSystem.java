@@ -1,14 +1,14 @@
 package entity.device;
 
 
-import entity.device.interfaces.LightSystemState;
+import API.LightSystemState;
 import entity.device.patterns.TurnOnLight;
 import entity.device.patterns.TurnOffLight;
 
 /**
  * Represents a light system in a smart home.
  */
-public class LightSystem extends Device {
+public abstract class LightSystem extends Device {
     private LightSystemState turnedOnState;
     private LightSystemState turnedOffState;
     private LightSystemState state;
@@ -19,10 +19,14 @@ public class LightSystem extends Device {
      */
     public LightSystem(String name, DeviceType type, double activeConsumption, double idleConsumption, double turnedOffConsumption) {
         super(name, type, activeConsumption, idleConsumption, turnedOffConsumption);
-        this.turnedOnState = new TurnOnLight(this);
-        this.turnedOffState = new TurnOffLight(this);
+        this.turnedOnState = (LightSystemState) new TurnOnLight(this);
+        this.turnedOffState = (LightSystemState) new TurnOffLight(this);
         this.state = turnedOffState; // By default, the light system is turned off
         this.brightness = 0; // Default brightness level
+    }
+
+    public LightSystem() {
+        super();
     }
 
     /**

@@ -1,6 +1,6 @@
 package entity.device;
 
-import entity.device.interfaces.OvenModeStrategy;
+import API.OvenModeStrategy;
 import entity.device.patterns.BakingModeStrategy;
 import entity.device.patterns.DefrostModeStrategy;
 import entity.device.patterns.GrillModeStrategy;
@@ -8,7 +8,7 @@ import entity.device.patterns.GrillModeStrategy;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Oven extends Device {
+public abstract class Oven extends Device {
     private boolean isTurnedOn;
     private OvenMode currentMode;
     private int currentTemperature;
@@ -53,9 +53,9 @@ public class Oven extends Device {
     }
 
     private void initDefaultStrategies() {
-        addModeStrategy(OvenMode.BAKING, new BakingModeStrategy());
-        addModeStrategy(OvenMode.DEFROST, new DefrostModeStrategy());
-        addModeStrategy(OvenMode.GRILL, new GrillModeStrategy());
+        addModeStrategy(OvenMode.BAKING, (OvenModeStrategy) new BakingModeStrategy());
+        addModeStrategy(OvenMode.DEFROST, (OvenModeStrategy) new DefrostModeStrategy());
+        addModeStrategy(OvenMode.GRILL, (OvenModeStrategy) new GrillModeStrategy());
     }
 
     public void setCurrentMode(OvenMode mode) {

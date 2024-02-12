@@ -4,7 +4,7 @@ package entity.device;
  * This class represents smart blinds that can be controlled
  * to open or close based on certain conditions, such as light intensity.
  */
-public class Blinds extends Device {
+public abstract class Blinds extends Device {
     private boolean isOpen;
 
     // Assume this variable represents the current light intensity

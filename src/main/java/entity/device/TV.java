@@ -1,11 +1,22 @@
 package entity.device;
 
-public class TV extends Device {
+/**
+ * Represents a TV device.
+ */
+public abstract class TV extends Device {
     private boolean isTurnedOn;
     private int volume;
 
-    public TV(String name, DeviceType type, double activeConsumption, double idleConsumption, double turnedOffConsumption) {
-        super(name, type, activeConsumption, idleConsumption, turnedOffConsumption);
+    /**
+     * Constructs a TV with specified parameters.
+     *
+     * @param name               the name of the TV
+     * @param activeConsumption  the active consumption of the TV
+     * @param idleConsumption    the idle consumption of the TV
+     * @param turnedOffConsumption the consumption when the TV is turned off
+     */
+    public TV(String name, double activeConsumption, double idleConsumption, double turnedOffConsumption) {
+        super(name, DeviceType.TV, activeConsumption, idleConsumption, turnedOffConsumption);
         this.isTurnedOn = false;
         this.volume = 50; // Default volume
     }

@@ -1,9 +1,9 @@
 package entity.device;
 
-public class SmartSpeaker extends Device {
+public abstract class SmartSpeaker extends Device {
     private boolean isTurnedOn;
 
-    public SmartSpeaker(String name, DeviceType type, double activeConsumption, double idleConsumption, double turnedOffConsumption) {
+    public SmartSpeaker() {
         super(name, type, activeConsumption, idleConsumption, turnedOffConsumption);
         this.isTurnedOn = false;
     }

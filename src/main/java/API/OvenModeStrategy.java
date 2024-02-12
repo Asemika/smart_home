@@ -1,4 +1,4 @@
-package entity.device.interfaces;
+package API;
 
 import entity.device.Oven;
 

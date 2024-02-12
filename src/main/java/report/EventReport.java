@@ -1,5 +1,6 @@
 package report;
 
+import entity.device.Device;
 import event.Event;
 
 import java.util.List;
@@ -9,6 +10,10 @@ public class EventReport {
 
     public EventReport(List<Event> events) {
         this.events = events;
+    }
+
+    public EventReport(List<Device> sensors, String folderForReports) {
+
     }
 
     public void generateReport() {

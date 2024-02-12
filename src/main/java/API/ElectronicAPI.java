@@ -3,14 +3,17 @@ package API;
 import entity.device.*;
 
 public interface ElectronicAPI {
-    FridgeAPI setFridgeApi(FridgeAPI fridgeApi);
-    TvAPI setTvApi(TvAPI tvApi);
-    BlindsAPI setBlindsApi(BlindsAPI blindsApi);
-    MicrowaveAPI setMicrowaveApi(MicrowaveAPI microwaveApi);
-    SmartSpeakerAPI setSmartSpeakerApi(SmartSpeakerAPI smartSpeakerApi);
-    OwenAPI setOwenApi(OwenAPI owenApi);
-    AirConditionAPI setAirConditionApi(AirConditionAPI airConditionApi);
-    LightSystemAPI setLightSystemApi(LightSystemAPI lightSystemApi);
-    WashingMachineAPI setWashingMachineApi(WashingMachineAPI washingMachineApi);
+    FridgeState setFridgeApi(FridgeState fridgeApi);
+//    TvAPI setTvApi(TvAPI tvApi);
+    BicycleAPI setBicycleAPI(BicycleAPI bicycleAPI);
+    DeviceAPI setDeviceAPI(DeviceAPI deviceAPI);
+    CarAPI setCarAPI(CarAPI carAPI);
+    MicrowaveMode setMicrowaveApi(MicrowaveMode microwaveApi);
+    WindowAPI setWindowAPI(WindowAPI windowAPI);
+//    SmartSpeakerAPI setSmartSpeakerApi(SmartSpeakerAPI smartSpeakerApi);
+    OvenModeStrategy setOwenApi(OvenModeStrategy owenApi);
+//    AirConditionAPI setAirConditionApi(AirConditionAPI airConditionApi);
+    LightSystemState setLightSystemApi(LightSystemState lightSystemApi);
+//    WashingMachineAPI setWashingMachineApi(WashingMachineAPI washingMachineApi);
 }
 

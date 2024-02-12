@@ -1,8 +1,8 @@
 package entity.device;
 
-import entity.device.interfaces.MicrowaveMode;
+import API.MicrowaveMode;
 
-public class Microwave extends Device{
+public abstract class Microwave extends Device{
     private MicrowaveMode mode;
     private double power; // Мощность микроволновки в Ваттах
     private int timeInSeconds; // Время работы микроволновки в секундах

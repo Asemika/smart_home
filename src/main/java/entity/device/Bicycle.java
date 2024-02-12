@@ -1,27 +1,42 @@
 package entity.device;
-
-public class Bicycle {
+import entity.device.DeviceType;
+public abstract class Bicycle extends Device {
     private boolean isMoving;
     private int speed;
-    private int batteryLevel;
-    private boolean isEquippedWithSensors;
-    private boolean hasGPS;
     private boolean isAtHome;
     private boolean areTiresInflated;
+    private boolean isEquippedWithSensors;
+    private boolean hasGPS;
 
     /**
      * Constructor for the Bicycle class.
      *
+     * @param name                  The name of the bicycle.
      * @param isEquippedWithSensors Indicates if the bicycle is equipped with sensors.
-     * @param hasGPS               Indicates if the bicycle has GPS.
+     * @param hasGPS                Indicates if the bicycle has GPS.
      */
-    public Bicycle(boolean isEquippedWithSensors, boolean hasGPS) {
+    public Bicycle(String name, boolean isEquippedWithSensors, boolean hasGPS) {
+        super(name, DeviceType.BICYCLE, 0, 0, 0); // Assume zero consumption for simplicity
         this.isEquippedWithSensors = isEquippedWithSensors;
         this.hasGPS = hasGPS;
         this.isAtHome = true; // By default, the bicycle is considered to be at home
         this.areTiresInflated = true; // By default, we assume the tires are inflated
-        // Additional logic and initialization for integration with the smart home
     }
+
+    /**
+     * Constructor for the Bicycle class.
+     * This constructor initializes the bicycle without specifying its name or GPS status.
+     *
+     * @param isEquippedWithSensors Indicates if the bicycle is equipped with sensors.
+     */
+    public Bicycle(boolean isEquippedWithSensors) {
+        super("", DeviceType.BICYCLE, 0, 0, 0); // Assume zero consumption for simplicity
+        this.isEquippedWithSensors = isEquippedWithSensors;
+        this.hasGPS = false; // Default value for GPS is false
+        this.isAtHome = true; // By default, the bicycle is considered to be at home
+        this.areTiresInflated = true; // By default, we assume the tires are inflated
+    }
+
 
     /**
      * Starts the movement of the bicycle.
@@ -51,25 +66,7 @@ public class Bicycle {
      * This method may include sending data to the smart home or other actions.
      */
     public void rideBicycle() {
-
-    }
-
-    /**
-     * Checks if the bicycle is equipped with sensors.
-     *
-     * @return true if the bicycle is equipped with sensors, false otherwise.
-     */
-    public boolean isEquippedWithSensors() {
-        return isEquippedWithSensors;
-    }
-
-    /**
-     * Checks if the bicycle has GPS.
-     *
-     * @return true if the bicycle has GPS, false otherwise.
-     */
-    public boolean hasGPS() {
-        return hasGPS;
+        // Logic for bicycle usage
     }
 
     /**
@@ -97,7 +94,6 @@ public class Bicycle {
         System.out.println("Bicycle Status:");
         System.out.println("Is Moving: " + isMoving);
         System.out.println("Speed: " + speed);
-        System.out.println("Battery Level: " + batteryLevel);
         System.out.println("Is At Home: " + isAtHome);
         System.out.println("Are Tires Inflated: " + areTiresInflated);
     }

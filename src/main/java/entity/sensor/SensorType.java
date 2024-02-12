@@ -4,5 +4,6 @@ public enum SensorType {
     TEMPERATURE,
     HUMIDITY,
     MOTION,
+    WATER_LEAK
 
 }

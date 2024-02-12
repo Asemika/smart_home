@@ -2,7 +2,7 @@ package entity.device;
 
 import API.ElectricityAPI;
 
-public class WashingMachine extends Device {
+public abstract class WashingMachine extends Device {
 
     private boolean isTurnedOn;
     private boolean isWashing;

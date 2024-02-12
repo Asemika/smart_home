@@ -1,8 +1,9 @@
 package entity.sensor;
 
 import event.Event;
+import systems.WaterLeakSystem;
 
-public class Sensor {
+public abstract class Sensor {
     private SensorType type;
     private boolean isWorking;
 
@@ -21,4 +22,10 @@ public class Sensor {
 
     public void notifyAllObservers(Event event) {
     }
+
+    public abstract void notifySystem();
+
+    public abstract void attach(WaterLeakSystem waterLeakSystem);
+
+    public abstract void turnOn();
 }

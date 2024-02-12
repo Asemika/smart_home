@@ -2,6 +2,7 @@ package simulation;
 
 import API.*;
 import entity.creature.Person;
+import entity.creature.Pet;
 import entity.device.*;
 import entity.device.remote.AirConditionRemote;
 import entity.device.remote.SmartSpeakerRemote;
@@ -9,19 +10,20 @@ import entity.device.remote.TVRemote;
 import entity.sensor.FireSensor;
 import entity.sensor.PowerOutageSensor;
 import entity.sensor.WaterLeakSensor;
-import house.*;
-import entity.creature.Pet;
+import house.House;
+import house.Room;
+import house.Storey;
+import house.Window;
 import systems.FireSystem;
 import systems.WaterLeakSystem;
-
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+public class Configuration2 {
 
-public class Configuration {
-    private static Configuration INSTANCE;
+    private static Configuration2 INSTANCE;
     private final String[] rooms = {"kitchen", "livingRoom", "bathRoom", "entertainmentRoom", "bedRoom1", "bedRoom2"};
     private final String[] peopleNames = {"Andrew", "Ales", "Jiri", "Katerina", "Tomas", "Lana"};
     private final List<Person> people = new ArrayList<>();
@@ -30,12 +32,10 @@ public class Configuration {
     private final List<WaterLeakSensor> sensors = new ArrayList<WaterLeakSensor>();
     private int initialFoodPercentage;
 
-    private Configuration() {
-    }
 
-    public synchronized static Configuration getInstance() {
+    public synchronized static Configuration2 getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new Configuration();
+            INSTANCE = new Configuration2();
         }
         return INSTANCE;
     }

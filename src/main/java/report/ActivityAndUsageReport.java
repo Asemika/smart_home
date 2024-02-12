@@ -2,7 +2,6 @@ package report;
 
 import activities.Activity;
 import entity.creature.Person;
-import entity.creature.Pet;
 import entity.device.Device;
 
 import java.util.List;
@@ -12,7 +11,7 @@ public class ActivityAndUsageReport {
     private List<Device> devices;
     private List<Activity> activities;
 
-    public ActivityAndUsageReport(List<Person> people, List<Pet> devices, String activities) {
+    public ActivityAndUsageReport(List<Person> people, List<Device> devices, List<Device> activities) {
         this.people = people;
         this.devices = devices;
         this.activities = activities;
