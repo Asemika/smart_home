@@ -1,35 +1,41 @@
 package entity.device;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SmartSpeaker extends Device {
-    private boolean isTurnedOn;
+        private final List<String> musicPlaylist = new ArrayList<>();
+        private int indexOfCurrentMusicPlaylist = 0;
 
-    public SmartSpeaker(String name, DeviceType type, double activeConsumption, double idleConsumption, double turnedOffConsumption) {
-        super(name, type, activeConsumption, idleConsumption, turnedOffConsumption);
-        this.isTurnedOn = false;
-    }
-
-    @Override
-    public void turnOn() {
-        if (!isTurnedOn) {
-            isTurnedOn = true;
-            System.out.println(getName() + " is turned on.");
+        public SmartSpeaker() {
         }
-    }
 
-    @Override
-    public void turnOff() {
-        if (isTurnedOn) {
-            isTurnedOn = false;
-            System.out.println(getName() + " is turned off.");
+        public List<String> getMusicPlaylist() {
+            return musicPlaylist;
         }
-    }
 
-    @Override
-    public Object getElectricityAPI() {
-        return null;
-    }
+        public void addMusic(String music) {
+            musicPlaylist.add(music);
+        }
 
-    public boolean isTurnedOn() {
-        return isTurnedOn;
+        public void playMusic() {
+            getElectricityAPI().increaseCounter(getkWPerHour());
+        }
+
+        public void changeSoundtrackForward() {
+            if (indexOfCurrentMusicPlaylist == musicPlaylist.size() - 1) {
+                indexOfCurrentMusicPlaylist = 0;
+            } else {
+                indexOfCurrentMusicPlaylist++;
+            }
+        }
+
+        public void changeSoundtrackBackward() {
+            if (indexOfCurrentMusicPlaylist == 0) {
+                indexOfCurrentMusicPlaylist = musicPlaylist.size() - 1;
+            } else {
+                indexOfCurrentMusicPlaylist--;
+            }
+        }
+
     }
-}

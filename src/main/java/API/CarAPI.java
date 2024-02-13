@@ -1,10 +1,19 @@
 package API;
 
-public interface CarAPI {
-    void start();
-    void stop();
-    void drive(int distance);
-    void turnLightsOn();
-    void turnLightsOff();
-}
+import API.CarAPI;
+import entity.device.Car;
 
+public class CarAPI {
+    Car car;
+
+    public CarAPI(Car car) {
+        this.car = car;
+    }
+
+    /**
+     * person drives goes somewhere by car.
+     */
+    public void driveCar() {
+        car.driveCar();
+    }
+}

@@ -1,68 +1,17 @@
 package entity.device;
 
-import API.ElectricityAPI;
+import API.WaterAPI;
 
 public class WashingMachine extends Device {
+    private final WaterAPI waterAPI = new WaterAPI();
 
-    private boolean isTurnedOn;
-    private boolean isWashing;
-    private static final int WATER_CONSUMPTION_PER_WASH = 100;
+    public void washClothes() {
+        waterAPI.increaseCounter(40);
+        getElectricityAPI().increaseCounter(getkWPerHour());
 
-    private ElectricityAPI electricityAPI;
-
-    public WashingMachine(String name, DeviceType type, double activeConsumption, double idleConsumption, double turnedOffConsumption, ElectricityAPI electricityAPI) {
-        super(name, type, activeConsumption, idleConsumption, turnedOffConsumption);
-        this.isTurnedOn = false;
-        this.isWashing = false;
-        this.electricityAPI = electricityAPI;
     }
 
-
-    @Override
-    public void turnOn() {
-        if (!isTurnedOn) {
-            isTurnedOn = true;
-            System.out.println(getName() + " is turned on.");
-        }
-    }
-
-    @Override
-    public void turnOff() {
-        if (isTurnedOn) {
-            isTurnedOn = false;
-            System.out.println(getName() + " is turned off.");
-            if (isWashing) {
-                stopWashing();
-            }
-        }
-    }
-
-    @Override
-    public Object getElectricityAPI() {
-        return null;
-    }
-
-    public void startWashing() {
-        if (isTurnedOn && !isWashing) {
-            isWashing = true;
-            System.out.println(getName() + " has started washing.");
-
-            electricityAPI.increaseCounter(getActiveConsumption());
-            consumeWater();
-        } else {
-            System.out.println("Cannot start washing. Washing machine is either turned off or already washing.");
-        }
-    }
-
-    private void consumeWater() {
-        System.out.println(getName() + " is consuming water during washing.");
-    }
-    public void stopWashing() {
-        if (isWashing) {
-            isWashing = false;
-            System.out.println(getName() + " has finished washing.");
-        } else {
-            System.out.println("Washing machine is not currently washing.");
-        }
+    public WaterAPI getWaterAPI() {
+        return waterAPI;
     }
 }

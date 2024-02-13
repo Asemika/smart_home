@@ -3,19 +3,20 @@ package entity.creature;
 import house.Room;
 
 import java.util.List;
+import java.util.List;
+import java.util.Random;
 
 public class Pet extends Creature {
-    private String name;
-    private final PetType petType;
+    private Room currRoom;
+    private final String type;
 
-    public Pet(Room initialRoom, PetType petType) {
-        super(petType.name(), initialRoom);
-        this.petType = petType;
+    public Pet(Room room, String type) {
+        this.currRoom = room;
+        this.type = type;
     }
 
-    public Pet(Room room, String cat) {
-        super("Default Name", null); // Calling superclass constructor with default values or appropriate arguments
-        this.petType = PetType.DEFAULT; // Initialize petType with the DEFAULT value
+    public String getType() {
+        return type;
     }
 
     @Override
@@ -25,19 +26,17 @@ public class Pet extends Creature {
 
     @Override
     public void reactToEmergency() {
-        System.out.println(petType + " is reacting to an emergency.");
+
     }
 
-    @Override
+    /**
+     * moves pet to another random room on the storey.
+     *
+     * @param rooms
+     */
     public void changeRoom(List<Room> rooms) {
-
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public PetType getPetType() {
-        return petType;
+        Random random = new Random();
+        int randRoomIndex = random.nextInt(rooms.size());
+        currRoom = rooms.get(randRoomIndex);
     }
 }

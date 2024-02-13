@@ -2,90 +2,233 @@ package entity.device;
 
 import API.ElectricityAPI;
 import entity.creature.Person;
+import entity.sensor.Sensor;
 import event.Event;
 
-public abstract class Device {
-    private String name;
-    private DeviceType type;
-    private DeviceState state;
-    private double activeConsumption;
-    private double idleConsumption;
-    private double turnedOffConsumption;
-    private double kWPerHour;
+import java.util.ArrayList;
+import java.util.List;
 
-    // Объект API электропотребления
-    private ElectricityAPI electricityAPI;
+public class Device implements Observer, Sensor {
+    private final int MAX_USAGE_CONSTANT = 1500;
+    private ActivityState activityState = new TurnedOffState();
+    private BreakdownsState breakdownsState = new FixedState();
+    private int wearOut;
+    private final Documentation documentation = new Documentation();
+    private final List<Observer> observers = new ArrayList<>();
+    private final ElectricityAPI electricityAPI = new ElectricityAPI();
+    private final EventAPI eventAPI = new EventAPI();
+    private int kWPerHour;
 
-    public Device(String name, DeviceType type, double activeConsumption, double idleConsumption, double turnedOffConsumption) {
-        this.name = name;
-        this.type = type;
-        this.state = DeviceState.OFF;
-        this.activeConsumption = activeConsumption;
-        this.idleConsumption = idleConsumption;
-        this.turnedOffConsumption = turnedOffConsumption;
+    public Device(int kWPerHour) {
+        this.kWPerHour = kWPerHour;
     }
 
     public Device() {
-
+        this.kWPerHour = 1;
     }
 
-    public void turnOn() {
-        this.state = DeviceState.ON;
-        System.out.println(name + " is turned on.");
+    public ActivityState getActivityState() {
+        return activityState;
     }
 
-    public void turnOff() {
-        this.state = DeviceState.OFF;
-        System.out.println(name + " is turned off.");
+    public void setActivityState(ActivityState activityState) {
+        this.activityState = activityState;
     }
 
-    public DeviceType getType() {
-        return type;
+    public EventAPI getEventAPI() {
+        return eventAPI;
     }
 
-    public DeviceState getState() {
-        return state;
+    public int getkWPerHour() {
+        return kWPerHour;
     }
 
-    public String getName() {
-        return name;
+    public void setkWPerHour(int kWPerHour) {
+        this.kWPerHour = kWPerHour;
     }
 
-    public double getActiveConsumption() {
-        return activeConsumption;
-    }
-
-    public double getIdleConsumption() {
-        return idleConsumption;
-    }
-
-    public double getTurnedOffConsumption() {
-        return turnedOffConsumption;
-    }
-
-    // Получение объекта API электропотребления
     public ElectricityAPI getElectricityAPI() {
         return electricityAPI;
     }
 
-    // Установка объекта API электропотребления
-    public void setElectricityAPI(ElectricityAPI electricityAPI) {
-        this.electricityAPI = electricityAPI;
+    public int getUsageTime() {
+        return wearOut;
     }
 
-    public double getkWPerHour() {
-        return kWPerHour;
+    public void setUsageTime(int usageTime) {
+        this.wearOut = usageTime;
     }
 
-    public void setkWPerHour(double kWPerHour) {
-        this.kWPerHour = kWPerHour;
+    public BreakdownsState getBreakdownsState() {
+        return breakdownsState;
     }
 
-    public void attach(Person person) {
+    public void setBreakdownsState(BreakdownsState breakdownsState) {
+        this.breakdownsState = breakdownsState;
     }
 
+    public Documentation getDocumentation() {
+        return documentation;
+    }
+
+    /**
+     * turns on device. fails if device is broken and requires person to fix it. every usage increments wear out value.
+     */
+    public void turnOn() {
+        if (this.breakdownsState instanceof BrokenState) {
+            System.out.println("Device is broken. Cant use it now. Gonna call smone to fix it");
+            notifyAllObservers(new Event(EventType.BROKEN_DEVICE)); // call somebody to fix
+            return;
+        }
+        wearOut += 100;
+        if (wearOut > MAX_USAGE_CONSTANT) {
+            this.breakDevice();
+            System.out.println("we gonna break this device");
+            setkWPerHour(getkWPerHour() + 1);
+            return;
+        }
+        activityState.turnOn(this);
+    }
+
+    public void turnOff() {
+        activityState.turnOff(this);
+    }
+
+    public void breakDevice() {
+        breakdownsState.breakDevice(this);
+    }
+
+    public void fixDevice() {
+        breakdownsState.fixDevice(this);
+        wearOut = 0;
+    }
+
+    @Override
+    public void update(Event event, Sensor sensor) {
+        this.turnOff();
+    }
+
+    @Override
+    public void attach(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void detach(Observer observer) {
+        observers.remove(observer);
+    }
+
+    /**
+     * notifies some person about broken device.
+     *
+     * @param event
+     */
+    @Override
     public void notifyAllObservers(Event event) {
+        Sensor sourceSensor = this;
+        List<Observer> listeners = new ArrayList<>();
+
+        if (observers.size() > 0) {
+            observers.get(0).update(event, this);
+            listeners.add(observers.get(0));
+            getEventAPI().addNewEventReportStruct(new EventReportStruct(event, sourceSensor, listeners));
+        } else System.out.println("No attached observers");
+
     }
 
-//    public abstract Object getElectricityAPI();
+    public int getMAX_USAGE_CONSTANT() {
+        return MAX_USAGE_CONSTANT;
+    }
 }
+
+//package entity.device;
+//
+//import API.ElectricityAPI;
+//import entity.creature.Person;
+//import event.Event;
+//
+//public abstract class Device {
+//    private String name;
+//    private DeviceType type;
+//    private DeviceState state;
+//    private double activeConsumption;
+//    private double idleConsumption;
+//    private double turnedOffConsumption;
+//    private double kWPerHour;
+//
+//    // Объект API электропотребления
+//    private ElectricityAPI electricityAPI;
+//
+//    public Device(String name, DeviceType type, double activeConsumption, double idleConsumption, double turnedOffConsumption) {
+//        this.name = name;
+//        this.type = type;
+//        this.state = DeviceState.OFF;
+//        this.activeConsumption = activeConsumption;
+//        this.idleConsumption = idleConsumption;
+//        this.turnedOffConsumption = turnedOffConsumption;
+//    }
+//
+//    public Device() {
+//
+//    }
+//
+//    public void turnOn() {
+//        this.state = DeviceState.ON;
+//        System.out.println(name + " is turned on.");
+//    }
+//
+//    public void turnOff() {
+//        this.state = DeviceState.OFF;
+//        System.out.println(name + " is turned off.");
+//    }
+//
+//    public DeviceType getType() {
+//        return type;
+//    }
+//
+//    public DeviceState getState() {
+//        return state;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public double getActiveConsumption() {
+//        return activeConsumption;
+//    }
+//
+//    public double getIdleConsumption() {
+//        return idleConsumption;
+//    }
+//
+//    public double getTurnedOffConsumption() {
+//        return turnedOffConsumption;
+//    }
+//
+//    // Получение объекта API электропотребления
+//    public ElectricityAPI getElectricityAPI() {
+//        return electricityAPI;
+//    }
+//
+//    // Установка объекта API электропотребления
+//    public void setElectricityAPI(ElectricityAPI electricityAPI) {
+//        this.electricityAPI = electricityAPI;
+//    }
+//
+//    public double getkWPerHour() {
+//        return kWPerHour;
+//    }
+//
+//    public void setkWPerHour(double kWPerHour) {
+//        this.kWPerHour = kWPerHour;
+//    }
+//
+//    public void attach(Person person) {
+//    }
+//
+//    public void notifyAllObservers(Event event) {
+//    }
+//
+////    public abstract Object getElectricityAPI();
+//}
