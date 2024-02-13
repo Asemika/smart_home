@@ -2,21 +2,19 @@ package entity.sensor;
 
 import entity.device.Device;
 import entity.device.Observer;
-import event.Event;
-import report.EventReportStruct;
 import systems.WaterLeakSystem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WaterLeakSensor extends Device implements Sensor {
+public class StrongWindSensor extends Device implements Sensor {
     List<Observer> observers = new ArrayList<>();
 
-    public WaterLeakSensor(List<Observer> observers) {
+    public StrongWindSensor(List<Observer> observers) {
         this.observers = observers;
     }
 
-    public WaterLeakSensor() {
+    public StrongWindSensor() {
         turnOn();
     }
 
@@ -36,7 +34,7 @@ public class WaterLeakSensor extends Device implements Sensor {
         Sensor sourceSensor = this;
         List<Observer> listeners = new ArrayList<>();
         for (Observer observer : observers) {
-            System.out.println("Water is leaking in our house");
+            System.out.println("Strong wind is approaching to our house");
             observer.update(event, this);
             listeners.add(observer);
         }

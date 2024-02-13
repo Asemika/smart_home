@@ -1,57 +1,67 @@
 package house;
 
+import house.Floor;
+import objects.SensorsAndSystems.BackupGenerator;
+import objects.SensorsAndSystems.FireSensor;
+import objects.SensorsAndSystems.LightSystem;
+import objects.SensorsAndSystems.WaterLeakSystem;
 import systems.FireSystem;
-import systems.WaterLeakSystem;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class House {
-    private List<Floor> floors;
-    private FireSystem fireSystem;
-    private WaterLeakSystem waterLeakSystem;
-    private List<Room> rooms;
+    private List<Floor> storeys = new ArrayList<>();
+    private LightSystem lightSystem = new LightSystem();
+    private FireSystem fireSystem = new FireSystem();
+    private WaterLeakSystem waterLeakSystem = new WaterLeakSystem();
+    private BackupGenerator backupGenerator = new BackupGenerator();
 
     public House() {
-        this.fireSystem = new FireSystem();
-        this.waterLeakSystem = new WaterLeakSystem();
-        this.rooms = new ArrayList<>();
-        this.floors = new ArrayList<>();
+
     }
 
-    public void addFloor(Floor floor) {
-        floors.add(floor);
+    public List<Floor> getFlors() {
+        return flors;
     }
 
-    public List<Floor> getFloors() {
-        return floors;
+    public void setFloors(ArrayList<Floor> floors) {
+        this.floors = floors;
+    }
+
+    public void addStorey(Floor floor) {
+        storeys.add(floor);
+    }
+
+    public LightSystem getLightSystem() {
+        return lightSystem;
+    }
+
+    public void setLightSystem(LightSystem lightSystem) {
+        this.lightSystem = lightSystem;
     }
 
     public FireSystem getFireSystem() {
         return fireSystem;
     }
 
+    public void setFireSystem(FireSystem fireSystem) {
+        this.fireSystem = fireSystem;
+    }
+
     public WaterLeakSystem getWaterLeakSystem() {
         return waterLeakSystem;
     }
 
-    public List<Room> getRooms() {
-        return rooms;
+    public void setWaterLeakSystem(WaterLeakSystem waterLeakSystem) {
+        this.waterLeakSystem = waterLeakSystem;
     }
 
-    public void addRoom(Room room) {
-        rooms.add(room);
+    public BackupGenerator getBackupGenerator() {
+        return backupGenerator;
     }
 
-    public boolean isEmpty() {
-        return floors.isEmpty();
-    }
-
-    public Floor get(int index) {
-        return floors.get(index);
-    }
-
-    public int size() {
-        return floors.size();
+    public void setBackupGenerator(BackupGenerator backupGenerator) {
+        this.backupGenerator = backupGenerator;
     }
 }

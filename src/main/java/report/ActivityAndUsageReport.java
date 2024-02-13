@@ -2,35 +2,50 @@ package report;
 
 import activities.Activity;
 import entity.creature.Person;
+import entity.creature.Pet;
 import entity.device.Device;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
-public class ActivityAndUsageReport {
-    private List<Person> people;
-    private List<Device> devices;
-    private List<Activity> activities;
+public class ActivityAndUsageReport  implements Reportable {
+    List<Person> people;
+    List<Pet> pets;
+    String folderForReports;
 
-    public ActivityAndUsageReport(List<Person> people, List<Device> devices, List<Device> activities) {
+    public ActivityAndUsageReport(List<Person> people, List<Pet> pets, String folderForReports) {
         this.people = people;
-        this.devices = devices;
-        this.activities = activities;
+        this.pets = pets;
+        this.folderForReports = folderForReports;
     }
 
+    @Override
     public void generateReport() {
-        System.out.println("Activity and Usage Report:");
-        System.out.println("----------------------------");
-        System.out.println("People:");
-        for (Person person : people) {
-            System.out.println("- " + person.getName());
-        }
-        System.out.println("\nDevices:");
-        for (Device device : devices) {
-            System.out.println("- " + device.getName());
-        }
-        System.out.println("\nActivities:");
-        for (Activity activity : activities) {
-            System.out.println("- " + activity.getName());
+        try {
+            FileWriter writer = new FileWriter(System.getProperty("user.dir") + "\\src\\main\\java\\reports\\" + folderForReports + "\\" + "activityAndUsageReport.txt");
+            writer.write("People:\n");
+            for (Person person : people) {
+                writer.write(person.getName() + ":\n");
+                writer.write("  TV: " + person.getPersonActivityAPI().getTvCounter() + "\n");
+                writer.write("  Fridge: " + person.getPersonActivityAPI().getFridgeCounter() + "\n");
+                writer.write("  SmartSpeaker: " + person.getPersonActivityAPI().getSmartSpeakerCounter() + "\n");
+                writer.write("  Owen: " + person.getPersonActivityAPI().getOwenCounter() + "\n");
+                writer.write("  Microwave: " + person.getPersonActivityAPI().getMicrowaveCounter() + "\n");
+                writer.write("  WashingMachine: " + person.getPersonActivityAPI().getWashingMachineCounter() + "\n");
+                writer.write("  Blinds: " + person.getPersonActivityAPI().getBlindsCounter() + "\n");
+                writer.write("  AirCondition: " + person.getPersonActivityAPI().getAirConditionCounter() + "\n");
+                writer.write("  Windows: " + person.getPersonActivityAPI().getWindowsCounter() + "\n");
+                writer.write("  Car: " + person.getPersonActivityAPI().getCarCounter() + "\n");
+                writer.write("  Bicycle: " + person.getPersonActivityAPI().getBicycleCounter() + "\n");
+                writer.write("  Skis: " + person.getPersonActivityAPI().getSkiCounter() + "\n");
+                writer.write("  LightSystem: " + person.getPersonActivityAPI().getLightSystemCounter() + "\n");
+                writer.write("\n");
+            }
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -1,16 +1,27 @@
 package entity.device;
 
 import API.FridgeState;
+import entity.sensor.Sensor;
+import systems.WaterLeakSystem;
 
-public class Fridge extends Device implements FridgeState {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Fridge extends Device implements Sensor {
     private boolean isTurnedOn;
     private int foodPercentage;
+    private final List<Observer> observers = new ArrayList<>();
 
     public Fridge() {
         super("Fridge", DeviceType.FRIDGE, 10.0, 5.0, 2.0);
         this.isTurnedOn = false;
         this.foodPercentage = 50;
     }
+
+    @Override
+    public void notifySystem() {
+
+
 
     @Override
     public void turnOn() {
@@ -65,7 +76,29 @@ public class Fridge extends Device implements FridgeState {
             System.out.println("Food percentage is sufficient. No need to order.");
         }
     }
+    @Override
+    public void attach(Observer observer) {
+        observers.add(observer);
+    }
 
+    @Override
+    public void detach(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyAllObservers(Event event) {
+        Sensor sourceSensor = this;
+        List<Observer> listeners = new ArrayList<>();
+
+        System.out.println("Fridge is empty OR broken");
+        if (observers.size() > 0) {
+            observers.get(0).update(event, this);
+            listeners.add(observers.get(0));
+            getEventAPI().addNewEventReportStruct(new EventReportStruct(event, sourceSensor, listeners));
+        } else System.out.println("No attached observers in fridge");
+
+    }
 }
 
 //package entity.device;

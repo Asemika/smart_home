@@ -1,5 +1,6 @@
 package entity.sensor;
 
+import entity.device.Observer;
 import event.Event;
 import systems.WaterLeakSystem;
 
@@ -19,6 +20,10 @@ public abstract class Sensor {
     public boolean isWorking() {
         return isWorking;
     }
+
+    public abstract void attach(Observer observer);
+
+    public abstract void detach(Observer observer);
 
     public void notifyAllObservers(Event event) {
     }

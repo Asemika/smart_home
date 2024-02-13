@@ -1,80 +1,49 @@
 package entity.device;
 
-/**
- * This class represents smart blinds that can be controlled
- * to open or close based on certain conditions, such as light intensity.
- */
-public class Blinds extends Device {
-    private boolean isOpen;
+import entity.device.Device;
+import entity.device.Observer;
+import entity.device.Open;
+import entity.sensor.Sensor;
+import event.Event;
 
-    // Assume this variable represents the current light intensity
-    private int lightIntensity;
+public class Blinds extends Device implements Observer, Open {
+    private Boolean isOpened = false;
+
+    public Boolean getOpened() {
+        return isOpened;
+    }
+
+    public void setOpened(Boolean opened) {
+        isOpened = opened;
+    }
+
+
+    public void open() {
+        getElectricityAPI().increaseCounter(getkWPerHour());
+        isOpened = true;
+    }
+
+    public void close() {
+        getElectricityAPI().increaseCounter(getkWPerHour());
+        isOpened = false;
+    }
 
     /**
-     * Constructs a new instance of {@code Blinds} with the specified parameters.
+     * closes blinds because of strong wind.
      *
-     * @param name                the name of the blinds
-     * @param type                the type of the blinds
-     * @param activeConsumption   the power consumption when actively in use
-     * @param idleConsumption     the power consumption when in idle state
-     * @param turnedOffConsumption the power consumption when turned off
+     * @param event
+     * @param sensor
      */
-    public Blinds(String name, DeviceType type, double activeConsumption, double idleConsumption, double turnedOffConsumption) {
-        super(name, type, activeConsumption, idleConsumption, turnedOffConsumption);
-        this.isOpen = false;
+    @Override
+    public void update(Event event, Sensor sensor) {
+        if (event.getEventType() == EventType.STRONG_WIND) {
+            isOpened = false;
+            System.out.println("Blinds are closed cuz of strong wind");
+        }
     }
 
     @Override
-    public Object getElectricityAPI() {
-        return null;
-    }
+    public void update(Event event, Sensor sensor) {
 
-    /**
-     * Checks if the blinds are currently open.
-     *
-     * @return true if the blinds are open, false otherwise
-     */
-    public boolean isOpen() {
-        return isOpen;
-    }
-
-    /**
-     * Opens the blinds if they are not already open.
-     */
-    public void open() {
-        if (!isOpen) {
-            isOpen = true;
-            System.out.println(getName() + " is now open.");
-        } else {
-            System.out.println(getName() + " is already open.");
-        }
-    }
-
-    /**
-     * Closes the blinds if they are not already closed.
-     */
-    public void close() {
-        if (isOpen) {
-            isOpen = false;
-            System.out.println(getName() + " is now closed.");
-        } else {
-            System.out.println(getName() + " is already closed.");
-        }
-    }
-
-    /**
-     * Controls the blinds based on the specified light intensity threshold.
-     * If the current light intensity is above the threshold, the blinds will open;
-     * otherwise, they will close.
-     *
-     * @param lightIntensityThreshold the threshold for light intensity
-     */
-    public void controlBasedOnLightIntensity(int lightIntensityThreshold) {
-        // Assume lightIntensity is a variable representing the current light intensity
-        if (lightIntensity > lightIntensityThreshold) {
-            open();
-        } else {
-            close();
-        }
     }
 }

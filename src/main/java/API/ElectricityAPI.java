@@ -1,18 +1,18 @@
 package API;
 
 public class ElectricityAPI {
-    private double electricityConsumptionCounter;
+    private int spentKilowatts = 0;
 
-    public ElectricityAPI() {
-        this.electricityConsumptionCounter = 0.0;
+    public int getSpentKilowatts() {
+        return spentKilowatts;
     }
 
-    public void increaseCounter(double activeConsumption) {
-        electricityConsumptionCounter += activeConsumption;
-        System.out.println("Electricity consumption increased. Total consumption: " + electricityConsumptionCounter + " kW");
-    }
-
-    public double getElectricityConsumption() {
-        return electricityConsumptionCounter;
+    /**
+     * increments counter of spent energy of device.
+     *
+     * @param num
+     */
+    public void increaseCounter(int num) {
+        spentKilowatts += num;
     }
 }
