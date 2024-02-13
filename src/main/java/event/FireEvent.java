@@ -4,7 +4,7 @@ class FireEvent extends Event {
     private boolean isFireExtinguished;
 
     public FireEvent() {
-        super("Fire event: There is a fire in the house!");
+        super("There is a fire in the house!");
         this.isFireExtinguished = false;
     }
 

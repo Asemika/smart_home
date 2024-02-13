@@ -5,15 +5,16 @@ import event.Event;
 import event.EventType;
 import report.EventReportStruct;
 import States.BrokenState;
+import systems.WaterLeakSystem;
 
 import java.util.ArrayList;
 import java.util.List;
-
-public class Fridge extends Device implements Sensor {
+public class Fridge extends Device implements Observer {
     private final List<Observer> observers = new ArrayList<>();
     private final List<Object> foodInFridge = new ArrayList<>();
     private final int foodLimitAmount = 10;
-    public Fridge(){
+
+    public Fridge() {
         super();
     }
 
@@ -41,13 +42,11 @@ public class Fridge extends Device implements Sensor {
         }
     }
 
-    // Метод для заказа еды
     private void orderFood() {
         System.out.println("Ordering more food...");
-        // Здесь можно добавить логику для заказа еды
+        // Add logic for ordering food here
     }
 
-    // Метод для расчета процента заполненности холодильника
     private double calculateFridgeFillPercentage() {
         return ((double) foodInFridge.size() / foodLimitAmount) * 100;
     }
@@ -64,7 +63,7 @@ public class Fridge extends Device implements Sensor {
 
     @Override
     public void notifyAllObservers(Event event) {
-        Sensor sourceSensor = this;
+        Fridge sourceSensor = this;
         List<Observer> listeners = new ArrayList<>(observers);
 
         System.out.println("Fridge is empty OR broken");
@@ -72,9 +71,41 @@ public class Fridge extends Device implements Sensor {
             for (Observer observer : listeners) {
                 observer.update(event, this);
             }
+            // Create the EventReportStruct with the appropriate parameters
             getEventAPI().addNewEventReportStruct(new EventReportStruct(event, sourceSensor, listeners));
         } else {
             System.out.println("No attached observers in fridge");
         }
+    }
+
+    @Override
+    public void notifySystem() {
+
+    }
+
+    @Override
+    public void attach(WaterLeakSystem waterLeakSystem) {
+
+    }
+
+    @Override
+    public void increaseTemp(int temp) {
+
+    }
+
+    @Override
+    public void decreaseTemp(int temp) {
+
+    }
+
+    public void open() {
+    }
+
+    public void close() {
+    }
+
+    @Override
+    public void update(Event event, Fridge fridge) {
+
     }
 }

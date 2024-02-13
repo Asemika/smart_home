@@ -4,7 +4,7 @@ import entity.device.Documentation;
 import entity.device.TV;
 import States.TurnedOnState;
 
-public class TvAPI implements FuncWearOutAPI {
+public class TvAPI {
     TV tv;
 
     public TvAPI(TV tv) {
@@ -33,7 +33,7 @@ public class TvAPI implements FuncWearOutAPI {
         tv.changeChannelBackward();
     }
 
-    @Override
+
     public void fixDevice(Documentation documentation) {
         System.out.println("Fixing TV");
         tv.fixDevice();

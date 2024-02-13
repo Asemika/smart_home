@@ -1,6 +1,7 @@
 package entity.sensor;
 
 import entity.device.Device;
+import entity.device.Fridge;
 import entity.device.Observer;
 import event.Event;
 import report.EventReportStruct;
@@ -33,7 +34,7 @@ public class StrongWindSensor extends Device {
     @Override
     public void notifyAllObservers(Event event) {
         getElectricityAPI().increaseCounter(getkWPerHour());
-        Sensor sourceSensor = this;
+        StrongWindSensor sourceSensor = this;
         List<Observer> listeners = new ArrayList<>();
         for (Observer observer : observers) {
             System.out.println("Strong wind is approaching to our house");
@@ -44,12 +45,42 @@ public class StrongWindSensor extends Device {
     }
 
     @Override
+    public void update(Event event, FireSensor fireSensor) {
+
+    }
+
+    @Override
+    public void update(Event event, PowerOutageSensor powerOutageSensor) {
+
+    }
+
+    @Override
+    public void update(Event event, StrongWindSensor strongWindSensor) {
+
+    }
+
+    @Override
     public void notifySystem() {
 
     }
 
     @Override
     public void attach(WaterLeakSystem waterLeakSystem) {
+
+    }
+
+    @Override
+    public void increaseTemp(int temp) {
+
+    }
+
+    @Override
+    public void decreaseTemp(int temp) {
+
+    }
+
+    @Override
+    public void update(Event event, Fridge fridge) {
 
     }
 }

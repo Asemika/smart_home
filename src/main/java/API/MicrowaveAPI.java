@@ -1,11 +1,10 @@
 package API;
 
 import entity.device.Documentation;
-import entity.device.Food;
 import entity.device.Microwave;
 import States.TurnedOnState;
 
-public class MicrowaveAPI implements FuncWearOutAPI {
+public class MicrowaveAPI implements FixAPI {
     Microwave microwave;
 
     public MicrowaveAPI(Microwave microwave) {
@@ -18,17 +17,6 @@ public class MicrowaveAPI implements FuncWearOutAPI {
 
     public void turnOff() {
         microwave.turnOff();
-    }
-
-    /**
-     * heats input food, changes its state on heated.
-     *
-     * @param food
-     */
-    public void heatFood(Food food) {
-        if (microwave.getActivityState() instanceof TurnedOnState) {
-            microwave.heatFood(food);
-        } else System.out.println("device is not turned on");
     }
 
     @Override

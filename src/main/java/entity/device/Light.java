@@ -1,6 +1,8 @@
 package entity.device;
 
+import event.Event;
 import house.Room;
+import systems.WaterLeakSystem;
 
 /**
  * Represents a light system in a smart home.
@@ -8,6 +10,26 @@ import house.Room;
 public class Light extends Device {
 
     public Light() {
+    }
+
+    @Override
+    public void notifySystem() {
+
+    }
+
+    @Override
+    public void attach(WaterLeakSystem waterLeakSystem) {
+
+    }
+
+    @Override
+    public void increaseTemp(int temp) {
+
+    }
+
+    @Override
+    public void decreaseTemp(int temp) {
+
     }
 
     public void turnLightOn(Room room) {
@@ -18,9 +40,12 @@ public class Light extends Device {
     public void turnLightOff(Room room) {
         room.setLightIsOn(false);
     }
+
+    @Override
+    public void update(Event event, Fridge fridge) {
+
+    }
 }
-
-
 
 // extends Device {
 //    private LightSystemState turnedOnState;

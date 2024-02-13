@@ -1,17 +1,21 @@
 package API;
 
+import entity.device.Light;
+import entity.device.Microwave;
+import entity.device.Oven;
+
 public interface ElectronicAPI {
-//    FridgeState setFridgeApi(FridgeState fridgeApi);
-//    TvAPI setTvApi(TvAPI tvApi);
+    FridgeAPI setFridgeAPI(FridgeAPI fridgeApi);
+    TvAPI setTvAPI(TvAPI tvApi);
     BicycleAPI setBicycleAPI(BicycleAPI bicycleAPI);
     DeviceAPI setDeviceAPI(DeviceAPI deviceAPI);
     CarAPI setCarAPI(CarAPI carAPI);
-//    MicrowaveMode setMicrowaveApi(MicrowaveMode microwaveApi);
+    MicrowaveAPI setMicrowaveAPI(Microwave microwaveAPI);
     WindowAPI setWindowAPI(WindowAPI windowAPI);
-//    SmartSpeakerAPI setSmartSpeakerApi(SmartSpeakerAPI smartSpeakerApi);
-//    OvenMode setOwenApi(OvenMode owenApi);
-//    AirConditionAPI setAirConditionApi(AirConditionAPI airConditionApi);
-//    LightSystemState setLightSystemApi(LightSystemState lightSystemApi);
-//    WashingMachineAPI setWashingMachineApi(WashingMachineAPI washingMachineApi);
+    SmartSpeakerAPI setSmartSpeakerAPI(SmartSpeakerAPI smartSpeakerApi);
+    OvenAPI setOvenApi(Oven ovenAPI);
+    AirConditionAPI setAirConditionAPI(AirConditionAPI airConditionApi);
+    LightAPI setLightSystemAPI(Light lightAPI);
+    WashingMachineAPI setWashingMachineAPI(WashingMachineAPI washingMachineApi);
 }
 

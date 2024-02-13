@@ -35,33 +35,33 @@ public class SeasonalChangesEvent extends Event {
             case "summer":
                 increaseAirConditionerUsage(house);
                 break;
-            case "winter":
-                increaseHeatingUsage(house);
-                break;
+//            case "winter":
+//                increaseHeatingUsage(house);
+//                break;
             default:
                 break;
         }
     }
 
-    private void increaseHeatingUsage(House house) {
-        // Iterate through the floors and adjust heating usage
-        for (Floor floor : house.getFloors()) {
-            for (Room room : floor.getRooms()) {
-                for (Device device : room.getDevices()) {
-                    if (device instanceof HeatingSystem) {
-                        HeatingSystem heatingSystem = (HeatingSystem) device;
-                        // Check if the heating system is turned on and it's winter
-                        if (heatingSystem.isTurnedOn() && season.equalsIgnoreCase("winter")) {
-                            // Increase the temperature setting
-                            heatingSystem.setTemperature(heatingSystem.getTemperature() + 3);
-                            System.out.println("Increased heating usage in " + room.getName() +
-                                    " due to winter conditions.");
-                        }
-                    }
-                }
-            }
-        }
-    }
+//    private void increaseHeatingUsage(House house) {
+//        // Iterate through the floors and adjust heating usage
+//        for (Floor floor : house.getFloors()) {
+//            for (Room room : floor.getRooms()) {
+//                for (Device device : room.getDevices()) {
+//                    if (device instanceof HeatingSystem) {
+//                        HeatingSystem heatingSystem = (HeatingSystem) device;
+//                        // Check if the heating system is turned on and it's winter
+//                        if (heatingSystem.isTurnedOn() && season.equalsIgnoreCase("winter")) {
+//                            // Increase the temperature setting
+//                            heatingSystem.setTemperature(heatingSystem.getTemperature() + 3);
+//                            System.out.println("Increased heating usage in " + room.getName() +
+//                                    " due to winter conditions.");
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
 
 
     private void increaseAirConditionerUsage(House house) {
@@ -73,7 +73,7 @@ public class SeasonalChangesEvent extends Event {
                         AirCondition airCondition = (AirCondition) device;
                         if (airCondition.isTurnedOn()) {
                             airCondition.setTemperature(airCondition.getTemperature() + 2);
-                            System.out.println("Increased air conditioner usage in " + room.getName());
+                            System.out.println("Increased air conditioner usage in " + room.getRoomName());
                         }
                     }
                 }

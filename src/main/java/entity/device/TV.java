@@ -1,4 +1,7 @@
 package entity.device;
+import event.Event;
+import systems.WaterLeakSystem;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +10,26 @@ public class TV extends Device {
     private int indexOfCurrentChannel = 0;
 
     public TV() {
+    }
+
+    @Override
+    public void notifySystem() {
+
+    }
+
+    @Override
+    public void attach(WaterLeakSystem waterLeakSystem) {
+
+    }
+
+    @Override
+    public void increaseTemp(int temp) {
+
+    }
+
+    @Override
+    public void decreaseTemp(int temp) {
+
     }
 
     public int getIndexOfCurrentChannel() {
@@ -35,5 +58,10 @@ public class TV extends Device {
 
     public void watchTV() {
         getElectricityAPI().increaseCounter(getkWPerHour());
+    }
+
+    @Override
+    public void update(Event event, Fridge fridge) {
+
     }
 }

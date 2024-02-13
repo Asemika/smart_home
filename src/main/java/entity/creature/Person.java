@@ -5,13 +5,13 @@ import API.ElectronicAPI;
 import activities.Activity;
 import entity.device.*;
 import entity.sensor.Sensor;
+import entity.sensor.WaterLeakSensor;
 import event.Event;
 import event.EventType;
 import house.Floor;
 import house.Room;
 import house.Window;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -26,7 +26,7 @@ public class Person implements Observer {
     private final Skis skis = new Skis();
 
     public Person(String name, Floor currentFloor, Room currentRoom,
-                  ElectronicAPI electronicApiBuilder, CarAPI carAPI, BicycleAPI bicycleAPI) {
+                  CarAPI carAPI, BicycleAPI bicycleAPI) {
         this.bicycleAPI = bicycleAPI;
         this.carAPI = carAPI;
         this.name = name;
@@ -115,14 +115,6 @@ public class Person implements Observer {
         electronicAPI.getResult().getLightSystemApi().turnOff(currentRoom);
     }
 
-    public void listenToMusic() {
-        personActivityAPI.setSmartSpeakerCounter(personActivityAPI.getSmartSpeakerCounter() + 1);
-        electronicAPI.getResult().getSmartSpeakerApi().turnOn();
-        electronicAPI.getResult().getSmartSpeakerApi().playMusic();
-        electronicAPI.getResult().getSmartSpeakerApi().changeMusicForward();
-        electronicAPI.getResult().getSmartSpeakerApi().changeMusicForward();
-        electronicAPI.getResult().getSmartSpeakerApi().turnOff();
-    }
 
     public void listenToMusicWithRemote() {
         personActivityAPI.setSmartSpeakerCounter(personActivityAPI.getSmartSpeakerCounter() + 1);
@@ -181,9 +173,6 @@ public class Person implements Observer {
                 closeWindows(currentRoom);
                 break;
             case 10:
-                listenToMusic();
-                break;
-            case 11:
                 listenToMusicWithRemote();
                 break;
             default:
@@ -199,7 +188,7 @@ public class Person implements Observer {
     }
 
     @Override
-    public void update(Event event, Sensor sensor) {
+    public void update(Event event, WaterLeakSensor sensor) {
         if (event.getEventType() == EventType.BROKEN_DEVICE) {
             if (sensor instanceof Fridge) {
                 Documentation documentation = electronicAPI.getResult().getFridgeApi().getDocumentation();
@@ -224,6 +213,11 @@ public class Person implements Observer {
                 electronicAPI.getResult().getAirConditionAPI().fixDevice(documentation);
             }
         }
+    }
+
+    @Override
+    public void update(Event event, Fridge fridge) {
+
     }
 
 

@@ -1,18 +1,18 @@
 package house;
 
-import house.Floor;
+import entity.device.Light;
 import entity.sensor.BackupGenerator;
-import entity.sensor.FireSensor;
-import entity.sensor.LightSystem;
-import entity.sensor.WaterLeakSystem;
+//import entity.sensor.Light;
+//import entity.sensor.WaterLeakSystem;
 import systems.FireSystem;
+import systems.WaterLeakSystem;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class House {
     private List<Floor> floors = new ArrayList<>();
-    private LightSystem lightSystem = new LightSystem();
+    private Light lightSystem = new Light();
     private FireSystem fireSystem = new FireSystem();
     private WaterLeakSystem waterLeakSystem = new WaterLeakSystem();
     private BackupGenerator backupGenerator = new BackupGenerator();
@@ -33,11 +33,11 @@ public class House {
         floors.add(floor);
     }
 
-    public LightSystem getLightSystem() {
+    public Light getLightSystem() {
         return lightSystem;
     }
 
-    public void setLightSystem(LightSystem lightSystem) {
+    public void setLightSystem(Light lightSystem) {
         this.lightSystem = lightSystem;
     }
 
@@ -57,7 +57,7 @@ public class House {
         this.waterLeakSystem = waterLeakSystem;
     }
 
-    public BackupGenerator getBackupGenerator() {
+    public FireSystem getBackupGenerator() {
         return backupGenerator;
     }
 

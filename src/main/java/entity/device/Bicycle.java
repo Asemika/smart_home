@@ -1,5 +1,8 @@
 package entity.device;
 import entity.device.DeviceType;
+import event.Event;
+import systems.WaterLeakSystem;
+
 public class Bicycle extends Device {
     private boolean isMoving;
     private int speed;
@@ -106,6 +109,31 @@ public class Bicycle extends Device {
     public void updateTireStatus(boolean inflated) {
         areTiresInflated = inflated;
         System.out.println("Tire status updated. Are Tires Inflated: " + areTiresInflated);
+    }
+
+    @Override
+    public void notifySystem() {
+
+    }
+
+    @Override
+    public void attach(WaterLeakSystem waterLeakSystem) {
+
+    }
+
+    @Override
+    public void increaseTemp(int temp) {
+
+    }
+
+    @Override
+    public void decreaseTemp(int temp) {
+
+    }
+
+    @Override
+    public void update(Event event, Fridge fridge) {
+
     }
 
 //    @Override

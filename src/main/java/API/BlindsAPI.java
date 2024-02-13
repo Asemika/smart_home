@@ -1,18 +1,10 @@
 package API;
 
+import entity.device.Blinds;
 import entity.device.Documentation;
 import house.Room;
 import house.Window;
-
-public class BlindsAPI {
-
-        import objects.Blinds;
-        import objects.Documentation;
-        import objects.Room;
-        import objects.Window;
-
-        import java.util.List;
-
+import java.util.List;
 
 public class BlindsAPI implements FixAPI {
     private List<Blinds> blinds;

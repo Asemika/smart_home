@@ -9,7 +9,17 @@ public class Event {
         this.description = description;
     }
 
+    public Event(String brokenDevice) {
+    }
+
     public String getDescription() {
         return description;
     }
+
+    public boolean getEventType() {
+        // Předpokládám, že pokud je typ události prázdný nebo null, nebo pokud je roven "brokenDevice", jedná se o poruchu zařízení
+        return !type.isEmpty() && !type.equalsIgnoreCase("brokenDevice");
+    }
+
+
 }

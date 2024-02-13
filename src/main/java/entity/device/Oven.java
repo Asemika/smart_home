@@ -1,23 +1,29 @@
 package entity.device;
 
-import entity.device.patterns.BakingModeStrategy;
-import entity.device.patterns.DefrostModeStrategy;
-import entity.device.patterns.GrillModeStrategy;
+import API.ElectricityAPI;
+import API.OvenAPI;
+import event.Event;
+import systems.WaterLeakSystem;
+//import entity.device.patterns.BakingModeStrategy;
+//import entity.device.patterns.DefrostModeStrategy;
+//import entity.device.patterns.GrillModeStrategy;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Oven extends Device {
     private boolean isTurnedOn;
-    private entity.device.OvenMode currentMode;
+    private OvenAPI currentMode;
     private int currentTemperature;
-    private Map<entity.device.OvenMode, OvenMode> modeStrategies;
+    private Map<OvenAPI, OvenAPI> modeStrategies;
+    private boolean name;
+//    nuzhno li pomenat OvenMode na OvenAPI?
 
-    public Oven(String name, DeviceType type, double activeConsumption, double idleConsumption, double turnedOffConsumption) {
-        super(name, type, activeConsumption, idleConsumption, turnedOffConsumption);
-        this.isTurnedOn = false;
-        this.modeStrategies = new HashMap<>();
-        initDefaultStrategies();
+    public Oven() {
+//        super(name, type, activeConsumption, idleConsumption, turnedOffConsumption);
+//        this.isTurnedOn = false;
+//        this.modeStrategies = new HashMap<>();
+//        initDefaultStrategies();
     }
 
     public void turnOn() {
@@ -31,7 +37,27 @@ public class Oven extends Device {
     }
 
     @Override
-    public Object getElectricityAPI() {
+    public void notifySystem() {
+
+    }
+
+    @Override
+    public void attach(WaterLeakSystem waterLeakSystem) {
+
+    }
+
+    @Override
+    public void increaseTemp(int temp) {
+
+    }
+
+    @Override
+    public void decreaseTemp(int temp) {
+
+    }
+
+    @Override
+    public ElectricityAPI getElectricityAPI() {
         return null;
     }
 
@@ -39,16 +65,16 @@ public class Oven extends Device {
         return isTurnedOn;
     }
 
-    public void addModeStrategy(entity.device.OvenMode mode, OvenMode strategy) {
+    public void addModeStrategy(OvenAPI mode, OvenAPI strategy) {
         modeStrategies.put(mode, strategy);
     }
 
-    public void removeModeStrategy(entity.device.OvenMode mode) {
+    public void removeModeStrategy(OvenAPI mode) {
         modeStrategies.remove(mode);
     }
 
     public void executeMode() {
-        OvenMode strategy = modeStrategies.get(currentMode);
+        OvenAPI strategy = modeStrategies.get(currentMode);
         if (strategy != null) {
             strategy.execute(this);
         } else {
@@ -56,17 +82,17 @@ public class Oven extends Device {
         }
     }
 
-    private void initDefaultStrategies() {
-        addModeStrategy(entity.device.OvenMode.BAKING, (OvenMode) new BakingModeStrategy());
-        addModeStrategy(entity.device.OvenMode.DEFROST, (OvenMode) new DefrostModeStrategy());
-        addModeStrategy(entity.device.OvenMode.GRILL, (OvenMode) new GrillModeStrategy());
-    }
+//    private void initDefaultStrategies() {
+//        addModeStrategy(OvenMode.BAKING, (OvenMode) new BakingModeStrategy());
+//        addModeStrategy(OvenMode.DEFROST, (OvenMode) new DefrostModeStrategy());
+//        addModeStrategy(OvenMode.GRILL, (OvenMode) new GrillModeStrategy());
+//    }
 
-    public void setCurrentMode(entity.device.OvenMode mode) {
+    public void setCurrentMode(OvenAPI mode) {
         this.currentMode = mode;
     }
 
-    public entity.device.OvenMode getCurrentMode() {
+    public OvenAPI getCurrentMode() {
         return currentMode;
     }
 
@@ -76,5 +102,14 @@ public class Oven extends Device {
 
     public int getTemperature() {
         return currentTemperature;
+    }
+
+    public boolean getName() {
+        return name;
+    }
+
+    @Override
+    public void update(Event event, Fridge fridge) {
+
     }
 }

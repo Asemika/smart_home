@@ -4,7 +4,7 @@ import entity.device.Documentation;
 import entity.device.SmartSpeaker;
 import States.TurnedOnState;
 
-public class SmartSpeakerAPI implements FuncWearOutAPI {
+public class SmartSpeakerAPI  {
     SmartSpeaker smartSpeaker;
 
     public SmartSpeakerAPI(SmartSpeaker smartSpeaker) {
@@ -49,7 +49,6 @@ public class SmartSpeakerAPI implements FuncWearOutAPI {
 
     }
 
-    @Override
     public void fixDevice(Documentation documentation) {
         System.out.println("Fixing SmartSpeaker");
         smartSpeaker.fixDevice();
