@@ -3,6 +3,7 @@ package report;
 import entity.device.Device;
 import entity.device.WashingMachine;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;

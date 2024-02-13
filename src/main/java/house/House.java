@@ -1,17 +1,17 @@
 package house;
 
 import house.Floor;
-import objects.SensorsAndSystems.BackupGenerator;
-import objects.SensorsAndSystems.FireSensor;
-import objects.SensorsAndSystems.LightSystem;
-import objects.SensorsAndSystems.WaterLeakSystem;
+import entity.sensor.BackupGenerator;
+import entity.sensor.FireSensor;
+import entity.sensor.LightSystem;
+import entity.sensor.WaterLeakSystem;
 import systems.FireSystem;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class House {
-    private List<Floor> storeys = new ArrayList<>();
+    private List<Floor> floors = new ArrayList<>();
     private LightSystem lightSystem = new LightSystem();
     private FireSystem fireSystem = new FireSystem();
     private WaterLeakSystem waterLeakSystem = new WaterLeakSystem();
@@ -21,16 +21,16 @@ public class House {
 
     }
 
-    public List<Floor> getFlors() {
-        return flors;
+    public List<Floor> getFloors() {
+        return floors;
     }
 
     public void setFloors(ArrayList<Floor> floors) {
         this.floors = floors;
     }
 
-    public void addStorey(Floor floor) {
-        storeys.add(floor);
+    public void addFloor(Floor floor) {
+        floors.add(floor);
     }
 
     public LightSystem getLightSystem() {

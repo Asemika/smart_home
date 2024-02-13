@@ -5,6 +5,7 @@ import entity.device.Device;
 import event.Event;
 
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 public class EventReport implements Reportable {

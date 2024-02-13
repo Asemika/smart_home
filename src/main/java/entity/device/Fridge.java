@@ -1,81 +1,57 @@
 package entity.device;
 
-import API.FridgeState;
 import entity.sensor.Sensor;
-import systems.WaterLeakSystem;
+import event.Event;
+import event.EventType;
+import report.EventReportStruct;
+import States.BrokenState;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Fridge extends Device implements Sensor {
-    private boolean isTurnedOn;
-    private int foodPercentage;
     private final List<Observer> observers = new ArrayList<>();
-
-    public Fridge() {
-        super("Fridge", DeviceType.FRIDGE, 10.0, 5.0, 2.0);
-        this.isTurnedOn = false;
-        this.foodPercentage = 50;
+    private final List<Object> foodInFridge = new ArrayList<>();
+    private final int foodLimitAmount = 10;
+    public Fridge(){
+        super();
     }
 
-    @Override
-    public void notifySystem() {
-
-
-
-    @Override
-    public void turnOn() {
-        if (!isTurnedOn) {
-            isTurnedOn = true;
-            System.out.println(getName() + " is turned on.");
+    public boolean addFood() {
+        if (isBroken()) {
+            System.out.println("Device is broken. Can't use it now. Going to call someone to fix it");
+            notifyAllObservers(new Event(EventType.BROKEN_DEVICE)); // call somebody to fix
+            return false;
         }
-    }
-
-    @Override
-    public void turnOff() {
-        if (isTurnedOn) {
-            isTurnedOn = false;
-            System.out.println(getName() + " is turned off.");
+        increaseUsageTime(100);
+        if (getUsageTime() > getMAX_USAGE_CONSTANT()) {
+            this.breakDevice();
+            System.out.println("We're going to break this device");
+            return false;
         }
-    }
-
-    @Override
-    public Object getElectricityAPI() {
-        return null;
-    }
-
-    public boolean isTurnedOn() {
-        return isTurnedOn;
-    }
-
-    public int getFoodPercentage() {
-        return foodPercentage;
-    }
-
-    public void setFoodPercentage(int foodPercentage) {
-        this.foodPercentage = Math.min(100, Math.max(0, foodPercentage)); // Ensure food percentage is between 0 and 100
-    }
-
-    public void open() {
-        System.out.println("Fridge is now open.");
-    }
-
-    public void close() {
-        System.out.println("Fridge is now closed.");
-    }
-
-    @Override
-    public void setState(Fridge fridge) {
-
-    }
-
-    public void orderFoodIfNeeded(int thresholdPercentage) {
-        if (foodPercentage < thresholdPercentage) {
-            System.out.println("Food percentage is low. Ordering more food...");
+        if (calculateFridgeFillPercentage() < 54) {
+            orderFood();
+        }
+        if (foodInFridge.size() + 1 <= foodLimitAmount) {
+            foodInFridge.add(new Object()); // placeholder for food
+            return true;
         } else {
-            System.out.println("Food percentage is sufficient. No need to order.");
+            System.out.println("Fridge is full");
+            return false;
         }
     }
+
+    // Метод для заказа еды
+    private void orderFood() {
+        System.out.println("Ordering more food...");
+        // Здесь можно добавить логику для заказа еды
+    }
+
+    // Метод для расчета процента заполненности холодильника
+    private double calculateFridgeFillPercentage() {
+        return ((double) foodInFridge.size() / foodLimitAmount) * 100;
+    }
+
     @Override
     public void attach(Observer observer) {
         observers.add(observer);
@@ -89,90 +65,16 @@ public class Fridge extends Device implements Sensor {
     @Override
     public void notifyAllObservers(Event event) {
         Sensor sourceSensor = this;
-        List<Observer> listeners = new ArrayList<>();
+        List<Observer> listeners = new ArrayList<>(observers);
 
         System.out.println("Fridge is empty OR broken");
-        if (observers.size() > 0) {
-            observers.get(0).update(event, this);
-            listeners.add(observers.get(0));
+        if (!listeners.isEmpty()) {
+            for (Observer observer : listeners) {
+                observer.update(event, this);
+            }
             getEventAPI().addNewEventReportStruct(new EventReportStruct(event, sourceSensor, listeners));
-        } else System.out.println("No attached observers in fridge");
-
+        } else {
+            System.out.println("No attached observers in fridge");
+        }
     }
 }
-
-//package entity.device;
-//
-//        import API.ElectricityAPI;
-//        import entity.device.interfaces.FridgeState;
-//
-//public class Fridge extends Device{
-//    private boolean isTurnedOn;
-//    private int foodPercentage;
-//
-//    public Fridge(String name, DeviceType type, double activeConsumption, double idleConsumption, double turnedOffConsumption) {
-//        super("Fridge", DeviceType.FRIDGE, 10.0, 5.0, 2.0);
-//        this.isTurnedOn = false;
-//        this.foodPercentage = 50;
-//    }
-//    @Override
-//    public void turnOn() {
-//        if (!isTurnedOn) {
-//            isTurnedOn = true;
-//            System.out.println(getName() + " is turned on.");
-//        }
-//    }
-//
-//    @Override
-//    public void turnOff() {
-//        if (isTurnedOn)
-//            System.out.println(getName() + " is turned off.");
-//    }
-//
-//    public boolean isTurnedOn() {
-//        return isTurnedOn;
-//    }
-//
-//    public int getFoodPercentage() {
-//        return foodPercentage;
-//    }
-//
-//    public void setFoodPercentage(int foodPercentage) {
-//        this.foodPercentage = Math.min(100, Math.max(0, foodPercentage)); // Ensure food percentage is between 0 and 100
-//    }
-//    public void open() {
-//        System.out.println("Fridge is now open.");
-//    }
-//
-//    public void close() {
-//        System.out.println("Fridge is now closed.");
-//    }
-//
-//    public void orderFoodIfNeeded(int thresholdPercentage) {
-//        if (foodPercentage < thresholdPercentage) {
-//            System.out.println("Food percentage is low. Ordering more food...");
-//        } else {
-//            System.out.println("Food percentage is sufficient. No need to order.");
-//        }
-//    }
-//    public void setState(DeviceState state) {
-//        if (state == DeviceState.ON && !isTurnedOn) {
-//            turnOn();
-//        } else if (state == DeviceState.OFF && isTurnedOn) {
-//            turnOff();
-//        } else {
-//            System.out.println("Fridge is already in the desired state.");
-//        }
-//    }
-//
-//    public Object getActivityState() {
-//    }
-//
-//    public ElectricityAPI getElectricityAPI() {
-//        return electricityAPI;
-//    }
-//
-//    public void setElectricityAPI(ElectricityAPI electricityAPI) {
-//        this.electricityAPI = electricityAPI;
-//    }
-//}

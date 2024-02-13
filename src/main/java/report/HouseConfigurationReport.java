@@ -2,10 +2,15 @@ package report;
 
 import entity.creature.Person;
 import entity.creature.Pet;
+import entity.sensor.Sensor;
 import house.Floor;
 import house.House;
 import house.Room;
+import house.Window;
+import entity.device.Device;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 public class HouseConfigurationReport implements Reportable {
@@ -14,7 +19,7 @@ public class HouseConfigurationReport implements Reportable {
     private final List<Pet> pets;
     private final String folderForReports;
 
-    public HouseConfReport(House house, List<Person> people, List<Pet> pets, String folderForReports) {
+    public HouseConfigurationReport(House house, List<Person> people, List<Pet> pets, String folderForReports) {
         this.house = house;
         this.people = people;
         this.pets = pets;
@@ -26,10 +31,10 @@ public class HouseConfigurationReport implements Reportable {
         FileWriter writer;
         try {
             writer = new FileWriter(System.getProperty("user.dir") + "\\src\\main\\java\\reports\\" + folderForReports + "\\" + "houseCondReport.txt");
-            List<Storey> storeys = house.getStoreys();
-            for (int i = 0; i < storeys.size(); i++) {
+            List<Floor> floors = house.getFloors();
+            for (int i = 0; i < floors.size(); i++) {
                 writer.write("Storey " + (i + 1) + " : \n");
-                for (Room room : storeys.get(i).getRooms()) {
+                for (Room room : floors.get(i).getRooms()) {
                     writer.write("\t" + room.getRoomName() + " : \n");
                     writer.write("\t\tDevices :\n");
                     for (Device device : room.getDevices()) {

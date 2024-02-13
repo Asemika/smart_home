@@ -5,8 +5,8 @@ import entity.device.Oven;
 import States.TurnedOnState;
 
 import java.util.List;
-    public class OvenAPI implements FuncWearOutAPI {
-        Oven owen;
+    public class OvenAPI implements FixAPI {
+        Oven oven;
 
         public OvenAPI(Oven oven) {
             this.oven = oven;
@@ -36,7 +36,7 @@ import java.util.List;
         @Override
         public void fixDevice(Documentation documentation) {
             System.out.println("Fixing own");
-            owen.fixDevice();
+            oven.fixDevice();
         }
 
         public Documentation getDocumentation() {

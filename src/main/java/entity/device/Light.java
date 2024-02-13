@@ -5,9 +5,9 @@ import house.Room;
 /**
  * Represents a light system in a smart home.
  */
-public class LightSystem extends Device {
+public class Light extends Device {
 
-    public LightSystem() {
+    public Light() {
     }
 
     public void turnLightOn(Room room) {

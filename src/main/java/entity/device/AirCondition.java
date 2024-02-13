@@ -36,11 +36,11 @@ public class AirCondition extends Device {
             System.out.println(getName() + " is turned off.");
         }
     }
-
-    @Override
-    public Object getElectricityAPI() {
-        return null;
-    }
+//
+//    @Override
+//    public Object getElectricityAPI() {
+//        return null;
+//    }
 
     /**
      * Checks if the air conditioner is turned on.

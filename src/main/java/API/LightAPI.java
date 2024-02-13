@@ -1,6 +1,6 @@
 package API;
 
-public interface LightSystemAPI {
+public interface LightAPI {
 //    /**
 //     * Turns on the light system.
 //     */

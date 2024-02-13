@@ -5,6 +5,5 @@ public enum PetType {
     CAT,
     HAMPSTER,
     RAT,
-    MINIPIG,
-    DEFAULT;
+    MINIPIG;
 }

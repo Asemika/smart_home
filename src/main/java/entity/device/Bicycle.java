@@ -108,8 +108,8 @@ public class Bicycle extends Device {
         System.out.println("Tire status updated. Are Tires Inflated: " + areTiresInflated);
     }
 
-    @Override
-    public Object getElectricityAPI() {
-        return null;
-    }
+//    @Override
+//    public Object getElectricityAPI() {
+//        return null;
+//    }
 }

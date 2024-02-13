@@ -3,6 +3,7 @@ package entity.sensor;
 import entity.device.Device;
 import entity.device.Observer;
 import event.Event;
+import report.EventReportStruct;
 import systems.FireSystem;
 import systems.WaterLeakSystem;
 

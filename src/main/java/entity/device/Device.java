@@ -1,14 +1,19 @@
 package entity.device;
 
 import API.ElectricityAPI;
+import API.EventAPI;
+import States.*;
 import entity.creature.Person;
 import entity.sensor.Sensor;
 import event.Event;
+import event.EventType;
+import report.EventReportStruct;
+import systems.WaterLeakSystem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Device implements Observer, Sensor {
+public class Device extends Sensor implements Observer  {
     private final int MAX_USAGE_CONSTANT = 1500;
     private ActivityState activityState = new TurnedOffState();
     private BreakdownsState breakdownsState = new FixedState();
@@ -62,7 +67,12 @@ public class Device implements Observer, Sensor {
     public BreakdownsState getBreakdownsState() {
         return breakdownsState;
     }
-
+    public boolean isBroken() {
+        return breakdownsState instanceof BrokenState;
+    }
+    public void increaseUsageTime(int time) {
+        wearOut += time;
+    }
     public void setBreakdownsState(BreakdownsState breakdownsState) {
         this.breakdownsState = breakdownsState;
     }
@@ -133,6 +143,16 @@ public class Device implements Observer, Sensor {
             listeners.add(observers.get(0));
             getEventAPI().addNewEventReportStruct(new EventReportStruct(event, sourceSensor, listeners));
         } else System.out.println("No attached observers");
+
+    }
+
+    @Override
+    public void notifySystem() {
+
+    }
+
+    @Override
+    public void attach(WaterLeakSystem waterLeakSystem) {
 
     }
 

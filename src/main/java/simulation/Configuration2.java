@@ -4,12 +4,10 @@ import API.*;
 import entity.creature.Person;
 import entity.creature.Pet;
 import entity.device.*;
-import entity.device.remote.AirConditionRemote;
-import entity.device.remote.SmartSpeakerRemote;
-import entity.device.remote.TVRemote;
 import entity.sensor.FireSensor;
 import entity.sensor.PowerOutageSensor;
 import entity.sensor.WaterLeakSensor;
+import house.Floor;
 import house.House;
 import house.Room;
 import house.Window;
@@ -19,18 +17,13 @@ import systems.WaterLeakSystem;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import API.*;
-import objects.*;
-import objects.SensorsAndSystems.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import entity.sensor.*;
 
 public class Configuration2 {
     private static Configuration2 INSTANCE;
     private final String[] rooms = {"kitchen", "livingRoom", "bathRoom", "entertainmentRoom", "bedRoom1", "bedRoom2", "bedRoom3"};
-    private final String[] peopleNames = {"George", "Alex", "Jerry", "Derek", "Arnold", "Karolina"};
+    private final String[] peopleNames = {"George", "Ales", "Jerry", "Derek", "Arnold", "Kara"};
     private final List<Person> people = new ArrayList<>();
     private final List<Pet> pets = new ArrayList<>();
     private final List<Device> devicesWithConsumption = new ArrayList<>();
@@ -49,8 +42,8 @@ public class Configuration2 {
     public House initHouse() {
         House house = new House();
 
-        Storey storey = new Storey();
-        house.addStorey(storey);
+        Floor floor = new Floor();
+        house.addFloor(floor);
 
         Room kitchen = new Room(rooms[0]);
         Room livingRoom = new Room(rooms[1]);
@@ -59,7 +52,7 @@ public class Configuration2 {
         Room bedRoom = new Room(rooms[4]);
         Room bedRoom2 = new Room(rooms[5]);
         Room bedRoom3 = new Room(rooms[6]);
-        storey.addRoom(kitchen)
+        floor.addRoom(kitchen)
                 .addRoom(livingRoom)
                 .addRoom(bathRoom)
                 .addRoom(entertainmentRoom)
@@ -70,12 +63,12 @@ public class Configuration2 {
         addOneWindowToEveryRoom(kitchen, livingRoom, bathRoom, entertainmentRoom, bedRoom, bedRoom2);
         addOneWindowToEveryRoom(kitchen, livingRoom, bathRoom, entertainmentRoom, bedRoom, bedRoom2);
 
-        List<Blinds> allBlinds = getBlindsFromRooms(storey);
+        List<Blinds> allBlinds = getBlindsFromRooms(floor);
 
         Car car = new Car();
         CarAPI carAPI = new CarAPI(car);
         Fridge fridge = initFridge();
-        Tv tv = new Tv();
+        TV tv = new TV();
 
         AirCondition airCondition = new AirCondition();
         AirCondition airCondition2 = new AirCondition();
@@ -87,13 +80,13 @@ public class Configuration2 {
         airConditions.add(airCondition3);
 
         SmartSpeaker smartSpeaker = new SmartSpeaker();
-        Owen owen = new Owen();
+        Oven owen = new Oven();
         WashingMachine washingMachine = new WashingMachine();
         Microwave microwave = new Microwave();
-        LightSystem lightSystem = new LightSystem();
+        Light light = new Light();
 
         addDevicesWithConsumption(devicesWithConsumption, fridge, tv, airCondition, airCondition2, smartSpeaker,
-                owen, washingMachine, microwave, lightSystem, airCondition3);
+                owen, washingMachine, microwave, light, airCondition3);
 
         ElectronicAPI electronicApiBuilder = new ElectronicAPI()
                 .setFridgeApi(new FridgeAPI(fridge))
@@ -101,16 +94,13 @@ public class Configuration2 {
                 .setBlindsApi(new BlindsAPI(allBlinds))
                 .setMicrowaveApi(new MicrowaveAPI(microwave))
                 .setSmartSpeakerApi(new SmartSpeakerAPI(smartSpeaker))
-                .setOwenApi(new OwenAPI(owen))
+                .setOwenApi(new OvenAPI(owen))
                 .setAirConditionApi(new AirConditionAPI(airConditions))
-                .setLightSystemApi(new LightSystemAPI(lightSystem))
+                .setLightSystemApi(new LightAPI(light))
                 .setWashingMachineApi(new WashingMachineAPI(washingMachine));
 
-        SmartSpeakerRemote speakerRemote = new SmartSpeakerRemote(smartSpeaker);
-        AirCondRemote airCondRemote = new AirCondRemote(airCondition);
-        TvRemote tvRemote = new TvRemote(tv);
 
-        init_people(people, peopleNames, storey, livingRoom, electronicApiBuilder, carAPI, new BicycleAPI(new Bicycle()), speakerRemote, airCondRemote, tvRemote);
+        init_people(people, peopleNames, floor, livingRoom, electronicApiBuilder, carAPI, new BicycleAPI(new Bicycle()));
         init_pets(pets, livingRoom);
         fillRoomWithDevices(kitchen, owen, fridge, microwave);
         fillRoomWithDevices(livingRoom, tv);
@@ -168,12 +158,12 @@ public class Configuration2 {
     }
 
     /**
-     * @param storey
+     * @param floor
      * @return all blind from all room on the storey.
      */
-    private List<Blinds> getBlindsFromRooms(Storey storey) {
+    private List<Blinds> getBlindsFromRooms(Floor floor) {
         List<Blinds> blinds = new ArrayList<>();
-        for (Room room : storey.getRooms()) {
+        for (Room room : floor.getRooms()) {
             for (Window w : room.getWindows()) {
                 blinds.add(w.getBlinds());
             }
@@ -298,20 +288,16 @@ public class Configuration2 {
      *
      * @param people
      * @param peopleNames
-     * @param storey
+     * @param floor
      * @param livingRoom
      * @param electronicApiBuilder
      * @param carAPI
      * @param bicycleAPI
-     * @param speakerRemote
-     * @param airCondRemote
-     * @param tvRemote
      */
-    private void init_people(List<Person> people, String[] peopleNames, Storey storey, Room livingRoom, ElectronicAPI electronicApiBuilder, CarAPI carAPI, BicycleAPI bicycleAPI, SmartSpeakerRemote speakerRemote, AirCondRemote airCondRemote, TvRemote tvRemote) {
+    private void init_people(List<Person> people, String[] peopleNames, Floor floor, Room livingRoom, ElectronicAPI electronicApiBuilder, CarAPI carAPI, BicycleAPI bicycleAPI) {
         for (int i = 0; i < peopleNames.length; i++) {
-            people.add(new Person(peopleNames[i], storey, livingRoom, electronicApiBuilder,
-                    carAPI, new BicycleAPI(new Bicycle()),
-                    speakerRemote, airCondRemote, tvRemote));
+            people.add(new Person(peopleNames[i], floor, livingRoom, electronicApiBuilder,
+                    carAPI, new BicycleAPI(new Bicycle())));
         }
     }
 

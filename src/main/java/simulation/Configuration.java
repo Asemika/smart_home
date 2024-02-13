@@ -3,18 +3,21 @@ package simulation;
 import entity.creature.Person;
 import entity.creature.Pet;
 import entity.device.Device;
+import entity.device.Fridge;
+import entity.sensor.*;
 import event.Event;
-import objects.*;
-import objects.SensorsAndSystems.FireSensor;
-import objects.SensorsAndSystems.PowerOutageSensor;
-import objects.SensorsAndSystems.StrongWindSensor;
-import objects.SensorsAndSystems.WaterLeakSensor;
-import reportSystem.ActivityAndUsageReport;
-import reportSystem.ConsumptionReport;
-import reportSystem.EventReport;
-import reportSystem.HouseConfReport;
-import states.TurnedOnState;
+import event.EventType;
+import house.Floor;
+import house.House;
+import entity.*;
+import house.Room;
+import report.ActivityAndUsageReport;
+import report.ConsumptionReport;
+import report.EventReport;
+import report.HouseConfigurationReport;
+import States.TurnedOnState;
 
+import java.lang.module.Configuration;
 import java.util.List;
 import java.util.Random;
 
@@ -64,8 +67,9 @@ public class Simulation {
             if (i == 3  i == 10  i == 20 || i == 45) {
                 simulateRandomEvent(house);
             }
-            if (fridge != null && fridge.getActivityState() instanceof TurnedOnState)
+            if (fridge != null && fridge.getActivityState() instanceof TurnedOnState) {
                 fridge.getElectricityAPI().increaseCounter(fridge.getkWPerHour());
+            }
         }
 
         ConsumptionReport consumptionReport = new ConsumptionReport(devicesByConsumption, 10, 1, folderForReports);
@@ -74,7 +78,7 @@ public class Simulation {
         eventReport.generateReport();
         ActivityAndUsageReport activityAndUsageReport = new ActivityAndUsageReport(people, pets, folderForReports);
         activityAndUsageReport.generateReport();
-        HouseConfReport houseConfReport = new HouseConfReport(house, people, pets, folderForReports);
+        HouseConfigurationReport houseConfReport = new HouseConfigurationReport(house, people, pets, folderForReports);
         houseConfReport.generateReport();
 
     }
@@ -82,13 +86,13 @@ public class Simulation {
     /**
      * returns random storey in the house
      *
-     * @param storeys
+     * @param floors
      * @return Storey
      */
-    private static Storey getRandomStorey(List<Storey> storeys) {
+    private static Floor getRandomStorey(List<Floor> floors) {
         Random random = new Random();
-        int randStoreyIndex = random.nextInt(storeys.size());
-        return storeys.get(randStoreyIndex);
+        int randFloorIndex = random.nextInt(floors.size());
+        return floors.get(randFloorIndex);
     }
 
     /**
@@ -108,10 +112,10 @@ public class Simulation {
         }
 
         for (Pet pet : pets) {
-            pet.changeRoom(getRandomStorey(house.getStoreys()).getRooms());
+            pet.changeRoom(getRandomStorey(house.getFlors()).getRooms());
         }
 
-        List<Room> rooms = getRandomStorey(house.getStoreys()).getRooms();
+        List<Room> rooms = getRandomStorey(house.getFlors()).getRooms();
         for (Person person : people) {
             person.changeRoom(rooms);
         }
@@ -125,7 +129,7 @@ public class Simulation {
             person.doRandomActivity();
         }
         for (Pet pet : pets) {
-            pet.changeRoom(getRandomStorey(house.getStoreys()).getRooms());
+            pet.changeRoom(getRandomStorey(house.getFlors()).getRooms());
         }
     }
 
@@ -136,7 +140,7 @@ public class Simulation {
      */
     public static void simulateFireEvent(House house) {
         Event event = new Event(EventType.FIRE);
-        for (Room room : getRandomStorey(house.getStoreys()).getRooms()) {
+        for (Room room : getRandomStorey(house.getFlors()).getRooms()) {
             for (Sensor s : room.getSensors()) {
                 if (s instanceof FireSensor) s.notifyAllObservers(event);
             }
@@ -150,7 +154,7 @@ public class Simulation {
      */
     public static void simulateWaterLeakEvent(House house) {
         Event event = new Event(EventType.WATER_LEAK);
-        for (Room room : getRandomStorey(house.getStoreys()).getRooms()) {
+        for (Room room : getRandomStorey(house.getFlors()).getRooms()) {
             for (Sensor s : room.getSensors()) {
                 if (s instanceof WaterLeakSensor) s.notifyAllObservers(event);
             }
@@ -164,7 +168,7 @@ public class Simulation {
      */
     public static void simulateStrongWindEvent(House house) {
         Event event = new Event(EventType.STRONG_WIND);
-        for (Room room : getRandomStorey(house.getStoreys()).getRooms()) {
+        for (Room room : getRandomStorey(house.getFlors()).getRooms()) {
             for (Sensor s : room.getSensors()) {
                 if (s instanceof StrongWindSensor) s.notifyAllObservers(event);
             }
@@ -178,7 +182,7 @@ public class Simulation {
      */
     public static void simulatePowerOutageEvent(House house) {
         Event event = new Event(EventType.POWER_OUTAGE);
-        for (Room room : getRandomStorey(house.getStoreys()).getRooms()) {
+        for (Room room : getRandomStorey(house.getFlors()).getRooms()) {
             for (Sensor s : room.getSensors()) {
                 if (s instanceof PowerOutageSensor) s.notifyAllObservers(event);
             }

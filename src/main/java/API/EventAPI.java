@@ -1,6 +1,9 @@
 package API;
 
+import report.EventReportStruct;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class EventAPI {
     private final List<EventReportStruct> eventReportStructs = new ArrayList<>();
