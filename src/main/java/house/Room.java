@@ -12,11 +12,13 @@ public class Room {
     private final List<Window> windows = new ArrayList<>();
     private final List<Device> devices = new ArrayList<>();
     private final int temp = 24;
-    private final String roomName;
     private boolean lightIsOn = false;
 
-    public Room(String roomName) {
-        this.roomName = roomName;
+    private String name;
+    private String roomName;
+
+    public Room(String name) {
+        this.name = name;
     }
 
     public void setLightIsOn(boolean lightIsOn) {
@@ -52,4 +54,6 @@ public class Room {
     public String getRoomName() {
         return roomName;
     }
+
+
 }

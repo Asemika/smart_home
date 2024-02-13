@@ -3,17 +3,24 @@ package entity.creature;
 import house.Room;
 
 import java.util.List;
-import java.util.List;
 import java.util.Random;
 
 public class Pet extends Creature {
     private Room currRoom;
-    private final String type;
+    private String type;
 
-    public Pet(Room room, String type) {
+    public Pet(String name, Room room, String type) {
+        super(name, room);
         this.currRoom = room;
         this.type = type;
     }
+
+    public Pet(Room room, String cat) {
+        super(cat, room);
+        this.currRoom = room;
+        this.type = type;
+    }
+
 
     public String getType() {
         return type;

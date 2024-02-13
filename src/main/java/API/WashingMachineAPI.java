@@ -4,8 +4,8 @@ import entity.device.Documentation;
 import entity.device.WashingMachine;
 import States.TurnedOnState;
 
-public class WashingMachineAPI implements FuncWearOutAPI {
-    WashingMachine washingMachine;
+public class WashingMachineAPI {
+    private WashingMachine washingMachine;
 
     public WashingMachineAPI(WashingMachine washingMachine) {
         this.washingMachine = washingMachine;
@@ -20,16 +20,16 @@ public class WashingMachineAPI implements FuncWearOutAPI {
     }
 
     public void washClothes() {
-        if (washingMachine.getActivityState() instance of TurnedOnState) {
+        if (washingMachine.getActivityState() instanceof TurnedOnState) {
             washingMachine.washClothes();
-        } else System.out.println("device is not turned on");
+        } else {
+            System.out.println("Device is not turned on");
+        }
     }
 
-    @Override
     public void fixDevice(Documentation documentation) {
         System.out.println("Fixing Washing Machine");
         washingMachine.fixDevice();
-
     }
 
     public Documentation getDocumentation() {

@@ -92,7 +92,7 @@ public class Configuration2 {
                 .setFridgeApi(new FridgeAPI(fridge))
                 .setTvApi(new TvAPI(tv))
                 .setBlindsApi(new BlindsAPI(allBlinds))
-                .setMicrowaveApi(new MicrowaveAPI(microwave))
+                .setMicrowaveApi(new MicrowaveAP(microwave))
                 .setSmartSpeakerApi(new SmartSpeakerAPI(smartSpeaker))
                 .setOwenApi(new OvenAPI(owen))
                 .setAirConditionApi(new AirConditionAPI(airConditions))
@@ -296,7 +296,7 @@ public class Configuration2 {
      */
     private void init_people(List<Person> people, String[] peopleNames, Floor floor, Room livingRoom, ElectronicAPI electronicApiBuilder, CarAPI carAPI, BicycleAPI bicycleAPI) {
         for (int i = 0; i < peopleNames.length; i++) {
-            people.add(new Person(peopleNames[i], floor, livingRoom, electronicApiBuilder,
+            people.add(new Person(peopleNames[i], floor, livingRoom,
                     carAPI, new BicycleAPI(new Bicycle())));
         }
     }

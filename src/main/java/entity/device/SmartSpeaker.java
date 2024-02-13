@@ -1,5 +1,8 @@
 package entity.device;
 
+import event.Event;
+import systems.WaterLeakSystem;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +13,27 @@ public class SmartSpeaker extends Device {
         public SmartSpeaker() {
         }
 
-        public List<String> getMusicPlaylist() {
+    @Override
+    public void notifySystem() {
+
+    }
+
+    @Override
+    public void attach(WaterLeakSystem waterLeakSystem) {
+
+    }
+
+    @Override
+    public void increaseTemp(int temp) {
+
+    }
+
+    @Override
+    public void decreaseTemp(int temp) {
+
+    }
+
+    public List<String> getMusicPlaylist() {
             return musicPlaylist;
         }
 
@@ -38,4 +61,8 @@ public class SmartSpeaker extends Device {
             }
         }
 
+    @Override
+    public void update(Event event, Fridge fridge) {
+
     }
+}

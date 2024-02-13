@@ -33,4 +33,8 @@ public abstract class Sensor {
     public abstract void attach(WaterLeakSystem waterLeakSystem);
 
     public abstract void turnOn();
+
+    public abstract void increaseTemp(int temp);
+
+    public abstract void decreaseTemp(int temp);
 }

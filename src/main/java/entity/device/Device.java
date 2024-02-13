@@ -3,8 +3,7 @@ package entity.device;
 import API.ElectricityAPI;
 import API.EventAPI;
 import States.*;
-import entity.creature.Person;
-import entity.sensor.Sensor;
+import entity.sensor.WaterLeakSensor;
 import event.Event;
 import event.EventType;
 import report.EventReportStruct;
@@ -13,7 +12,7 @@ import systems.WaterLeakSystem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Device extends Sensor implements Observer  {
+public abstract class Device implements Observer  {
     private final int MAX_USAGE_CONSTANT = 1500;
     private ActivityState activityState = new TurnedOffState();
     private BreakdownsState breakdownsState = new FixedState();
@@ -24,7 +23,7 @@ public class Device extends Sensor implements Observer  {
     private final EventAPI eventAPI = new EventAPI();
     private int kWPerHour;
 
-    public Device(int kWPerHour) {
+    public Device(String s, DeviceType bicycle, int kWPerHour, int i, int i1) {
         this.kWPerHour = kWPerHour;
     }
 
@@ -114,7 +113,7 @@ public class Device extends Sensor implements Observer  {
     }
 
     @Override
-    public void update(Event event, Sensor sensor) {
+    public void update(Event event, WaterLeakSensor sensor) {
         this.turnOff();
     }
 
@@ -135,7 +134,7 @@ public class Device extends Sensor implements Observer  {
      */
     @Override
     public void notifyAllObservers(Event event) {
-        Sensor sourceSensor = this;
+        Device sourceSensor = this;
         List<Observer> listeners = new ArrayList<>();
 
         if (observers.size() > 0) {
@@ -146,19 +145,28 @@ public class Device extends Sensor implements Observer  {
 
     }
 
-    @Override
-    public void notifySystem() {
 
-    }
 
-    @Override
-    public void attach(WaterLeakSystem waterLeakSystem) {
-
-    }
+//    @Override
+//    public void attach(WaterLeakSystem waterLeakSystem) {
+//
+//    }
 
     public int getMAX_USAGE_CONSTANT() {
         return MAX_USAGE_CONSTANT;
     }
+    @Override
+    public String toString() {
+        return "Device: " + name + " (" + type + ")";
+    }
+
+    public abstract void notifySystem();
+
+    public abstract void attach(WaterLeakSystem waterLeakSystem);
+
+    public abstract void increaseTemp(int temp);
+
+    public abstract void decreaseTemp(int temp);
 }
 
 //package entity.device;

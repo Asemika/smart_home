@@ -2,21 +2,28 @@ package entity.sensor;
 
 import States.TurnedOnState;
 import entity.device.Device;
+import entity.device.Fridge;
 import entity.device.Observer;
 import event.Event;
 import event.EventType;
 import report.EventReportStruct;
+import systems.WaterLeakSystem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PowerOutageSensor extends Device implements Sensor {
+public class PowerOutageSensor extends Device implements Observer {
     List<Observer> observers = new ArrayList<>(); // devices
     BackupGenerator backupGenerator;
 
     public PowerOutageSensor(BackupGenerator backupGenerator) {
         this.backupGenerator = backupGenerator;
         turnOn();
+    }
+
+    @Override
+    public void update(Event event, Fridge fridge) {
+
     }
 
     @Override
@@ -32,7 +39,7 @@ public class PowerOutageSensor extends Device implements Sensor {
     @Override
     public void notifyAllObservers(Event event) {
         getElectricityAPI().increaseCounter(getkWPerHour());
-        Sensor sourceSensor = this;
+        PowerOutageSensor sourceSensor = this;
         List<Observer> listeners = new ArrayList<>();
         for (Observer observer : observers) {
             System.out.println("The devices were unplugged due power outage");
@@ -46,5 +53,40 @@ public class PowerOutageSensor extends Device implements Sensor {
         listeners.add(backupGenerator);
 
         getEventAPI().addNewEventReportStruct(new EventReportStruct(event, sourceSensor, listeners));
+    }
+
+    @Override
+    public void update(Event event, FireSensor fireSensor) {
+
+    }
+
+    @Override
+    public void update(Event event, PowerOutageSensor powerOutageSensor) {
+
+    }
+
+    @Override
+    public void update(Event event, StrongWindSensor strongWindSensor) {
+
+    }
+
+    @Override
+    public void notifySystem() {
+
+    }
+
+    @Override
+    public void attach(WaterLeakSystem waterLeakSystem) {
+
+    }
+
+    @Override
+    public void increaseTemp(int temp) {
+
+    }
+
+    @Override
+    public void decreaseTemp(int temp) {
+
     }
 }

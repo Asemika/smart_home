@@ -1,5 +1,8 @@
 package entity.device;
 
+import event.Event;
+import systems.WaterLeakSystem;
+
 /**
  * Represents an air conditioner device.
  */
@@ -7,17 +10,12 @@ public class AirCondition extends Device {
     private boolean isTurnedOn;
     private int temperature;
     private int externalTemperature;
+
     /**
-     * Constructs an air conditioner with the given parameters.
-     *
-     * @param name               the name of the air conditioner
-     * @param type               the type of the air conditioner
-     * @param powerConsumption   the power consumption of the air conditioner when turned on (in watts)
-     * @param idleConsumption    the power consumption of the air conditioner in idle state (in watts)
-     * @param turnedOffConsumption  the power consumption of the air conditioner when turned off (in watts)
+     * Constructs an air conditioner.
      */
-    public AirCondition(String name, DeviceType type, double powerConsumption, double idleConsumption, double turnedOffConsumption) {
-        super(name, type, powerConsumption, idleConsumption, turnedOffConsumption);
+    public AirCondition() {
+        super(); // Volání výchozího konstruktoru třídy Device
         this.temperature = 20; // Default temperature setting
     }
 
@@ -25,7 +23,7 @@ public class AirCondition extends Device {
     public void turnOn() {
         if (!isTurnedOn) {
             isTurnedOn = true;
-            System.out.println(getName() + " is turned on.");
+            System.out.println("Air conditioner is turned on.");
         }
     }
 
@@ -33,14 +31,29 @@ public class AirCondition extends Device {
     public void turnOff() {
         if (isTurnedOn) {
             isTurnedOn = false;
-            System.out.println(getName() + " is turned off.");
+            System.out.println("Air conditioner is turned off.");
         }
     }
-//
-//    @Override
-//    public Object getElectricityAPI() {
-//        return null;
-//    }
+
+    @Override
+    public void notifySystem() {
+
+    }
+
+    @Override
+    public void attach(WaterLeakSystem waterLeakSystem) {
+
+    }
+
+    @Override
+    public void increaseTemp(int temp) {
+
+    }
+
+    @Override
+    public void decreaseTemp(int temp) {
+
+    }
 
     /**
      * Checks if the air conditioner is turned on.
@@ -67,7 +80,7 @@ public class AirCondition extends Device {
      */
     public void setTemperature(int temperature) {
         this.temperature = temperature;
-        System.out.println("Temperature setting of " + getName() + " changed to " + temperature + "°C");
+        System.out.println("Temperature setting of air conditioner changed to " + temperature + "°C");
     }
 
     /**
@@ -100,7 +113,12 @@ public class AirCondition extends Device {
                 System.out.println("It's not too hot outside. No need to use the air conditioner.");
             }
         } else {
-            System.out.println(getName() + " is turned off. Please turn it on first.");
+            System.out.println("Air conditioner is turned off. Please turn it on first.");
         }
+    }
+
+    @Override
+    public void update(Event event, Fridge fridge) {
+
     }
 }
