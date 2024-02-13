@@ -96,7 +96,7 @@ public class Configuration {
 //                .setBlindsApi(new BlindsAPI(allBlinds))
                 .setMicrowaveMode(new MicrowaveMode(microwave))
                 .setSmartSpeakerApi(new SmartSpeakerAPI(smartSpeaker))
-                .setOwenApi(new OvenModeStrategy(owen))
+                .setOwenApi(new OvenMode(owen))
 //                .setAirConditionApi(new AirConditionAPI(airConditions))
                 .setLightSystemApi(new LightSystemState(lightSystem))
                 .setWashingMachineApi(new WashingMachineAPI(washingMachine));

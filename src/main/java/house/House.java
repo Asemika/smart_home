@@ -7,24 +7,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class House {
-    private List<Storey> storeys;
+    private List<Floor> floors;
     private FireSystem fireSystem;
     private WaterLeakSystem waterLeakSystem;
     private List<Room> rooms;
 
     public House() {
-        this.storeys = new ArrayList<>();
         this.fireSystem = new FireSystem();
         this.waterLeakSystem = new WaterLeakSystem();
         this.rooms = new ArrayList<>();
+        this.floors = new ArrayList<>();
     }
 
-    public void addStorey(Storey storey) {
-        storeys.add(storey);
+    public void addFloor(Floor floor) {
+        floors.add(floor);
     }
 
-    public List<Storey> getStoreys() {
-        return storeys;
+    public List<Floor> getFloors() {
+        return floors;
     }
 
     public FireSystem getFireSystem() {
@@ -44,14 +44,14 @@ public class House {
     }
 
     public boolean isEmpty() {
-        return storeys.isEmpty();
+        return floors.isEmpty();
     }
 
-    public Storey get(int index) {
-        return storeys.get(index);
+    public Floor get(int index) {
+        return floors.get(index);
     }
 
     public int size() {
-        return storeys.size();
+        return floors.size();
     }
 }

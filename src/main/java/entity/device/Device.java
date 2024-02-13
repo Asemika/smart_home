@@ -1,5 +1,6 @@
 package entity.device;
 
+import API.ElectricityAPI;
 import entity.creature.Person;
 import event.Event;
 
@@ -11,6 +12,9 @@ public abstract class Device {
     private double idleConsumption;
     private double turnedOffConsumption;
     private double kWPerHour;
+
+    // Объект API электропотребления
+    private ElectricityAPI electricityAPI;
 
     public Device(String name, DeviceType type, double activeConsumption, double idleConsumption, double turnedOffConsumption) {
         this.name = name;
@@ -59,7 +63,14 @@ public abstract class Device {
         return turnedOffConsumption;
     }
 
-    public void attach(Person person) {
+    // Получение объекта API электропотребления
+    public ElectricityAPI getElectricityAPI() {
+        return electricityAPI;
+    }
+
+    // Установка объекта API электропотребления
+    public void setElectricityAPI(ElectricityAPI electricityAPI) {
+        this.electricityAPI = electricityAPI;
     }
 
     public double getkWPerHour() {
@@ -70,8 +81,11 @@ public abstract class Device {
         this.kWPerHour = kWPerHour;
     }
 
+    public void attach(Person person) {
+    }
+
     public void notifyAllObservers(Event event) {
     }
 
-    public abstract Object getElectricityAPI();
+//    public abstract Object getElectricityAPI();
 }

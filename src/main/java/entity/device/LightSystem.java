@@ -8,7 +8,7 @@ import entity.device.patterns.TurnOffLight;
 /**
  * Represents a light system in a smart home.
  */
-public abstract class LightSystem extends Device {
+public class LightSystem extends Device {
     private LightSystemState turnedOnState;
     private LightSystemState turnedOffState;
     private LightSystemState state;
@@ -88,6 +88,11 @@ public abstract class LightSystem extends Device {
     @Override
     public void turnOff() {
         state.turnOff();
+    }
+
+    @Override
+    public Object getElectricityAPI() {
+        return null;
     }
 
     /**

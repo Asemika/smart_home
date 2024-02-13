@@ -6,7 +6,6 @@ import entity.device.remote.AirConditionRemote;
 import entity.device.remote.SmartSpeakerRemote;
 import entity.device.remote.TVRemote;
 import house.Room;
-import house.Storey;
 
 import java.util.List;
 

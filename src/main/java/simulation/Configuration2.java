@@ -12,7 +12,6 @@ import entity.sensor.PowerOutageSensor;
 import entity.sensor.WaterLeakSensor;
 import house.House;
 import house.Room;
-import house.Storey;
 import house.Window;
 import systems.FireSystem;
 import systems.WaterLeakSystem;
@@ -96,7 +95,7 @@ public class Configuration2 {
 //                .setBlindsApi(new BlindsAPI(allBlinds))
                 .setMicrowaveMode(new MicrowaveMode(microwave))
                 .setSmartSpeakerApi(new SmartSpeakerAPI(smartSpeaker))
-                .setOwenApi(new OvenModeStrategy(owen))
+                .setOwenApi(new OvenMode(owen))
 //                .setAirConditionApi(new AirConditionAPI(airConditions))
                 .setLightSystemApi(new LightSystemState(lightSystem))
                 .setWashingMachineApi(new WashingMachineAPI(washingMachine));

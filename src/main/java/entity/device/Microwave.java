@@ -1,8 +1,6 @@
 package entity.device;
 
-import API.MicrowaveMode;
-
-public abstract class Microwave extends Device{
+public class Microwave extends Device{
     private MicrowaveMode mode;
     private double power; // Мощность микроволновки в Ваттах
     private int timeInSeconds; // Время работы микроволновки в секундах
@@ -49,5 +47,10 @@ public abstract class Microwave extends Device{
     public void turnOff() {
         super.turnOff();
         System.out.println("Microwave is now turned off.");
+    }
+
+    @Override
+    public Object getElectricityAPI() {
+        return null;
     }
 }

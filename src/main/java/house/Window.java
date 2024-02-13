@@ -1,7 +1,6 @@
 package house;
 
 import entity.device.Blinds;
-import entity.device.AirCondition;
 import entity.device.DeviceType;
 
 /**
@@ -74,16 +73,6 @@ public class Window {
     }
 
     /**
-     * Closes the window if the air conditioner is turned on.
-     */
-    public void closeWindowsWhenAirConditionerOn() {
-        AirCondition airCondition = new AirCondition("Living Room AC", DeviceType.AIR_CONDITION, 10.0, 5.0, 2.0);
-        if (airCondition.isTurnedOn()) {
-            close();
-        }
-    }
-
-    /**
      * Opens the blinds associated with the window.
      */
     public void openBlinds() {
@@ -91,33 +80,9 @@ public class Window {
     }
 
     /**
-     * Closes the blinds associated with the window when needed.
-     * This method checks if the air conditioner is turned on, if it's night time, or if it's too sunny.
+     * Closes the blinds associated with the window.
      */
-    public void closeBlindsWhenNeeded() {
-        AirCondition airCondition = new AirCondition("Living Room AC", DeviceType.AIR_CONDITION, 10.0, 5.0, 2.0);
-        if (airCondition.isTurnedOn() || isNightTime() || isTooSunny()) {
-            blinds.close();
-        }
-    }
-
-    /**
-     * Checks if it's night time.
-     *
-     * @return true if it's night time, false otherwise
-     */
-    private boolean isNightTime() {
-        // Logic to determine night time
-        return false; // Placeholder value
-    }
-
-    /**
-     * Checks if it's too sunny.
-     *
-     * @return true if it's too sunny, false otherwise
-     */
-    private boolean isTooSunny() {
-        // Logic to determine if it's too sunny
-        return false; // Placeholder value
+    public void closeBlinds() {
+        blinds.close();
     }
 }

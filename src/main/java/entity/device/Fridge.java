@@ -2,7 +2,7 @@ package entity.device;
 
 import API.FridgeState;
 
-public abstract class Fridge extends Device implements FridgeState {
+public class Fridge extends Device implements FridgeState {
     private boolean isTurnedOn;
     private int foodPercentage;
 
@@ -26,6 +26,11 @@ public abstract class Fridge extends Device implements FridgeState {
             isTurnedOn = false;
             System.out.println(getName() + " is turned off.");
         }
+    }
+
+    @Override
+    public Object getElectricityAPI() {
+        return null;
     }
 
     public boolean isTurnedOn() {
@@ -61,10 +66,6 @@ public abstract class Fridge extends Device implements FridgeState {
         }
     }
 
-    @Override
-    public void setState(FridgeState state) {
-        state.setState(this);
-    }
 }
 
 //package entity.device;

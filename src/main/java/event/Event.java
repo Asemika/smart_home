@@ -1,9 +1,11 @@
 package event;
 
 public class Event {
+    private String type;
     private String description;
 
-    public Event(String description) {
+    public Event(String type, String description) {
+        this.type = type;
         this.description = description;
     }
 

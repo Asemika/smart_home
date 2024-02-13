@@ -3,25 +3,22 @@ package entity.device;
 /**
  * Represents an air conditioner device.
  */
-public abstract class AirCondition extends Device {
+public class AirCondition extends Device {
     private boolean isTurnedOn;
     private int temperature;
     private int externalTemperature;
-
     /**
-     * Constructs an air conditioner with specified parameters.
+     * Constructs an air conditioner with the given parameters.
      *
      * @param name               the name of the air conditioner
-     * @param type               the type of the device
-     * @param activeConsumption  the active consumption of the air conditioner
-     * @param idleConsumption    the idle consumption of the air conditioner
-     * @param turnedOffConsumption the consumption when the air conditioner is turned off
+     * @param type               the type of the air conditioner
+     * @param powerConsumption   the power consumption of the air conditioner when turned on (in watts)
+     * @param idleConsumption    the power consumption of the air conditioner in idle state (in watts)
+     * @param turnedOffConsumption  the power consumption of the air conditioner when turned off (in watts)
      */
-    public AirCondition(String name, DeviceType type, double activeConsumption, double idleConsumption, double turnedOffConsumption) {
-        super(name, type, activeConsumption, idleConsumption, turnedOffConsumption);
-        this.isTurnedOn = false;
-        this.temperature = 20; // Default temperature
-        this.externalTemperature = 25; // Default external temperature
+    public AirCondition(String name, DeviceType type, double powerConsumption, double idleConsumption, double turnedOffConsumption) {
+        super(name, type, powerConsumption, idleConsumption, turnedOffConsumption);
+        this.temperature = 20; // Default temperature setting
     }
 
     @Override
@@ -40,6 +37,11 @@ public abstract class AirCondition extends Device {
         }
     }
 
+    @Override
+    public Object getElectricityAPI() {
+        return null;
+    }
+
     /**
      * Checks if the air conditioner is turned on.
      *
@@ -50,26 +52,22 @@ public abstract class AirCondition extends Device {
     }
 
     /**
-     * Gets the temperature setting of the air conditioner.
+     * Gets the current temperature setting of the air conditioner.
      *
-     * @return the temperature setting
+     * @return the current temperature setting of the air conditioner (in Celsius)
      */
     public int getTemperature() {
         return temperature;
     }
 
     /**
-     * Sets the temperature of the air conditioner.
+     * Sets the temperature setting of the air conditioner.
      *
-     * @param temperature the temperature to set
+     * @param temperature the desired temperature setting (in Celsius)
      */
     public void setTemperature(int temperature) {
-        if (isTurnedOn) {
-            this.temperature = temperature;
-            System.out.println(getName() + " temperature set to " + temperature + " degrees Celsius.");
-        } else {
-            System.out.println(getName() + " is turned off. Please turn it on first.");
-        }
+        this.temperature = temperature;
+        System.out.println("Temperature setting of " + getName() + " changed to " + temperature + "°C");
     }
 
     /**

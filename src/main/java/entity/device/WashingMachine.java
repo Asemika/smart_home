@@ -2,7 +2,7 @@ package entity.device;
 
 import API.ElectricityAPI;
 
-public abstract class WashingMachine extends Device {
+public class WashingMachine extends Device {
 
     private boolean isTurnedOn;
     private boolean isWashing;
@@ -10,12 +10,13 @@ public abstract class WashingMachine extends Device {
 
     private ElectricityAPI electricityAPI;
 
-    public WashingMachine() {
+    public WashingMachine(String name, DeviceType type, double activeConsumption, double idleConsumption, double turnedOffConsumption, ElectricityAPI electricityAPI) {
         super(name, type, activeConsumption, idleConsumption, turnedOffConsumption);
         this.isTurnedOn = false;
         this.isWashing = false;
         this.electricityAPI = electricityAPI;
     }
+
 
     @Override
     public void turnOn() {
@@ -34,6 +35,11 @@ public abstract class WashingMachine extends Device {
                 stopWashing();
             }
         }
+    }
+
+    @Override
+    public Object getElectricityAPI() {
+        return null;
     }
 
     public void startWashing() {

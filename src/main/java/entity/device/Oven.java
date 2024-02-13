@@ -1,6 +1,5 @@
 package entity.device;
 
-import API.OvenModeStrategy;
 import entity.device.patterns.BakingModeStrategy;
 import entity.device.patterns.DefrostModeStrategy;
 import entity.device.patterns.GrillModeStrategy;
@@ -8,11 +7,11 @@ import entity.device.patterns.GrillModeStrategy;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Oven extends Device {
+public class Oven extends Device {
     private boolean isTurnedOn;
-    private OvenMode currentMode;
+    private entity.device.OvenMode currentMode;
     private int currentTemperature;
-    private Map<OvenMode, OvenModeStrategy> modeStrategies;
+    private Map<entity.device.OvenMode, OvenMode> modeStrategies;
 
     public Oven(String name, DeviceType type, double activeConsumption, double idleConsumption, double turnedOffConsumption) {
         super(name, type, activeConsumption, idleConsumption, turnedOffConsumption);
@@ -31,20 +30,25 @@ public abstract class Oven extends Device {
         System.out.println(getName() + " is turned off.");
     }
 
+    @Override
+    public Object getElectricityAPI() {
+        return null;
+    }
+
     public boolean isTurnedOn() {
         return isTurnedOn;
     }
 
-    public void addModeStrategy(OvenMode mode, OvenModeStrategy strategy) {
+    public void addModeStrategy(entity.device.OvenMode mode, OvenMode strategy) {
         modeStrategies.put(mode, strategy);
     }
 
-    public void removeModeStrategy(OvenMode mode) {
+    public void removeModeStrategy(entity.device.OvenMode mode) {
         modeStrategies.remove(mode);
     }
 
     public void executeMode() {
-        OvenModeStrategy strategy = modeStrategies.get(currentMode);
+        OvenMode strategy = modeStrategies.get(currentMode);
         if (strategy != null) {
             strategy.execute(this);
         } else {
@@ -53,16 +57,16 @@ public abstract class Oven extends Device {
     }
 
     private void initDefaultStrategies() {
-        addModeStrategy(OvenMode.BAKING, (OvenModeStrategy) new BakingModeStrategy());
-        addModeStrategy(OvenMode.DEFROST, (OvenModeStrategy) new DefrostModeStrategy());
-        addModeStrategy(OvenMode.GRILL, (OvenModeStrategy) new GrillModeStrategy());
+        addModeStrategy(entity.device.OvenMode.BAKING, (OvenMode) new BakingModeStrategy());
+        addModeStrategy(entity.device.OvenMode.DEFROST, (OvenMode) new DefrostModeStrategy());
+        addModeStrategy(entity.device.OvenMode.GRILL, (OvenMode) new GrillModeStrategy());
     }
 
-    public void setCurrentMode(OvenMode mode) {
+    public void setCurrentMode(entity.device.OvenMode mode) {
         this.currentMode = mode;
     }
 
-    public OvenMode getCurrentMode() {
+    public entity.device.OvenMode getCurrentMode() {
         return currentMode;
     }
 

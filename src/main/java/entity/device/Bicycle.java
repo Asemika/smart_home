@@ -1,6 +1,6 @@
 package entity.device;
 import entity.device.DeviceType;
-public abstract class Bicycle extends Device {
+public class Bicycle extends Device {
     private boolean isMoving;
     private int speed;
     private boolean isAtHome;
@@ -106,5 +106,10 @@ public abstract class Bicycle extends Device {
     public void updateTireStatus(boolean inflated) {
         areTiresInflated = inflated;
         System.out.println("Tire status updated. Are Tires Inflated: " + areTiresInflated);
+    }
+
+    @Override
+    public Object getElectricityAPI() {
+        return null;
     }
 }

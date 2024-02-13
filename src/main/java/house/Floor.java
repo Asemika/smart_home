@@ -9,9 +9,6 @@ import java.util.List;
 public class Floor {
     private List<Room> rooms;
 
-    /**
-     * Constructs a new Floor object.
-     */
     public Floor() {
         this.rooms = new ArrayList<>();
     }

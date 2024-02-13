@@ -3,7 +3,7 @@ package entity.device;
 /**
  * Represents a TV device.
  */
-public abstract class TV extends Device {
+public class TV extends Device {
     private boolean isTurnedOn;
     private int volume;
 
@@ -35,6 +35,11 @@ public abstract class TV extends Device {
             isTurnedOn = false;
             System.out.println(getName() + " is turned off.");
         }
+    }
+
+    @Override
+    public Object getElectricityAPI() {
+        return null;
     }
 
     public boolean isTurnedOn() {

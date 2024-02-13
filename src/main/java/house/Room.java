@@ -1,24 +1,22 @@
 package house;
 
+import entity.device.Device;
+import entity.sensor.Sensor;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import entity.device.Device;
-import house.Window;
-import entity.device.Blinds;
-import entity.sensor.Sensor;
 
 public class Room {
     private String name;
     private List<Device> devices;
-    private List<Sensor> sensors;
     private List<Window> windows;
+    private List<Sensor> sensors;
 
     public Room(String name) {
         this.name = name;
         this.devices = new ArrayList<>();
-        this.sensors = new ArrayList<>();
         this.windows = new ArrayList<>();
+        this.sensors = new ArrayList<>();
     }
 
     public String getName() {
@@ -33,14 +31,6 @@ public class Room {
         return devices;
     }
 
-    public void addSensor(Sensor sensor) {
-        sensors.add(sensor);
-    }
-
-    public List<Sensor> getSensors() {
-        return sensors;
-    }
-
     public void addWindow(Window window) {
         windows.add(window);
     }
@@ -49,11 +39,11 @@ public class Room {
         return windows;
     }
 
-    public List<Blinds> getAllBlinds() {
-        List<Blinds> blinds = new ArrayList<>();
-        for (Window window : windows) {
-            blinds.add(window.getBlinds());
-        }
-        return blinds;
+    public void addSensor(Sensor sensor) {
+        sensors.add(sensor);
+    }
+
+    public List<Sensor> getSensors() {
+        return sensors;
     }
 }
