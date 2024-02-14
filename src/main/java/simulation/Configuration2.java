@@ -81,7 +81,7 @@ public class Configuration2 {
         airConditions.add(airCondition3);
 
         SmartSpeaker smartSpeaker = new SmartSpeaker();
-        Oven oven = new Oven();
+        Oven oven = new Oven(idleConsumption, turnedOffConsumption);
         WashingMachine washingMachine = new WashingMachine();
         Microwave microwave = new Microwave();
         Light lightSystem = new Light();

@@ -29,10 +29,8 @@ public class HouseTest {
         assertNotNull(house.getLightSystem());
         assertNotNull(house.getFireSystem());
         assertNotNull(house.getWaterLeakSystem());
-        assertNotNull(house.getBackupGenerator());
         assertEquals(Light.class, house.getLightSystem().getClass());
         assertEquals(FireSystem.class, house.getFireSystem().getClass());
         assertEquals(WaterLeakSystem.class, house.getWaterLeakSystem().getClass());
-        assertEquals(BackupGenerator.class, house.getBackupGenerator().getClass());
     }
 }

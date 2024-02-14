@@ -8,9 +8,6 @@ import systems.LightSystem;
 public class LightAPI implements FixAPI {
     LightSystem lightSystem;
 
-    public LightAPI(Light lightSystem) {
-        this.lightSystem= lightSystem;
-    }
 
     public void turnOn(Room room) {
         lightSystem.turnLightOn(room);

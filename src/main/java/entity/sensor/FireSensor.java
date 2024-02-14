@@ -11,7 +11,7 @@ import systems.WaterLeakSystem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FireSensor extends Device implements Observer {
+public class FireSensor extends Device  {
     private List<Observer> observers = new ArrayList<>();
 
     public FireSensor(List<Observer> observers) {
@@ -20,11 +20,6 @@ public class FireSensor extends Device implements Observer {
 
     public FireSensor() {
         turnOn();
-    }
-
-    @Override
-    public void update(Event event, Fridge fridge) {
-
     }
 
     @Override
@@ -50,45 +45,11 @@ public class FireSensor extends Device implements Observer {
         getEventAPI().addNewEventReportStruct(new EventReportStruct(event, sourceSensor, listeners));
     }
 
-    @Override
-    public void update(Event event, FireSensor fireSensor) {
-
-    }
-
-    @Override
-    public void update(Event event, PowerOutageSensor powerOutageSensor) {
-
-    }
-
-    @Override
-    public void update(Event event, StrongWindSensor strongWindSensor) {
-
-    }
-
-    @Override
-    public void notifySystem() {
-        Event event = new Event("Fire detected", "Fire detected in the house");
-        notifyAllObservers(event);
-    }
-
-    @Override
-    public void attach(WaterLeakSystem waterLeakSystem) {
-        System.out.println("Attached to water leak system");
-    }
 
     @Override
     public void turnOn() {
         System.out.println("Fire sensor turned on");
     }
 
-    @Override
-    public void increaseTemp(int temp) {
-
-    }
-
-    @Override
-    public void decreaseTemp(int temp) {
-
-    }
 
 }

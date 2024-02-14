@@ -14,7 +14,7 @@ import systems.WaterLeakSystem;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Device implements Observer, Sensor {
+public class Device implements Sensor {
     private final int MAX_USAGE_CONSTANT = 1500;
     private ActivityState activityState = new TurnedOffState();
     private BreakdownsState breakdownsState = new FixedState();
@@ -118,11 +118,6 @@ public abstract class Device implements Observer, Sensor {
     }
 
     @Override
-    public void update(Event event, WaterLeakSensor sensor) {
-        this.turnOff();
-    }
-
-    @Override
     public void attach(Observer observer) {
         observers.add(observer);
     }
@@ -160,16 +155,6 @@ public abstract class Device implements Observer, Sensor {
         return "Device: " + name + " (" + type + ")";
     }
 
-
-    public abstract void notifySystem();
-
-    public abstract void attach(WaterLeakSystem waterLeakSystem);
-
-    public abstract void increaseTemp(int temp);
-
-    public abstract void decreaseTemp(int temp);
-
-    public abstract void update(Event event, AirCondition airCondition);
 }
 
 //package entity.device;

@@ -11,9 +11,6 @@ import house.Floor;
 import house.Room;
 import house.Window;
 
-import java.util.List;
-import java.util.Random;
-
 public class Person implements Observer {
     private final String name;
     private final Floor currentFloor;
@@ -26,11 +23,11 @@ public class Person implements Observer {
 
     public Person(String name, Floor currentFloor, Room currentRoom,
                   CarAPI carAPI, BicycleAPI bicycleAPI, ElectronicAPI electronicAPI) {
+        this.bicycleAPI = bicycleAPI;
+        this.carAPI = carAPI;
         this.name = name;
         this.currentFloor = currentFloor;
         this.currentRoom = currentRoom;
-        this.carAPI = carAPI;
-        this.bicycleAPI = bicycleAPI;
         this.electronicAPI = electronicAPI;
     }
 
@@ -41,6 +38,7 @@ public class Person implements Observer {
     public Activity getPersonActivityAPI() {
         return personActivityAPI;
     }
+
 
     public void watchTV() {
         personActivityAPI.setTvCounter(personActivityAPI.getTvCounter() + 1);
@@ -58,6 +56,7 @@ public class Person implements Observer {
         personActivityAPI.setSkiCounter(personActivityAPI.getSkiCounter() + 1);
         skis.useSkis();
     }
+
     public void washClothes() {
         personActivityAPI.setWashingMachineCounter(personActivityAPI.getWashingMachineCounter() + 1);
 
@@ -114,10 +113,15 @@ public class Person implements Observer {
         electronicAPI.getResult().getLightApi().turnOff(currentRoom);
     }
 
-
-    public void listenToMusicWithRemote() {
+    public void listenToMusic() {
         personActivityAPI.setSmartSpeakerCounter(personActivityAPI.getSmartSpeakerCounter() + 1);
+        electronicAPI.getResult().getSmartSpeakerApi().turnOn();
+        electronicAPI.getResult().getSmartSpeakerApi().playMusic();
+        electronicAPI.getResult().getSmartSpeakerApi().changeMusicForward();
+        electronicAPI.getResult().getSmartSpeakerApi().changeMusicForward();
+        electronicAPI.getResult().getSmartSpeakerApi().turnOff();
     }
+
 
     public void openWindows(Room room) {
         personActivityAPI.setWindowsCounter(personActivityAPI.getWindowsCounter() + 1);
@@ -133,62 +137,9 @@ public class Person implements Observer {
         }
     }
 
-    /**
-     * chooses randomly one of the methods of person to use some device or to do sport.
-     */
-    public void doRandomActivity() {
-        int numOfActivities = 12; // Уменьшаем количество действий, чтобы учитывать только действия без еды
-        Random rand = new Random();
-        int randNum = rand.nextInt(numOfActivities);
-        switch (randNum) {
-            case 0:
-                watchTV();
-                break;
-            case 1:
-                washClothes();
-                break;
-            case 2:
-                blindsDown();
-                break;
-            case 3:
-                blindsUp();
-                break;
-            case 4:
-                increaseTemp(5);
-                break;
-            case 5:
-                decreaseTemp(5);
-                break;
-            case 6:
-                turnOnLightSystem();
-                break;
-            case 7:
-                turnOffLightSystem();
-                break;
-            case 8:
-                openWindows(currentRoom);
-                break;
-            case 9:
-                closeWindows(currentRoom);
-                break;
-            case 10:
-                listenToMusicWithRemote();
-                break;
-            default:
-                System.out.println("No activity selected.");
-        }
-    }
-
-
-    public void changeRoom(List<Room> rooms) {
-        Random random = new Random();
-        int randRoomIndex = random.nextInt(rooms.size());
-        currentRoom = rooms.get(randRoomIndex);
-    }
-
     @Override
-    public void update(Event event, WaterLeakSensor sensor) {
-        if (event.getEventType().equals("BROKEN_DEVICE")) {
+    public void update(Event event, Sensor sensor) {
+        if (event.getEventType().equals(EventType.BROKEN_DEVICE)) {
             if (sensor instanceof Fridge) {
                 Documentation documentation = electronicAPI.getResult().getFridgeApi().getDocumentation();
                 electronicAPI.getResult().getFridgeApi().fixDevice(documentation);
@@ -212,40 +163,5 @@ public class Person implements Observer {
                 electronicAPI.getResult().getAirConditionAPI().fixDevice(documentation);
             }
         }
-    }
-
-    @Override
-    public void update(Event event, Fridge fridge) {
-
-    }
-
-    @Override
-    public void attach(Observer observer) {
-
-    }
-
-    @Override
-    public void detach(Observer observer) {
-
-    }
-
-    @Override
-    public void notifyAllObservers(Event event) {
-
-    }
-
-    @Override
-    public void update(Event event, FireSensor fireSensor) {
-
-    }
-
-    @Override
-    public void update(Event event, PowerOutageSensor powerOutageSensor) {
-
-    }
-
-    @Override
-    public void update(Event event, StrongWindSensor strongWindSensor) {
-
     }
 }

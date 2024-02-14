@@ -1,7 +1,6 @@
 package event;
 
 public enum EventType {
-//    STRONG_WIND, FIRE, WATER_LEAK, POWER_OUTAGE, BROKEN_DEVICE
     ;
     public static final String FIRE = "FIRE";
     public static final String WATER_LEAK = "WATER_LEAK";
