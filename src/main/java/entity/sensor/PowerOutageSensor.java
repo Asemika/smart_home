@@ -13,7 +13,7 @@ import systems.WaterLeakSystem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PowerOutageSensor extends Device {
+public class PowerOutageSensor extends Device implements Sensor {
     List<Observer> observers = new ArrayList<>();
     BackupGenerator backupGenerator;
 

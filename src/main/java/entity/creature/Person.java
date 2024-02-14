@@ -11,6 +11,9 @@ import house.Floor;
 import house.Room;
 import house.Window;
 
+import java.util.List;
+import java.util.Random;
+
 public class Person implements Observer {
     private final String name;
     private final Floor currentFloor;
@@ -136,7 +139,57 @@ public class Person implements Observer {
             window.close();
         }
     }
-
+    public void doRandomActivity() {
+        int numOfActivities = 14;
+        Random rand = new Random();
+        int randNum = rand.nextInt(numOfActivities);
+        switch (randNum) {
+            case 0 -> {
+                watchTV();
+            }
+            case 1 -> {
+                washClothes();
+            }
+            case 2 -> {
+                blindsDown();
+            }
+            case 3 -> {
+                blindsUp();
+            }
+            case 4 -> {
+                increaseTemp(5);
+            }
+            case 5 -> {
+                decreaseTemp(5);
+            }
+            case 6 -> {
+                turnOnLightSystem();
+            }
+            case 7 -> {
+                turnOffLightSystem();
+            }
+            case 8 -> {
+                openWindows(currentRoom);
+            }
+            case 9 -> {
+                closeWindows(currentRoom);
+            }
+            case 10 -> {
+                listenToMusic();
+            }
+            case 11 -> {
+                driveCar();
+            }
+            case 12 -> {
+                useSkis();
+            }
+        }
+    }
+    public void changeRoom(List<Room> rooms) {
+        Random random = new Random();
+        int randRoomIndex = random.nextInt(rooms.size());
+        currentRoom = rooms.get(randRoomIndex);
+    }
     @Override
     public void update(Event event, Sensor sensor) {
         if (event.getEventType().equals(EventType.BROKEN_DEVICE)) {

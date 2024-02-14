@@ -14,7 +14,7 @@ import systems.WaterLeakSystem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Device implements Sensor {
+public class Device implements Sensor, Observer {
     private final int MAX_USAGE_CONSTANT = 1500;
     private ActivityState activityState = new TurnedOffState();
     private BreakdownsState breakdownsState = new FixedState();
@@ -27,7 +27,7 @@ public class Device implements Sensor {
     public String type;
     private String name;
 
-    public Device(String s, DeviceType bicycle, int kWPerHour, int i, int i1) {
+    public Device( int kWPerHour) {
         this.kWPerHour = kWPerHour;
     }
 
@@ -116,7 +116,10 @@ public class Device implements Sensor {
         breakdownsState.fixDevice(this);
         wearOut = 0;
     }
-
+    @Override
+    public void update(Event event, Sensor sensor){
+        this.turnOff();
+    }
     @Override
     public void attach(Observer observer) {
         observers.add(observer);
@@ -138,113 +141,17 @@ public class Device implements Sensor {
         List<Observer> listeners = new ArrayList<>();
 
         if (observers.size() > 0) {
-            observers.get(0).update(event, (WaterLeakSensor) sourceSensor);
+            observers.get(0).update(event, this);
             listeners.add(observers.get(0));
-            getEventAPI().addNewEventReportStruct(new EventReportStruct(event, (WaterLeakSensor) sourceSensor, listeners));
-        } else {
+            getEventAPI().addNewEventReportStruct(new EventReportStruct(event, sourceSensor, listeners));
+        } else
             System.out.println("No attached observers");
-        }
+
     }
 
 
     public int getMAX_USAGE_CONSTANT() {
         return MAX_USAGE_CONSTANT;
     }
-    @Override
-    public String toString() {
-        return "Device: " + name + " (" + type + ")";
-    }
-
 }
 
-//package entity.device;
-//
-//import API.ElectricityAPI;
-//import entity.creature.Person;
-//import event.Event;
-//
-//public abstract class Device {
-//    private String name;
-//    private DeviceType type;
-//    private DeviceState state;
-//    private double activeConsumption;
-//    private double idleConsumption;
-//    private double turnedOffConsumption;
-//    private double kWPerHour;
-//
-//    // Объект API электропотребления
-//    private ElectricityAPI electricityAPI;
-//
-//    public Device(String name, DeviceType type, double activeConsumption, double idleConsumption, double turnedOffConsumption) {
-//        this.name = name;
-//        this.type = type;
-//        this.state = DeviceState.OFF;
-//        this.activeConsumption = activeConsumption;
-//        this.idleConsumption = idleConsumption;
-//        this.turnedOffConsumption = turnedOffConsumption;
-//    }
-//
-//    public Device() {
-//
-//    }
-//
-//    public void turnOn() {
-//        this.state = DeviceState.ON;
-//        System.out.println(name + " is turned on.");
-//    }
-//
-//    public void turnOff() {
-//        this.state = DeviceState.OFF;
-//        System.out.println(name + " is turned off.");
-//    }
-//
-//    public DeviceType getType() {
-//        return type;
-//    }
-//
-//    public DeviceState getState() {
-//        return state;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public double getActiveConsumption() {
-//        return activeConsumption;
-//    }
-//
-//    public double getIdleConsumption() {
-//        return idleConsumption;
-//    }
-//
-//    public double getTurnedOffConsumption() {
-//        return turnedOffConsumption;
-//    }
-//
-//    // Получение объекта API электропотребления
-//    public ElectricityAPI getElectricityAPI() {
-//        return electricityAPI;
-//    }
-//
-//    // Установка объекта API электропотребления
-//    public void setElectricityAPI(ElectricityAPI electricityAPI) {
-//        this.electricityAPI = electricityAPI;
-//    }
-//
-//    public double getkWPerHour() {
-//        return kWPerHour;
-//    }
-//
-//    public void setkWPerHour(double kWPerHour) {
-//        this.kWPerHour = kWPerHour;
-//    }
-//
-//    public void attach(Person person) {
-//    }
-//
-//    public void notifyAllObservers(Event event) {
-//    }
-//
-////    public abstract Object getElectricityAPI();
-//}

@@ -4,12 +4,13 @@ import entity.device.Device;
 import entity.device.Fridge;
 import entity.device.Observer;
 import event.Event;
+import event.EventType;
 import systems.WaterLeakSystem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BackupGenerator extends Device  {
+public class BackupGenerator extends Device implements Observer {
     private List<Device> devices = new ArrayList<>();
 
     public void BackupGenerator() {
@@ -24,4 +25,14 @@ public class BackupGenerator extends Device  {
         devices.add(device);
     }
 
+    @Override
+    public void update(Event event, Sensor sensor) {
+        if (event.getEventType() == EventType.POWER_OUTAGE) {
+            getActivityState().turnOn(this);
+            System.out.println("Turning on all devices");
+            for (Device device : devices) {
+                device.turnOn();
+            }
+        }
+    }
 }

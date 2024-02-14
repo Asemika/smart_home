@@ -11,7 +11,7 @@ import systems.WaterLeakSystem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FireSensor extends Device  {
+public class FireSensor extends Device implements Sensor {
     private List<Observer> observers = new ArrayList<>();
 
     public FireSensor(List<Observer> observers) {

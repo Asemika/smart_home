@@ -10,7 +10,7 @@ import systems.WaterLeakSystem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WaterLeakSensor extends Device {
+public class WaterLeakSensor extends Device implements Sensor{
     List<Observer> observers = new ArrayList<>();
 
     public WaterLeakSensor(List<Observer> observers) {
