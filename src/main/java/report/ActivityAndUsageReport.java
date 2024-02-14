@@ -30,7 +30,7 @@ public class ActivityAndUsageReport  implements Reportable {
                 writer.write("  TV: " + person.getPersonActivityAPI().getTvCounter() + "\n");
                 writer.write("  Fridge: " + person.getPersonActivityAPI().getFridgeCounter() + "\n");
                 writer.write("  SmartSpeaker: " + person.getPersonActivityAPI().getSmartSpeakerCounter() + "\n");
-                writer.write("  Owen: " + person.getPersonActivityAPI().getOwenCounter() + "\n");
+                writer.write("  Oven: " + person.getPersonActivityAPI().getOvenCounter() + "\n");
                 writer.write("  Microwave: " + person.getPersonActivityAPI().getMicrowaveCounter() + "\n");
                 writer.write("  WashingMachine: " + person.getPersonActivityAPI().getWashingMachineCounter() + "\n");
                 writer.write("  Blinds: " + person.getPersonActivityAPI().getBlindsCounter() + "\n");

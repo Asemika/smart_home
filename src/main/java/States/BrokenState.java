@@ -16,5 +16,5 @@ public class BrokenState implements BreakdownsState {
         public void breakDevice(Device device) {
             System.out.println("Device is still broken");
         }
-    }
 }
+

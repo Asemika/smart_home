@@ -1,10 +1,7 @@
 package API;
 import entity.device.Documentation;
-//import entity.device.Food;
 import entity.device.Oven;
-import States.TurnedOnState;
 
-import java.util.List;
     public class OvenAPI implements FixAPI {
         Oven oven;
 
@@ -31,6 +28,6 @@ import java.util.List;
 
         }
 
-        public void execute(Oven oven) {
-        }
+//        public void execute(Oven oven) {
+//        }
     }

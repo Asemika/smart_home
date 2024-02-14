@@ -2,6 +2,9 @@ package entity.device;
 
 import API.ElectricityAPI;
 import API.OvenAPI;
+import entity.sensor.FireSensor;
+import entity.sensor.PowerOutageSensor;
+import entity.sensor.StrongWindSensor;
 import event.Event;
 import systems.WaterLeakSystem;
 //import entity.device.patterns.BakingModeStrategy;
@@ -110,6 +113,21 @@ public class Oven extends Device {
 
     @Override
     public void update(Event event, Fridge fridge) {
+
+    }
+
+    @Override
+    public void update(Event event, FireSensor fireSensor) {
+
+    }
+
+    @Override
+    public void update(Event event, PowerOutageSensor powerOutageSensor) {
+
+    }
+
+    @Override
+    public void update(Event event, StrongWindSensor strongWindSensor) {
 
     }
 }

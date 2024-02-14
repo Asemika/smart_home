@@ -1,6 +1,9 @@
 
 package entity.device;
 
+import entity.sensor.FireSensor;
+import entity.sensor.PowerOutageSensor;
+import entity.sensor.StrongWindSensor;
 import event.Event;
 import systems.WaterLeakSystem;
 
@@ -27,6 +30,21 @@ public class Microwave extends Device {
 
     @Override
     public void update(Event event, Fridge fridge) {
+
+    }
+
+    @Override
+    public void update(Event event, FireSensor fireSensor) {
+
+    }
+
+    @Override
+    public void update(Event event, PowerOutageSensor powerOutageSensor) {
+
+    }
+
+    @Override
+    public void update(Event event, StrongWindSensor strongWindSensor) {
 
     }
     // nenuzhny class tut pusto

@@ -4,8 +4,7 @@ import API.CarAPI;
 import API.ElectronicAPI;
 import activities.Activity;
 import entity.device.*;
-import entity.sensor.Sensor;
-import entity.sensor.WaterLeakSensor;
+import entity.sensor.*;
 import event.Event;
 import event.EventType;
 import house.Floor;
@@ -107,12 +106,12 @@ public class Person implements Observer {
 
     public void turnOnLightSystem() {
         personActivityAPI.setLightSystemCounter(personActivityAPI.getLightSystemCounter() + 1);
-        electronicAPI.getResult().getLightSystemApi().turnOn(currentRoom);
+        electronicAPI.getResult().getLightApi().turnOn(currentRoom);
     }
 
     public void turnOffLightSystem() {
         personActivityAPI.setLightSystemCounter(personActivityAPI.getLightSystemCounter() + 1);
-        electronicAPI.getResult().getLightSystemApi().turnOff(currentRoom);
+        electronicAPI.getResult().getLightApi().turnOff(currentRoom);
     }
 
 
@@ -206,8 +205,8 @@ public class Person implements Observer {
                 Documentation documentation = electronicAPI.getResult().getWashingMachineApi().getDocumentation();
                 electronicAPI.getResult().getWashingMachineApi().fixDevice(documentation);
             } else if (sensor instanceof Oven) {
-                Documentation documentation = electronicAPI.getResult().getOwenApi().getDocumentation();
-                electronicAPI.getResult().getOwenApi().fixDevice(documentation);
+                Documentation documentation = electronicAPI.getResult().getOvenApi().getDocumentation();
+                electronicAPI.getResult().getOvenApi().fixDevice(documentation);
             } else if (sensor instanceof AirCondition) {
                 Documentation documentation = electronicAPI.getResult().getAirConditionAPI().getDocumentation();
                 electronicAPI.getResult().getAirConditionAPI().fixDevice(documentation);
@@ -220,9 +219,33 @@ public class Person implements Observer {
 
     }
 
+    @Override
+    public void attach(Observer observer) {
+
+    }
 
     @Override
-    public void update(Event event, Sensor sensor) {
+    public void detach(Observer observer) {
+
+    }
+
+    @Override
+    public void notifyAllObservers(Event event) {
+
+    }
+
+    @Override
+    public void update(Event event, FireSensor fireSensor) {
+
+    }
+
+    @Override
+    public void update(Event event, PowerOutageSensor powerOutageSensor) {
+
+    }
+
+    @Override
+    public void update(Event event, StrongWindSensor strongWindSensor) {
 
     }
 }

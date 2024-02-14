@@ -4,13 +4,11 @@ package simulation;
 import API.*;
 import entity.creature.Person;
 import entity.device.*;
-import entity.sensor.BackupGenerator;
-import entity.sensor.FireSensor;
-import entity.sensor.PowerOutageSensor;
-import entity.sensor.WaterLeakSensor;
+import entity.sensor.*;
 import house.*;
 import entity.creature.Pet;
 import systems.FireSystem;
+import systems.LightSystem;
 import systems.WaterLeakSystem;
 
 
@@ -94,15 +92,15 @@ public class Configuration {
                 .setFridgeApi(new FridgeAPI(fridge))
                 .setTvApi(new TvAPI(tv))
                 .setBlindsApi(new BlindsAPI(allBlinds))
-                .setMicrowaveMode(new MicrowaveAPI(microwave))
+                .setMicrowaveApi(new MicrowaveAPI(microwave))
                 .setSmartSpeakerApi(new SmartSpeakerAPI(smartSpeaker))
-                .setOwenApi(new OvenAPI(oven))
+                .setOvenApi(new OvenAPI(oven))
                 .setAirConditionApi(new AirConditionAPI(airConditions))
-                .setLightSystemApi(new Light())
+                .setLightApi(new Light(LightSystem))
                 .setWashingMachineApi(new WashingMachineAPI(washingMachine));
 
 
-        init_people(people, peopleNames, floor, livingRoom, carAPI, new BicycleAPI(new Bicycle(true, true)));
+        init_people(people, peopleNames, floor, livingRoom, carAPI, new BicycleAPI(new Bicycle()));
 
         init_pets(pets, livingRoom);
 
@@ -119,7 +117,7 @@ public class Configuration {
 
         setUpFireSensors(house.getBackupGenerator(), devicesWithConsumption, sensors, kitchen, bathRoom, livingRoom, entertainmentRoom, bedRoom);
 
-//        setUpStrongWindSensor(allBlinds, livingRoom, devicesWithConsumption, sensors);
+        setUpStrongWindSensor(allBlinds, livingRoom, devicesWithConsumption, sensors);
 
         attachPeopleToBreakableDevices(people, fridge, tv, airCondition, airCondition2, oven, microwave, washingMachine, smartSpeaker);
 
@@ -281,7 +279,15 @@ public class Configuration {
             sensors.add(powerOutageSensor);
         }
     }
-
+    private void setUpStrongWindSensor(List<Blinds> allBlinds, Room livingRoom, List<Device> devicesWithConsumption, List<Device> sensors) {
+        StrongWindSensor strongWindSensor = new StrongWindSensor();
+        for (Blinds b : allBlinds) {
+            strongWindSensor.attach(b);
+        }
+        livingRoom.addSensor(strongWindSensor);
+        devicesWithConsumption.add(strongWindSensor);
+        sensors.add(strongWindSensor);
+    }
 
     /**
      * method for creating people.

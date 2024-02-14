@@ -4,7 +4,7 @@ public class Activity {
     private int fridgeCounter;
     private int tvCounter;
     private int smartSpeakerCounter;
-    private int owenCounter;
+    private int ovenCounter;
     private int microwaveCounter;
     private int washingMachineCounter;
     private int blindsCounter;
@@ -76,12 +76,12 @@ public class Activity {
         this.smartSpeakerCounter = smartSpeakerCounter;
     }
 
-    public int getOwenCounter() {
-        return owenCounter;
+    public int getOvenCounter() {
+        return ovenCounter;
     }
 
-    public void setOwenCounter(int owenCounter) {
-        this.owenCounter = owenCounter;
+    public void setOvenCounter(int ovenCounter) {
+        this.ovenCounter = ovenCounter;
     }
 
     public int getMicrowaveCounter() {

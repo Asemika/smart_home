@@ -1,6 +1,7 @@
 package simulation;
 
 import API.*;
+import API.MicrowaveAPI;
 import entity.creature.Person;
 import entity.creature.Pet;
 import entity.device.*;
@@ -80,29 +81,29 @@ public class Configuration2 {
         airConditions.add(airCondition3);
 
         SmartSpeaker smartSpeaker = new SmartSpeaker();
-        Oven owen = new Oven();
+        Oven oven = new Oven();
         WashingMachine washingMachine = new WashingMachine();
         Microwave microwave = new Microwave();
-        Light light = new Light();
+        Light lightSystem = new Light();
 
         addDevicesWithConsumption(devicesWithConsumption, fridge, tv, airCondition, airCondition2, smartSpeaker,
-                owen, washingMachine, microwave, light, airCondition3);
+                oven, washingMachine, microwave, lightSystem, airCondition3);
 
         ElectronicAPI electronicApiBuilder = new ElectronicAPI()
                 .setFridgeApi(new FridgeAPI(fridge))
                 .setTvApi(new TvAPI(tv))
                 .setBlindsApi(new BlindsAPI(allBlinds))
-                .setMicrowaveApi(new MicrowaveAP(microwave))
+                .setMicrowaveApi(new MicrowaveAPI(microwave))
                 .setSmartSpeakerApi(new SmartSpeakerAPI(smartSpeaker))
-                .setOwenApi(new OvenAPI(owen))
+                .setOvenApi(new OvenAPI(oven))
                 .setAirConditionApi(new AirConditionAPI(airConditions))
-                .setLightSystemApi(new LightAPI(light))
+                .setLightApi(new LightAPI(lightSystem))
                 .setWashingMachineApi(new WashingMachineAPI(washingMachine));
 
 
         init_people(people, peopleNames, floor, livingRoom, electronicApiBuilder, carAPI, new BicycleAPI(new Bicycle()));
         init_pets(pets, livingRoom);
-        fillRoomWithDevices(kitchen, owen, fridge, microwave);
+        fillRoomWithDevices(kitchen, oven, fridge, microwave);
         fillRoomWithDevices(livingRoom, tv);
         fillRoomWithDevices(bathRoom, washingMachine);
         fillRoomWithDevices(entertainmentRoom, smartSpeaker);
@@ -118,7 +119,7 @@ public class Configuration2 {
 
         setUpStrongWindSensor(allBlinds, livingRoom, devicesWithConsumption, sensors);
 
-        attachPeopleToBreakableDevices(people, fridge, tv, airCondition, airCondition2, airCondition3, owen, microwave, washingMachine, smartSpeaker);
+        attachPeopleToBreakableDevices(people, fridge, tv, airCondition, airCondition2, oven, microwave, washingMachine, smartSpeaker);
 
         for (Device d : devicesWithConsumption) {
             sensors.add(d);
@@ -301,22 +302,17 @@ public class Configuration2 {
         }
     }
 
-//    /**
-//     * factory method for creating a fridge with some food.
-//     *
-//     * @return fridge instance
-//     */
-//    private Fridge initFridge() {
-//        Fridge fridge = new Fridge();
-//        fridge.turnOn();
-//        Food apple = new Food("apple");
-//        Food milk = new Food("milk");
-//        Food meat = new Food("meat");
-//        fridge.addFood(apple);
-//        fridge.addFood(milk);
-//        fridge.addFood(meat);
-//        return fridge;
-//    }
+    /**
+     * factory method for creating a fridge with some food.
+     *
+     * @return fridge instance
+     */
+    private Fridge initFridge() {
+        Fridge fridge = new Fridge();
+        fridge.turnOn();
+        fridge.addFood();
+        return fridge;
+    }
 
     /**
      * @param people

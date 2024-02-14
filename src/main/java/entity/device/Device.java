@@ -3,6 +3,8 @@ package entity.device;
 import API.ElectricityAPI;
 import API.EventAPI;
 import States.*;
+import entity.sensor.Sensor;
+import entity.sensor.SensorType;
 import entity.sensor.WaterLeakSensor;
 import event.Event;
 import event.EventType;
@@ -12,7 +14,7 @@ import systems.WaterLeakSystem;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Device implements Observer  {
+public abstract class Device implements Observer, Sensor {
     private final int MAX_USAGE_CONSTANT = 1500;
     private ActivityState activityState = new TurnedOffState();
     private BreakdownsState breakdownsState = new FixedState();
@@ -30,6 +32,10 @@ public abstract class Device implements Observer  {
     public Device() {
         this.kWPerHour = 1;
     }
+
+//    public Device(SensorType type) {
+//        super(type);
+//    }
 
     public ActivityState getActivityState() {
         return activityState;
@@ -134,16 +140,18 @@ public abstract class Device implements Observer  {
      */
     @Override
     public void notifyAllObservers(Event event) {
-        Device sourceSensor = this;
+        Sensor sourceSensor = this;
         List<Observer> listeners = new ArrayList<>();
 
         if (observers.size() > 0) {
-            observers.get(0).update(event, this);
+            observers.get(0).update(event, sourceSensor);
             listeners.add(observers.get(0));
             getEventAPI().addNewEventReportStruct(new EventReportStruct(event, sourceSensor, listeners));
-        } else System.out.println("No attached observers");
-
+        } else {
+            System.out.println("No attached observers");
+        }
     }
+
 
 
 
@@ -159,6 +167,7 @@ public abstract class Device implements Observer  {
     public String toString() {
         return "Device: " + name + " (" + type + ")";
     }
+
 
     public abstract void notifySystem();
 

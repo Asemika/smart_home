@@ -1,6 +1,9 @@
 package entity.device;
 
+import entity.sensor.FireSensor;
+import entity.sensor.PowerOutageSensor;
 import entity.sensor.Sensor;
+import entity.sensor.StrongWindSensor;
 import event.Event;
 import event.EventType;
 import report.EventReportStruct;
@@ -76,6 +79,21 @@ public class Fridge extends Device implements Observer {
         } else {
             System.out.println("No attached observers in fridge");
         }
+    }
+
+    @Override
+    public void update(Event event, FireSensor fireSensor) {
+
+    }
+
+    @Override
+    public void update(Event event, PowerOutageSensor powerOutageSensor) {
+
+    }
+
+    @Override
+    public void update(Event event, StrongWindSensor strongWindSensor) {
+
     }
 
     @Override
