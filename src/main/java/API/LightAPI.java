@@ -1,13 +1,14 @@
 package API;
 
 import entity.device.Documentation;
+import entity.device.Light;
 import house.Room;
 import systems.LightSystem;
 
 public class LightAPI implements FixAPI {
     LightSystem lightSystem;
 
-    public LightAPI(LightSystem lightSystem) {
+    public LightAPI(Light lightSystem) {
         this.lightSystem= lightSystem;
     }
 

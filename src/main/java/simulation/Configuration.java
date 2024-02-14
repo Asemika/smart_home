@@ -1,4 +1,3 @@
-
 package simulation;
 
 import API.*;
@@ -8,25 +7,22 @@ import entity.sensor.*;
 import house.*;
 import entity.creature.Pet;
 import systems.FireSystem;
-import systems.LightSystem;
 import systems.WaterLeakSystem;
-
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-
 public class Configuration {
     private static Configuration INSTANCE;
     private final String[] rooms = {"kitchen", "livingRoom", "bathRoom", "entertainmentRoom", "bedRoom1", "bedRoom2"};
-    private final String[] peopleNames = {"Andrew", "Ales", "Jiri", "Katerina", "Tomas", "Lana"};
+    private final String[] peopleNames = {"John", "Alice", "Michael", "Roman", "David", "Sophie"};
     private final List<Person> people = new ArrayList<>();
     private final List<Pet> pets = new ArrayList<>();
-    private final List<WaterLeakSensor> devicesWithConsumption = new ArrayList<WaterLeakSensor>();
-    private final List<WaterLeakSensor> sensors = new ArrayList<WaterLeakSensor>();
-    private int initialFoodPercentage;
+    private final List<Device> devicesWithConsumption = new ArrayList<>();
+    private final List<Device> sensors = new ArrayList<>();
+
 
     private Configuration() {
     }
@@ -38,11 +34,6 @@ public class Configuration {
         return INSTANCE;
     }
 
-    /**
-     * factory method returning constructed working instance of house.
-     *
-     * @return House
-     */
     public House initHouse() {
         House house = new House();
 
@@ -62,10 +53,9 @@ public class Configuration {
                 .addRoom(bedRoom)
                 .addRoom(bedRoom2);
 
-
         addOneWindowToEveryRoom(kitchen, livingRoom, bathRoom, entertainmentRoom, bedRoom, bedRoom2);
 
-        List<Blinds> allBlinds = getBlindsFromRooms((List<Room>) floor);
+        List<Blinds> allBlinds = getBlindsFromRooms(floor.getRooms());
 
         Car car = new Car();
         CarAPI carAPI = new CarAPI(car);
@@ -96,13 +86,12 @@ public class Configuration {
                 .setSmartSpeakerApi(new SmartSpeakerAPI(smartSpeaker))
                 .setOvenApi(new OvenAPI(oven))
                 .setAirConditionApi(new AirConditionAPI(airConditions))
-                .setLightApi(new Light(LightSystem))
+                .setLightApi(new LightAPI(lightSystem))
                 .setWashingMachineApi(new WashingMachineAPI(washingMachine));
 
+        initPeople(people, peopleNames, floor, livingRoom, carAPI, new BicycleAPI(new Bicycle()));
 
-        init_people(people, peopleNames, floor, livingRoom, carAPI, new BicycleAPI(new Bicycle()));
-
-        init_pets(pets, livingRoom);
+        initPets(pets, livingRoom);
 
         fillRoomWithDevices(kitchen, oven, fridge, microwave);
         fillRoomWithDevices(livingRoom, tv);
@@ -113,7 +102,7 @@ public class Configuration {
 
         setUpFireSensors(house.getFireSystem(), devicesWithConsumption, sensors, kitchen, livingRoom, bathRoom, entertainmentRoom, bedRoom);
 
-        setUpWaterSensors(house.getWaterLeakSystem(), (WaterLeakSystem) devicesWithConsumption, sensors, (List<Device>) kitchen, bathRoom);
+        setUpWaterSensors(house.getWaterLeakSystem(), devicesWithConsumption, sensors, kitchen, bathRoom);
 
         setUpFireSensors(house.getBackupGenerator(), devicesWithConsumption, sensors, kitchen, bathRoom, livingRoom, entertainmentRoom, bedRoom);
 
@@ -121,21 +110,32 @@ public class Configuration {
 
         attachPeopleToBreakableDevices(people, fridge, tv, airCondition, airCondition2, oven, microwave, washingMachine, smartSpeaker);
 
-        for (WaterLeakSensor d : devicesWithConsumption) {
+        for (Device d : devicesWithConsumption) {
             sensors.add(d);
             d.turnOn();
         }
         return house;
     }
 
-    private void setUpWaterSensors(WaterLeakSystem waterLeakSystem, WaterLeakSystem devicesWithConsumption, List<WaterLeakSensor> sensors, List<Device> kitchen, Room bathRoom) {
-
+    private void setUpWaterSensors(WaterLeakSystem waterLeakSystem, List<Device> devicesWithConsumption, List<Device> sensors, Room... rooms) {
+        for (Room room : rooms) {
+            WaterLeakSensor waterLeakSensor = new WaterLeakSensor();
+            room.addSensor(waterLeakSensor);
+            waterLeakSensor.attach(waterLeakSystem);
+            devicesWithConsumption.add(waterLeakSensor);
+            sensors.add(waterLeakSensor);
+        }
     }
 
-    private void setUpFireSensors(FireSystem backupGenerator, List<WaterLeakSensor> devicesWithConsumption, List<WaterLeakSensor> sensors, Room kitchen, Room bathRoom, Room livingRoom, Room entertainmentRoom, Room bedRoom) {
-
+    private void setUpFireSensors(FireSystem fireSystem, List<Device> devicesWithConsumption, List<Device> sensors, Room... rooms) {
+        for (Room room : rooms) {
+            FireSensor fireSensor = new FireSensor();
+            room.addSensor(fireSensor);
+            fireSensor.attach(fireSystem);
+            devicesWithConsumption.add(fireSensor);
+            sensors.add(fireSensor);
+        }
     }
-
 
     public List<Person> getPeople() {
         return people;
@@ -145,31 +145,20 @@ public class Configuration {
         return pets;
     }
 
-    public List<WaterLeakSensor> getDevicesWithConsumption() {
+    public List<Device> getDevicesWithConsumption() {
         return devicesWithConsumption;
     }
 
-    public List<WaterLeakSensor> getSensors() {
+    public List<Device> getSensors() {
         return sensors;
     }
 
-
-
-    /**
-     * adds one window to every room from param.
-     *
-     * @param rooms
-     */
     private void addOneWindowToEveryRoom(Room... rooms) {
         for (Room room : rooms) {
             room.addWindow(new Window());
         }
     }
 
-    /**
-     * @param rooms
-     * @return all blind from all room on the storey.
-     */
     private List<Blinds> getBlindsFromRooms(List<Room> rooms) {
         List<Blinds> blinds = new ArrayList<>();
         for (Room room : rooms) {
@@ -181,166 +170,52 @@ public class Configuration {
         return blinds;
     }
 
-
-    /**
-     * method to fill several devices to the list.
-     *
-     * @param devicesWithConsumption
-     * @param devices
-     */
-    private void addDevicesWithConsumption(List<WaterLeakSensor> devicesWithConsumption, Device... devices) {
-        devicesWithConsumption.addAll((Collection<? extends WaterLeakSensor>) Arrays.asList(devices));
+    private void addDevicesWithConsumption(List<Device> devicesWithConsumption, Device... devices) {
+        devicesWithConsumption.addAll(Arrays.asList(devices));
     }
 
-    /**
-     * method for pets configuring.
-     *
-     * @param pets
-     * @param room
-     */
-    private void init_pets(List<Pet> pets, Room room) {
+    private void initPets(List<Pet> pets, Room room) {
         Pet cat = new Pet(room, "Cat");
         Pet dog = new Pet(room, "Dog");
         pets.add(cat);
         pets.add(dog);
     }
 
-    /**
-     * adds multiple amount of devices into room.
-     *
-     * @param room
-     * @param devices
-     */
     private void fillRoomWithDevices(Room room, Device... devices) {
         for (Device device : devices) {
             room.addDevice(device);
         }
     }
 
-    /**
-     * adds fireSensor to the room, attaches it to the central fireSystem of the house,
-     * attaches trackers for consumption and event reports.
-     *
-     * @param fireSystem
-     * @param devicesWithConsumption
-     * @param sensors
-     * @param rooms
-     */
-    private void setUpFireSensors(FireSystem fireSystem, List<FireSensor> devicesWithConsumption, List<FireSensor> sensors, Room... rooms) {
-        for (Room room : rooms) {
-            FireSensor fireSensor = new FireSensor() {
-                @Override
-                public void notifySystem() {
-
-                }
-            };
-            room.addSensor(fireSensor);
-            fireSensor.attach(fireSystem);
-            devicesWithConsumption.add(fireSensor);
-            sensors.add(fireSensor);
+    private void initPeople(List<Person> people, String[] peopleNames, Floor floor, Room livingRoom, CarAPI carAPI, BicycleAPI bicycleAPI) {
+        for (String personName : peopleNames) {
+            people.add(new Person(personName, floor, livingRoom, carAPI, bicycleAPI));
         }
     }
 
-    /**
-     * adds waterLeakSensor to the room, attaches it to the central waterLeakSystem of the house,
-     * attaches trackers for consumption and event reports.
-     *
-     * @param waterLeakSystem
-     * @param leakSystem
-     * @param withConsumption
-     * @param devicesWithConsumption
-     * @param rooms
-     */
-    private void setUpWaterSensors(WaterLeakSystem waterLeakSystem, WaterLeakSystem leakSystem, List<Device> withConsumption, List<WaterLeakSensor> devicesWithConsumption, Room... rooms) {
-        for (Room room : rooms) {
-            WaterLeakSensor waterLeakSensor = new WaterLeakSensor();
-            room.addSensor(waterLeakSensor);
-            waterLeakSensor.attach(waterLeakSystem);
-            devicesWithConsumption.add(waterLeakSensor);
-            sensors.add(waterLeakSensor);
-        }
-    }
-
-    /**
-     * adds powerOutageSensor to the room, attaches it to the backUpGenerator of the house,
-     * attaches trackers for consumption and event reports.
-     *
-     * @param backupGenerator
-     * @param devicesWithConsumption
-     * @param sensors
-     * @param rooms
-     */
-    private void setUpPowerOutageSensors(BackupGenerator backupGenerator, List<Device> devicesWithConsumption, List<Device> sensors, Room... rooms) {
-        for (Room room : rooms) {
-            PowerOutageSensor powerOutageSensor = new PowerOutageSensor(backupGenerator);
-            room.addSensor(powerOutageSensor);
-            powerOutageSensor.attach(backupGenerator);
-            devicesWithConsumption.add(powerOutageSensor);
-            sensors.add(powerOutageSensor);
-        }
-    }
-    private void setUpStrongWindSensor(List<Blinds> allBlinds, Room livingRoom, List<Device> devicesWithConsumption, List<Device> sensors) {
-        StrongWindSensor strongWindSensor = new StrongWindSensor();
-        for (Blinds b : allBlinds) {
-            strongWindSensor.attach(b);
-        }
-        livingRoom.addSensor(strongWindSensor);
-        devicesWithConsumption.add(strongWindSensor);
-        sensors.add(strongWindSensor);
-    }
-
-    /**
-     * method for creating people.
-     *
-     * @param people
-     * @param peopleNames
-     * @param floor
-     * @param livingRoom
-     * @param carAPI
-     * @param bicycleAPI
-     */
-    private void init_people(List<Person> people, String[] peopleNames, Floor floor, Room livingRoom, CarAPI carAPI, BicycleAPI bicycleAPI) {
-        for (int i = 0; i < peopleNames.length; i++) {
-            people.add(new Person(peopleNames[i], floor, livingRoom, carAPI, bicycleAPI));
-        }
-    }
-
-
-    /**
-     * factory method for creating a fridge with some food.
-     *
-     * @return fridge instance
-     */
     private Fridge initFridge() {
         Fridge fridge = new Fridge();
         fridge.turnOn();
-
-        // Simulate opening the fridge
         fridge.open();
-
-        // Simulate doing other activities or checking the food percentage
-
-        // Simulate closing the fridge
         fridge.close();
-
-        // Order food if the percentage is below a certain threshold
-//        int thresholdPercentage = 30;
-//        fridge.orderFoodIfNeeded(thresholdPercentage);
-
         return fridge;
     }
 
-
-
-    /**
-     * @param people
-     * @param devices
-     */
     private void attachPeopleToBreakableDevices(List<Person> people, Device... devices) {
         for (Person person : people) {
             for (Device device : devices) {
                 device.attach(person);
             }
         }
+    }
+
+    private void setUpStrongWindSensor(List<Blinds> allBlinds, Room livingRoom, List<Device> devicesWithConsumption, List<Device> sensors) {
+        StrongWindSensor strongWindSensor = new StrongWindSensor();
+        for (Blinds blinds : allBlinds) {
+            strongWindSensor.attach(blinds);
+        }
+        livingRoom.addSensor(strongWindSensor);
+        devicesWithConsumption.add(strongWindSensor);
+        sensors.add(strongWindSensor);
     }
 }

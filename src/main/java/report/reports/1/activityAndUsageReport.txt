@@ -1,0 +1,90 @@
+People:
+  John:
+    TV: 8
+    Fridge: 86
+    SmartSpeaker: 11
+    Owen: 6
+    Microwave: 9
+    WashingMachine: 7
+    Blinds: 12
+    AirCondition: 18
+    Windows: 10
+    Car: 7
+    Bicycle: 120
+    Skis: 130
+    Light: 11
+
+  Alice:
+    TV: 3
+    Fridge: 18
+    SmartSpeaker: 12
+    Owen: 6
+    Microwave: 12
+    WashingMachine: 4
+    Blinds: 15
+    AirCondition: 24
+    Windows: 13
+    Car: 4
+    Bicycle: 120
+    Skis: 124
+    Light: 16
+
+  Michael:
+    TV: 5
+    Fridge: 15
+    SmartSpeaker: 11
+    Owen: 5
+    Microwave: 7
+    WashingMachine: 3
+    Blinds: 15
+    AirCondition: 14
+    Windows: 16
+    Car: 9
+    Bicycle: 120
+    Skis: 133
+    Light: 14
+
+  Roman:
+    TV: 8
+    Fridge: 11
+    SmartSpeaker: 16
+    Owen: 6
+    Microwave: 1
+    WashingMachine: 7
+    Blinds: 14
+    AirCondition: 17
+    Windows: 16
+    Car: 4
+    Bicycle: 120
+    Skis: 124
+    Light: 11
+
+  David:
+    TV: 4
+    Fridge: 13
+    SmartSpeaker: 15
+    Owen: 10
+    Microwave: 6
+    WashingMachine: 12
+    Blinds: 8
+    AirCondition: 15
+    Windows: 12
+    Car: 11
+    Bicycle: 120
+    Skis: 126
+    Light: 11
+
+  Sophie:
+    TV: 7
+    Fridge: 19
+    SmartSpeaker: 11
+    Owen: 7
+    Microwave: 11
+    WashingMachine: 7
+    Blinds: 17
+    AirCondition: 9
+    Windows: 13
+    Car: 8
+    Bicycle: 120
+    Skis: 123
+    Light: 17

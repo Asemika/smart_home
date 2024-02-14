@@ -129,6 +129,9 @@ public class Configuration2 {
         return house;
     }
 
+    private void setUpPowerOutageSensors(FireSystem backupGenerator, List<Device> devicesWithConsumption, List<Device> sensors, Room kitchen, Room bathRoom, Room livingRoom, Room entertainmentRoom, Room bedRoom) {
+    }
+
 
     public List<Person> getPeople() {
         return people;

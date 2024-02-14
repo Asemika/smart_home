@@ -57,7 +57,7 @@ public class House {
         this.waterLeakSystem = waterLeakSystem;
     }
 
-    public BackupGenerator getBackupGenerator() {
+    public FireSystem getBackupGenerator() {
         return backupGenerator;
     }
 

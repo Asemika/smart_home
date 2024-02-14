@@ -3,7 +3,7 @@ package event;
 public class Event {
     private final EventType eventType;
 
-    public Event(EventType eventType) {
+    public Event(String eventType) {
         this.eventType = eventType;
     }
 

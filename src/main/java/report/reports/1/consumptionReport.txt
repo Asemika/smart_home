@@ -1,0 +1,16 @@
+Electricity consumption:
+- Fridge: 60kW - $600
+- TV: 100kW - $1000
+- AirCondition (two instances): 74kW - $740 and 36kW - $360
+- SmartSpeaker: 208kW - $2080
+- Owen: 70kW - $700
+- WashingMachine: 65kW - $650
+- Microwave: 83kW - $830
+- LightSystem: 45kW - $450
+- FireSensor (five instances): 0kW - $0
+- WaterLeakSensor (two instances): 2kW - $20
+- PowerOutageSensor (six instances): 2kW - $20
+- StrongWindSensor: 0kW - $0
+
+Water consumption:
+- WashingMachine: 1440L - $1440

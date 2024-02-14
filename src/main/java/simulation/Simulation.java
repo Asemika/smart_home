@@ -64,7 +64,8 @@ public class Simulation {
 
         for (int i = 0; i < DAYS; i++) {
             simulateDay(house, people, pets);
-            if (i == 3  i == 10  i == 20 || i == 45) {
+            if (i == 3 || i == 10 || i == 20 || i == 45) {
+
                 simulateRandomEvent(house);
             }
             if (fridge != null && fridge.getActivityState() instanceof TurnedOnState) {

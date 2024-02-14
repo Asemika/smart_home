@@ -3,7 +3,7 @@ package entity.creature;
 public enum PetType {
     DOG,
     CAT,
-    HAMPSTER,
+    HAMSTER,
     RAT,
     MINIPIG;
 }
