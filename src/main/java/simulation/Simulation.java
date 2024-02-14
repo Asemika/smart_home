@@ -87,7 +87,7 @@ public class Simulation {
      * @param floors
      * @return Storey
      */
-    private static Floor getRandomStorey(List<Floor> floors) {
+    private static Floor getRandomFloor(List<Floor> floors) {
         Random random = new Random();
         int randFloorIndex = random.nextInt(floors.size());
         return floors.get(randFloorIndex);
@@ -110,10 +110,10 @@ public class Simulation {
         }
 
         for (Pet pet : pets) {
-            pet.changeRoom(getRandomStorey(house.getFloors()).getRooms());
+            pet.changeRoom(getRandomFloor(house.getFloors()).getRooms());
         }
 
-        List<Room> rooms = getRandomStorey(house.getFloors()).getRooms();
+        List<Room> rooms = getRandomFloor(house.getFloors()).getRooms();
         for (Person person : people) {
             person.changeRoom(rooms);
         }
@@ -127,7 +127,7 @@ public class Simulation {
             person.doRandomActivity();
         }
         for (Pet pet : pets) {
-            pet.changeRoom(getRandomStorey(house.getFloors()).getRooms());
+            pet.changeRoom(getRandomFloor(house.getFloors()).getRooms());
         }
     }
 
@@ -138,7 +138,7 @@ public class Simulation {
      */
     public static void simulateFireEvent(House house) {
         Event event = new Event(EventType.FIRE);
-        for (Room room : getRandomStorey(house.getFloors()).getRooms()) {
+        for (Room room : getRandomFloor(house.getFloors()).getRooms()) {
             for (Sensor s : room.getSensors()) {
                 if (s instanceof FireSensor) s.notifyAllObservers(event);
             }
@@ -152,7 +152,7 @@ public class Simulation {
      */
     public static void simulateWaterLeakEvent(House house) {
         Event event = new Event(EventType.WATER_LEAK);
-        for (Room room : getRandomStorey(house.getFloors()).getRooms()) {
+        for (Room room : getRandomFloor(house.getFloors()).getRooms()) {
             for (Sensor s : room.getSensors()) {
                 if (s instanceof WaterLeakSensor) s.notifyAllObservers(event);
             }
@@ -166,7 +166,7 @@ public class Simulation {
      */
     public static void simulateStrongWindEvent(House house) {
         Event event = new Event(EventType.STRONG_WIND);
-        for (Room room : getRandomStorey(house.getFloors()).getRooms()) {
+        for (Room room : getRandomFloor(house.getFloors()).getRooms()) {
             for (Sensor s : room.getSensors()) {
                 if (s instanceof StrongWindSensor) s.notifyAllObservers(event);
             }
@@ -180,7 +180,7 @@ public class Simulation {
      */
     public static void simulatePowerOutageEvent(House house) {
         Event event = new Event(EventType.POWER_OUTAGE);
-        for (Room room : getRandomStorey(house.getFloors()).getRooms()) {
+        for (Room room : getRandomFloor(house.getFloors()).getRooms()) {
             for (Sensor s : room.getSensors()) {
                 if (s instanceof PowerOutageSensor) s.notifyAllObservers(event);
             }

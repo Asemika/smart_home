@@ -1,16 +1,14 @@
 package entity.sensor;
 
 import entity.device.Device;
-import entity.device.Fridge;
 import entity.device.Observer;
 import event.Event;
 import report.EventReportStruct;
-import systems.WaterLeakSystem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StrongWindSensor extends Device {
+public class StrongWindSensor extends Device implements Sensor{
     List<Observer> observers = new ArrayList<>();
 
     public StrongWindSensor(List<Observer> observers) {

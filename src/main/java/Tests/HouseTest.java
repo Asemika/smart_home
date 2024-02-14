@@ -1,12 +1,11 @@
 package Tests;
 
 
-import entity.device.Light;
-import entity.sensor.BackupGenerator;
 import house.Floor;
 import house.House;
 import org.junit.jupiter.api.Test;
 import systems.FireSystem;
+import systems.LightSystem;
 import systems.WaterLeakSystem;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,7 +28,7 @@ public class HouseTest {
         assertNotNull(house.getLightSystem());
         assertNotNull(house.getFireSystem());
         assertNotNull(house.getWaterLeakSystem());
-        assertEquals(Light.class, house.getLightSystem().getClass());
+        assertEquals(LightSystem.class, house.getLightSystem().getClass());
         assertEquals(FireSystem.class, house.getFireSystem().getClass());
         assertEquals(WaterLeakSystem.class, house.getWaterLeakSystem().getClass());
     }

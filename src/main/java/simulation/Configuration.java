@@ -7,6 +7,7 @@ import entity.sensor.*;
 import house.*;
 import entity.creature.Pet;
 import systems.FireSystem;
+import systems.LightSystem;
 import systems.WaterLeakSystem;
 
 import java.util.ArrayList;
@@ -69,10 +70,10 @@ public class Configuration {
         airConditions.add(airCondition2);
 
         SmartSpeaker smartSpeaker = new SmartSpeaker();
-        Oven oven = new Oven(idleConsumption, turnedOffConsumption);
+        Oven oven = new Oven();
         WashingMachine washingMachine = new WashingMachine();
         Microwave microwave = new Microwave();
-        Light lightSystem = new Light();
+        LightSystem lightSystem = new LightSystem();
 
         addDevicesWithConsumption(devicesWithConsumption, fridge, tv, airCondition, airCondition2, smartSpeaker,
                 oven, washingMachine, microwave, lightSystem);
@@ -85,7 +86,7 @@ public class Configuration {
                 .setSmartSpeakerApi(new SmartSpeakerAPI(smartSpeaker))
                 .setOvenApi(new OvenAPI(oven))
                 .setAirConditionApi(new AirConditionAPI(airConditions))
-//                .setLightApi(new LightAPI(lightSystem))
+                .setLightApi(new LightAPI(lightSystem))
                 .setWashingMachineApi(new WashingMachineAPI(washingMachine));
 
         initPeople(people, peopleNames, floor, livingRoom, carAPI, new BicycleAPI(new Bicycle()), electronicAPI);
@@ -103,7 +104,7 @@ public class Configuration {
 
         setUpWaterSensors(house.getWaterLeakSystem(), devicesWithConsumption, sensors, kitchen, bathRoom);
 
-//        setUpFireSensors(house.getBackupGenerator(), devicesWithConsumption, sensors, kitchen, bathRoom, livingRoom, entertainmentRoom, bedRoom);
+        setUpPowerOutageSensors(house.getBackupGenerator(), devicesWithConsumption, sensors, kitchen, bathRoom, livingRoom, entertainmentRoom, bedRoom);
 
         setUpStrongWindSensor(allBlinds, livingRoom, devicesWithConsumption, sensors);
 
