@@ -9,15 +9,12 @@ import event.Event;
 import event.EventType;
 import house.Floor;
 import house.House;
-import entity.*;
 import house.Room;
 import report.ActivityAndUsageReport;
 import report.ConsumptionReport;
 import report.EventReport;
 import report.HouseConfigurationReport;
 import States.TurnedOnState;
-
-import java.lang.module.Configuration;
 import java.util.List;
 import java.util.Random;
 

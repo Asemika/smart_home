@@ -20,23 +20,11 @@ public class Oven extends Device {
     private int currentTemperature;
     private Map<OvenAPI, OvenAPI> modeStrategies;
     private boolean name;
-//    nuzhno li pomenat OvenMode na OvenAPI?
 
-    public Oven() {
-//        super(name, type, activeConsumption, idleConsumption, turnedOffConsumption);
-//        this.isTurnedOn = false;
-//        this.modeStrategies = new HashMap<>();
-//        initDefaultStrategies();
-    }
-
-    public void turnOn() {
-        isTurnedOn = true;
-        System.out.println(getName() + " is turned on.");
-    }
-
-    public void turnOff() {
-        isTurnedOn = false;
-        System.out.println(getName() + " is turned off.");
+    public Oven(String name, DeviceType type, double activeConsumption, double idleConsumption, double turnedOffConsumption) {
+        super(name, type, activeConsumption, idleConsumption, turnedOffConsumption);
+        this.isTurnedOn = false;
+        this.modeStrategies = new HashMap<>();
     }
 
     @Override
@@ -60,55 +48,8 @@ public class Oven extends Device {
     }
 
     @Override
-    public ElectricityAPI getElectricityAPI() {
-        return null;
-    }
+    public void update(Event event, AirCondition airCondition) {
 
-    public boolean isTurnedOn() {
-        return isTurnedOn;
-    }
-
-    public void addModeStrategy(OvenAPI mode, OvenAPI strategy) {
-        modeStrategies.put(mode, strategy);
-    }
-
-    public void removeModeStrategy(OvenAPI mode) {
-        modeStrategies.remove(mode);
-    }
-
-    public void executeMode() {
-        OvenAPI strategy = modeStrategies.get(currentMode);
-        if (strategy != null) {
-            strategy.execute(this);
-        } else {
-            System.out.println("No mode strategy set.");
-        }
-    }
-
-//    private void initDefaultStrategies() {
-//        addModeStrategy(OvenMode.BAKING, (OvenMode) new BakingModeStrategy());
-//        addModeStrategy(OvenMode.DEFROST, (OvenMode) new DefrostModeStrategy());
-//        addModeStrategy(OvenMode.GRILL, (OvenMode) new GrillModeStrategy());
-//    }
-
-    public void setCurrentMode(OvenAPI mode) {
-        this.currentMode = mode;
-    }
-
-    public OvenAPI getCurrentMode() {
-        return currentMode;
-    }
-
-    public void setTemperature(int temperature) {
-        this.currentTemperature = temperature;
-    }
-
-    public int getTemperature() {
-        return currentTemperature;
-    }
-
-    public boolean getName() {
-        return name;
     }
 
     @Override
@@ -130,4 +71,84 @@ public class Oven extends Device {
     public void update(Event event, StrongWindSensor strongWindSensor) {
 
     }
+    public void turnOn() {
+        isTurnedOn = true;
+        System.out.println(getName() + " is turned on.");
+    }
+
+    public void turnOff() {
+        isTurnedOn = false;
+        System.out.println(getName() + " is turned off.");
+    }
+//
+//    @Override
+//    public void notifySystem() {
+//
+//    }
+//
+//    @Override
+//    public void attach(WaterLeakSystem waterLeakSystem) {
+//
+//    }
+//
+//    @Override
+//    public void increaseTemp(int temp) {
+//
+//    }
+//
+//    @Override
+//    public void decreaseTemp(int temp) {
+//
+//    }
+//
+////    @Override
+////    public ElectricityAPI getElectricityAPI() {
+////        return null;
+////    }
+//
+//    public boolean isTurnedOn() {
+//        return isTurnedOn;
+//    }
+//
+//    public void addModeStrategy(OvenAPI mode, OvenAPI strategy) {
+//        modeStrategies.put(mode, strategy);
+//    }
+//
+//    public void removeModeStrategy(OvenAPI mode) {
+//        modeStrategies.remove(mode);
+//    }
+//
+//    public void executeMode() {
+//        OvenAPI strategy = modeStrategies.get(currentMode);
+//        if (strategy != null) {
+//            strategy.execute(this);
+//        } else {
+//            System.out.println("No mode strategy set.");
+//        }
+//    }
+//
+//    public void setCurrentMode(OvenAPI mode) {
+//        this.currentMode = mode;
+//    }
+//
+//    public OvenAPI getCurrentMode() {
+//        return currentMode;
+//    }
+//
+//    public void setTemperature(int temperature) {
+//        this.currentTemperature = temperature;
+//    }
+//
+//    public int getTemperature() {
+//        return currentTemperature;
+//    }
+//
+//    public boolean getName() {
+//        return name;
+//    }
+//
+//    @Override
+//    public void update(Event event, Fridge fridge) {
+//
+//    }
 }

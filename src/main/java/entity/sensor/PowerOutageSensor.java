@@ -1,6 +1,7 @@
 package entity.sensor;
 
 import States.TurnedOnState;
+import entity.device.AirCondition;
 import entity.device.Device;
 import entity.device.Fridge;
 import entity.device.Observer;
@@ -87,6 +88,11 @@ public class PowerOutageSensor extends Device implements Observer {
 
     @Override
     public void decreaseTemp(int temp) {
+
+    }
+
+    @Override
+    public void update(Event event, AirCondition airCondition) {
 
     }
 }

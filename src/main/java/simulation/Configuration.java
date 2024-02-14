@@ -78,7 +78,7 @@ public class Configuration {
         addDevicesWithConsumption(devicesWithConsumption, fridge, tv, airCondition, airCondition2, smartSpeaker,
                 oven, washingMachine, microwave, lightSystem);
 
-        ElectronicAPI electronicApi = new ElectronicAPI()
+        ElectronicAPI electronicAPI = new ElectronicAPI()
                 .setFridgeApi(new FridgeAPI(fridge))
                 .setTvApi(new TvAPI(tv))
                 .setBlindsApi(new BlindsAPI(allBlinds))
@@ -89,7 +89,7 @@ public class Configuration {
                 .setLightApi(new LightAPI(lightSystem))
                 .setWashingMachineApi(new WashingMachineAPI(washingMachine));
 
-        initPeople(people, peopleNames, floor, livingRoom, carAPI, new BicycleAPI(new Bicycle()));
+        initPeople(people, peopleNames, floor, livingRoom, carAPI, new BicycleAPI(new Bicycle()), electronicAPI);
 
         initPets(pets, livingRoom);
 
@@ -187,9 +187,9 @@ public class Configuration {
         }
     }
 
-    private void initPeople(List<Person> people, String[] peopleNames, Floor floor, Room livingRoom, CarAPI carAPI, BicycleAPI bicycleAPI) {
+    private void initPeople(List<Person> people, String[] peopleNames, Floor floor, Room livingRoom, CarAPI carAPI, BicycleAPI bicycleAPI,ElectronicAPI electronicAPI) {
         for (String personName : peopleNames) {
-            people.add(new Person(personName, floor, livingRoom, carAPI, bicycleAPI));
+            people.add(new Person(personName, floor, livingRoom, carAPI, bicycleAPI,electronicAPI ));
         }
     }
 
@@ -217,5 +217,14 @@ public class Configuration {
         livingRoom.addSensor(strongWindSensor);
         devicesWithConsumption.add(strongWindSensor);
         sensors.add(strongWindSensor);
+    }
+    private void setUpPowerOutageSensors(BackupGenerator backupGenerator, List<Device> devicesWithConsumption, List<Device> sensors, Room... rooms) {
+        for (Room room : rooms) {
+            PowerOutageSensor powerOutageSensor = new PowerOutageSensor(backupGenerator);
+            room.addSensor(powerOutageSensor);
+            powerOutageSensor.attach(backupGenerator);
+            devicesWithConsumption.add(powerOutageSensor);
+            sensors.add(powerOutageSensor);
+        }
     }
 }
