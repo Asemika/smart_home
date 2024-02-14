@@ -1,9 +1,7 @@
 # Smart Home Simulation
 **Authors**: [Kakazhanova Assemgul](@Asemika), [Luzan Anna](@luzananna)
 ## Description
-
-
-## UML class diagram
+The Smart Home Simulation application is designed to virtually simulate the operations and activities within a smart home environment. It provides a platform to emulate household tasks, utilize various home devices, and analyze the usage patterns, consumption, as well as free and occupied time of individuals.
 
 
 ## Functional requirements
