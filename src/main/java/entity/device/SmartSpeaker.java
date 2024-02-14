@@ -1,3 +1,7 @@
+/**
+ * Represents a smart speaker device.
+ * This class extends the Device class and provides functionality specific to a smart speaker, such as playing music.
+ */
 package entity.device;
 
 import event.Event;
@@ -7,62 +11,57 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SmartSpeaker extends Device {
-        private final List<String> musicPlaylist = new ArrayList<>();
-        private int indexOfCurrentMusicPlaylist = 0;
+    private final List<String> musicPlaylist = new ArrayList<>();
+    private int indexOfCurrentMusicPlaylist = 0;
 
-        public SmartSpeaker() {
-        }
-
-    @Override
-    public void notifySystem() {
-
+    /**
+     * Constructs a SmartSpeaker object.
+     */
+    public SmartSpeaker() {
     }
 
-    @Override
-    public void attach(WaterLeakSystem waterLeakSystem) {
-
-    }
-
-    @Override
-    public void increaseTemp(int temp) {
-
-    }
-
-    @Override
-    public void decreaseTemp(int temp) {
-
-    }
-
+    /**
+     * Gets the music playlist.
+     * @return The music playlist.
+     */
     public List<String> getMusicPlaylist() {
-            return musicPlaylist;
+        return musicPlaylist;
+    }
+
+    /**
+     * Adds music to the playlist.
+     * @param music The music to add.
+     */
+    public void addMusic(String music) {
+        musicPlaylist.add(music);
+    }
+
+    /**
+     * Plays music.
+     */
+    public void playMusic() {
+        getElectricityAPI().increaseCounter(getkWPerHour());
+    }
+
+    /**
+     * Changes to the next soundtrack in the playlist.
+     */
+    public void changeSoundtrackForward() {
+        if (indexOfCurrentMusicPlaylist == musicPlaylist.size() - 1) {
+            indexOfCurrentMusicPlaylist = 0;
+        } else {
+            indexOfCurrentMusicPlaylist++;
         }
+    }
 
-        public void addMusic(String music) {
-            musicPlaylist.add(music);
+    /**
+     * Changes to the previous soundtrack in the playlist.
+     */
+    public void changeSoundtrackBackward() {
+        if (indexOfCurrentMusicPlaylist == 0) {
+            indexOfCurrentMusicPlaylist = musicPlaylist.size() - 1;
+        } else {
+            indexOfCurrentMusicPlaylist--;
         }
-
-        public void playMusic() {
-            getElectricityAPI().increaseCounter(getkWPerHour());
-        }
-
-        public void changeSoundtrackForward() {
-            if (indexOfCurrentMusicPlaylist == musicPlaylist.size() - 1) {
-                indexOfCurrentMusicPlaylist = 0;
-            } else {
-                indexOfCurrentMusicPlaylist++;
-            }
-        }
-
-        public void changeSoundtrackBackward() {
-            if (indexOfCurrentMusicPlaylist == 0) {
-                indexOfCurrentMusicPlaylist = musicPlaylist.size() - 1;
-            } else {
-                indexOfCurrentMusicPlaylist--;
-            }
-        }
-
-    @Override
-    public void update(Event event, Fridge fridge) {
-
     }
 }

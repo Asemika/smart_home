@@ -33,7 +33,7 @@ public class HouseConfigurationReport implements Reportable {
             writer = new FileWriter(System.getProperty("user.dir") + "\\src\\main\\java\\reports\\" + folderForReports + "\\" + "houseCondReport.txt");
             List<Floor> floors = house.getFloors();
             for (int i = 0; i < floors.size(); i++) {
-                writer.write("Storey " + (i + 1) + " : \n");
+                writer.write("Floor " + (i + 1) + " : \n");
                 for (Room room : floors.get(i).getRooms()) {
                     writer.write("\t" + room.getRoomName() + " : \n");
                     writer.write("\t\tDevices :\n");

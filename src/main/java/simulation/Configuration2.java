@@ -13,6 +13,7 @@ import house.House;
 import house.Room;
 import house.Window;
 import systems.FireSystem;
+import systems.LightSystem;
 import systems.WaterLeakSystem;
 
 import java.util.ArrayList;
@@ -84,7 +85,7 @@ public class Configuration2 {
         Oven oven = new Oven();
         WashingMachine washingMachine = new WashingMachine();
         Microwave microwave = new Microwave();
-        Light lightSystem = new Light();
+        LightSystem lightSystem = new LightSystem();
 
         addDevicesWithConsumption(devicesWithConsumption, fridge, tv, airCondition, airCondition2, smartSpeaker,
                 oven, washingMachine, microwave, lightSystem, airCondition3);
@@ -225,7 +226,7 @@ public class Configuration2 {
         for (Room room : rooms) {
             FireSensor fireSensor = new FireSensor();
             room.addSensor(fireSensor);
-            fireSensor.attach(fireSystem);
+            fireSensor.attach((Observer) fireSystem);
             devicesWithConsumption.add(fireSensor);
             sensors.add(fireSensor);
         }
@@ -243,7 +244,7 @@ public class Configuration2 {
         for (Room room : rooms) {
             WaterLeakSensor waterLeakSensor = new WaterLeakSensor();
             room.addSensor(waterLeakSensor);
-            waterLeakSensor.attach(waterLeakSystem);
+            waterLeakSensor.attach((Observer) waterLeakSystem);
             devicesWithConsumption.add(waterLeakSensor);
             sensors.add(waterLeakSensor);
         }
@@ -262,7 +263,7 @@ public class Configuration2 {
         for (Room room : rooms) {
             PowerOutageSensor powerOutageSensor = new PowerOutageSensor(backupGenerator);
             room.addSensor(powerOutageSensor);
-            powerOutageSensor.attach(backupGenerator);
+            powerOutageSensor.attach((Observer) backupGenerator);
             devicesWithConsumption.add(powerOutageSensor);
             sensors.add(powerOutageSensor);
         }

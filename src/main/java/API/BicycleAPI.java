@@ -10,7 +10,7 @@ public class BicycleAPI {
     }
 
     /**
-     * person doing sport by riding a bicycle.
+     * person riding a bicycle.
      */
     public void rideBicycle() {
         bicycle.rideBicycle();

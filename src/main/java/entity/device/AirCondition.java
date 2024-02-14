@@ -15,13 +15,16 @@ public class AirCondition extends Device {
     private int externalTemperature;
 
     /**
-     * Constructs an air conditioner.
+     * Constructs an air conditioner with a default temperature setting of 20°C.
      */
     public AirCondition() {
-        super(); // Volání výchozího konstruktoru třídy Device
-        this.temperature = 20; // Default temperature setting
+        super();
+        this.temperature = 20;
     }
 
+    /**
+     * Turns on the air conditioner.
+     */
     @Override
     public void turnOn() {
         if (!isTurnedOn) {
@@ -30,32 +33,15 @@ public class AirCondition extends Device {
         }
     }
 
+    /**
+     * Turns off the air conditioner.
+     */
     @Override
     public void turnOff() {
         if (isTurnedOn) {
             isTurnedOn = false;
             System.out.println("Air conditioner is turned off.");
         }
-    }
-
-    @Override
-    public void notifySystem() {
-
-    }
-
-    @Override
-    public void attach(WaterLeakSystem waterLeakSystem) {
-
-    }
-
-    @Override
-    public void increaseTemp(int temp) {
-
-    }
-
-    @Override
-    public void decreaseTemp(int temp) {
-
     }
 
     /**
@@ -120,28 +106,23 @@ public class AirCondition extends Device {
         }
     }
 
-    @Override
-    public void update(Event event, AirCondition airCondition) {
-
+    /**
+     * Increases the temperature setting of the air conditioner.
+     *
+     * @param temp the amount by which to increase the temperature
+     */
+    public void increaseTemp(int temp) {
+        temperature += temp;
+        System.out.println("Temperature increased by " + temp + "°C. Current temperature: " + temperature + "°C");
     }
 
-    @Override
-    public void update(Event event, Fridge fridge) {
-
-    }
-
-    @Override
-    public void update(Event event, FireSensor fireSensor) {
-
-    }
-
-    @Override
-    public void update(Event event, PowerOutageSensor powerOutageSensor) {
-
-    }
-
-    @Override
-    public void update(Event event, StrongWindSensor strongWindSensor) {
-
+    /**
+     * Decreases the temperature setting of the air conditioner.
+     *
+     * @param temp the amount by which to decrease the temperature
+     */
+    public void decreaseTemp(int temp) {
+        temperature -= temp;
+        System.out.println("Temperature decreased by " + temp + "°C. Current temperature: " + temperature + "°C");
     }
 }

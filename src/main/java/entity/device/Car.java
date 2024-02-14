@@ -4,10 +4,8 @@ package entity.device;
  * The `Car` class represents a simulated smart home device for controlling a car.
  */
 public class Car {
-    // Properties to store information about the car
-    private String make;            // Make of the car
-    private String model;           // Model of the car
-    private int year;               // Year of the car manufacture
+    private String make;
+    private String model;
     private boolean isEngineRunning;
 
     /**
@@ -16,8 +14,8 @@ public class Car {
     public Car() {
         this.make = make;
         this.model = model;
-        this.year = year;
-        this.isEngineRunning = false; // The engine is initially not running
+
+        this.isEngineRunning = false;
     }
 
     /**
