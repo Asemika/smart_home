@@ -33,6 +33,6 @@ public class PetTest {
 
         assertNotNull(newRoom);
         assertTrue(rooms.contains(newRoom));
-        assertTrue(newRoom != initialRoom); // Ensure the pet has moved to a different room
+        assertTrue(newRoom != initialRoom);
     }
 }

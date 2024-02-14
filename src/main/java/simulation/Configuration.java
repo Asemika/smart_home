@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Represents a configuration for setting up a simulation environment.
+ */
 public class Configuration {
     private static Configuration INSTANCE;
     private final String[] rooms = {"kitchen", "livingRoom", "bathRoom", "entertainmentRoom", "bedRoom1", "bedRoom2"};
@@ -23,10 +26,13 @@ public class Configuration {
     private final List<Device> devicesWithConsumption = new ArrayList<>();
     private final List<Device> sensors = new ArrayList<>();
 
-
     private Configuration() {
     }
 
+    /**
+     * Gets the singleton instance of the Configuration class.
+     * @return The singleton instance of Configuration.
+     */
     public synchronized static Configuration getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new Configuration();
@@ -34,6 +40,10 @@ public class Configuration {
         return INSTANCE;
     }
 
+    /**
+     * Initializes the house for the simulation environment.
+     * @return The initialized House object.
+     */
     public House initHouse() {
         House house = new House();
 
@@ -137,18 +147,34 @@ public class Configuration {
         }
     }
 
+    /**
+     * Retrieves the list of people in the simulation.
+     * @return The list of people.
+     */
     public List<Person> getPeople() {
         return people;
     }
 
+    /**
+     * Retrieves the list of pets in the simulation.
+     * @return The list of pets.
+     */
     public List<Pet> getPets() {
         return pets;
     }
 
+    /**
+     * Retrieves the list of devices with consumption in the simulation.
+     * @return The list of devices with consumption.
+     */
     public List<Device> getDevicesWithConsumption() {
         return devicesWithConsumption;
     }
 
+    /**
+     * Retrieves the list of sensors in the simulation.
+     * @return The list of sensors.
+     */
     public List<Device> getSensors() {
         return sensors;
     }
@@ -218,6 +244,7 @@ public class Configuration {
         devicesWithConsumption.add(strongWindSensor);
         sensors.add(strongWindSensor);
     }
+
     private void setUpPowerOutageSensors(BackupGenerator backupGenerator, List<Device> devicesWithConsumption, List<Device> sensors, Room... rooms) {
         for (Room room : rooms) {
             PowerOutageSensor powerOutageSensor = new PowerOutageSensor(backupGenerator);

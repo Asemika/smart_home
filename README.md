@@ -5,7 +5,6 @@
 
 ## UML class diagram
 
-## Use case diagram
 
 ## Functional requirements
 - **F1 +** <br/>

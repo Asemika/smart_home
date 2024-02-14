@@ -41,6 +41,7 @@ public class AirConditionAPI implements FixAPI {
         }
     }
 
+
     /**
      * increases temperature in some room on temp.
      *
@@ -52,10 +53,13 @@ public class AirConditionAPI implements FixAPI {
             if (d instanceof AirCondition) {
                 if (d.getActivityState() instanceof TurnedOnState) {
                     ((AirCondition) d).increaseTemp(temp);
-                } else System.out.println("device is not turned on");
+                } else {
+                    System.out.println("Air conditioner is not turned on.");
+                }
+                return;
             }
         }
-
+        System.out.println("No air conditioner found in the room.");
     }
 
     /**
@@ -69,10 +73,13 @@ public class AirConditionAPI implements FixAPI {
             if (d instanceof AirCondition) {
                 if (d.getActivityState() instanceof TurnedOnState) {
                     ((AirCondition) d).decreaseTemp(temp);
-                } else System.out.println("device is not turned on");
-
+                } else {
+                    System.out.println("Air conditioner is not turned on.");
+                }
+                return;
             }
         }
+        System.out.println("No air conditioner found in the room.");
     }
 
     @Override

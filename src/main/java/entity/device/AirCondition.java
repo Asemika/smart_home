@@ -15,13 +15,16 @@ public class AirCondition extends Device {
     private int externalTemperature;
 
     /**
-     * Constructs an air conditioner.
+     * Constructs an air conditioner with a default temperature setting of 20°C.
      */
     public AirCondition() {
         super();
         this.temperature = 20;
     }
 
+    /**
+     * Turns on the air conditioner.
+     */
     @Override
     public void turnOn() {
         if (!isTurnedOn) {
@@ -30,6 +33,9 @@ public class AirCondition extends Device {
         }
     }
 
+    /**
+     * Turns off the air conditioner.
+     */
     @Override
     public void turnOff() {
         if (isTurnedOn) {
@@ -100,14 +106,23 @@ public class AirCondition extends Device {
         }
     }
 
+    /**
+     * Increases the temperature setting of the air conditioner.
+     *
+     * @param temp the amount by which to increase the temperature
+     */
     public void increaseTemp(int temp) {
         temperature += temp;
         System.out.println("Temperature increased by " + temp + "°C. Current temperature: " + temperature + "°C");
     }
 
+    /**
+     * Decreases the temperature setting of the air conditioner.
+     *
+     * @param temp the amount by which to decrease the temperature
+     */
     public void decreaseTemp(int temp) {
         temperature -= temp;
         System.out.println("Temperature decreased by " + temp + "°C. Current temperature: " + temperature + "°C");
     }
-
 }

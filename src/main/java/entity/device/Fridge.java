@@ -1,3 +1,7 @@
+/**
+ * Represents a refrigerator device.
+ * This class extends the Device class and provides functionality specific to a refrigerator, such as adding food, ordering more food, and managing observers.
+ */
 package entity.device;
 
 import entity.sensor.FireSensor;
@@ -12,15 +16,25 @@ import systems.WaterLeakSystem;
 
 import java.util.ArrayList;
 import java.util.List;
-public class Fridge extends Device  {
+
+public class Fridge extends Device {
+
     private final List<Observer> observers = new ArrayList<>();
     private final List<Object> foodInFridge = new ArrayList<>();
     private final int foodLimitAmount = 10;
 
+    /**
+     * Constructs a Fridge object.
+     * Initializes the Fridge with default values.
+     */
     public Fridge() {
         super();
     }
 
+    /**
+     * Adds food to the fridge.
+     * @return true if the food was successfully added, false otherwise
+     */
     public boolean addFood() {
         if (isBroken()) {
             System.out.println("Device is broken. Can't use it now. Going to call someone to fix it");
@@ -37,7 +51,7 @@ public class Fridge extends Device  {
             orderFood();
         }
         if (foodInFridge.size() + 1 <= foodLimitAmount) {
-            foodInFridge.add(new Object()); // placeholder for food
+            foodInFridge.add(new Object());
             return true;
         } else {
             System.out.println("Fridge is full");
@@ -45,11 +59,17 @@ public class Fridge extends Device  {
         }
     }
 
+    /**
+     * Initiates the process of ordering more food for the fridge.
+     */
     private void orderFood() {
         System.out.println("Ordering more food...");
-        // Add logic for ordering food here
     }
 
+    /**
+     * Calculates the fill percentage of the fridge.
+     * @return the fill percentage of the fridge
+     */
     private double calculateFridgeFillPercentage() {
         return ((double) foodInFridge.size() / foodLimitAmount) * 100;
     }
@@ -74,19 +94,22 @@ public class Fridge extends Device  {
             for (Observer observer : listeners) {
                 observer.update(event, this);
             }
-            // Create the EventReportStruct with the appropriate parameters
+
             getEventAPI().addNewEventReportStruct(new EventReportStruct(event, sourceSensor, listeners));
         } else {
             System.out.println("No attached observers in fridge");
         }
     }
 
-
-
+    /**
+     * Opens the fridge.
+     */
     public void open() {
     }
 
+    /**
+     * Closes the fridge.
+     */
     public void close() {
     }
-
 }

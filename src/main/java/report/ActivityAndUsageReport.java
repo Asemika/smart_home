@@ -1,25 +1,34 @@
 package report;
 
-import activities.Activity;
 import entity.creature.Person;
 import entity.creature.Pet;
-import entity.device.Device;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-public class ActivityAndUsageReport  implements Reportable {
-    List<Person> people;
-    List<Pet> pets;
-    String folderForReports;
+/**
+ * Represents a report generator for activity and device usage.
+ */
+public class ActivityAndUsageReport implements Reportable {
+    private List<Person> people;
+    private List<Pet> pets;
+    private String folderForReports;
 
+    /**
+     * Constructs an ActivityAndUsageReport object with the specified parameters.
+     * @param people The list of people to include in the report.
+     * @param pets The list of pets to include in the report.
+     * @param folderForReports The folder path where the report will be saved.
+     */
     public ActivityAndUsageReport(List<Person> people, List<Pet> pets, String folderForReports) {
         this.people = people;
         this.pets = pets;
         this.folderForReports = folderForReports;
     }
 
+    /**
+     * Generates the activity and usage report.
+     */
     @Override
     public void generateReport() {
         try {
