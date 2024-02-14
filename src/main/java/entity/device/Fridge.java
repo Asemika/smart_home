@@ -12,7 +12,7 @@ import systems.WaterLeakSystem;
 
 import java.util.ArrayList;
 import java.util.List;
-public class Fridge extends Device implements Observer {
+public class Fridge extends Device  {
     private final List<Observer> observers = new ArrayList<>();
     private final List<Object> foodInFridge = new ArrayList<>();
     private final int foodLimitAmount = 10;
@@ -81,40 +81,7 @@ public class Fridge extends Device implements Observer {
         }
     }
 
-    @Override
-    public void update(Event event, FireSensor fireSensor) {
 
-    }
-
-    @Override
-    public void update(Event event, PowerOutageSensor powerOutageSensor) {
-
-    }
-
-    @Override
-    public void update(Event event, StrongWindSensor strongWindSensor) {
-
-    }
-
-    @Override
-    public void notifySystem() {
-
-    }
-
-    @Override
-    public void attach(WaterLeakSystem waterLeakSystem) {
-
-    }
-
-    @Override
-    public void increaseTemp(int temp) {
-
-    }
-
-    @Override
-    public void decreaseTemp(int temp) {
-
-    }
 
     public void open() {
     }
@@ -122,8 +89,4 @@ public class Fridge extends Device implements Observer {
     public void close() {
     }
 
-    @Override
-    public void update(Event event, Fridge fridge) {
-
-    }
 }

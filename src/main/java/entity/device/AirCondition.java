@@ -18,8 +18,8 @@ public class AirCondition extends Device {
      * Constructs an air conditioner.
      */
     public AirCondition() {
-        super(); // Volání výchozího konstruktoru třídy Device
-        this.temperature = 20; // Default temperature setting
+        super();
+        this.temperature = 20;
     }
 
     @Override
@@ -36,26 +36,6 @@ public class AirCondition extends Device {
             isTurnedOn = false;
             System.out.println("Air conditioner is turned off.");
         }
-    }
-
-    @Override
-    public void notifySystem() {
-
-    }
-
-    @Override
-    public void attach(WaterLeakSystem waterLeakSystem) {
-
-    }
-
-    @Override
-    public void increaseTemp(int temp) {
-
-    }
-
-    @Override
-    public void decreaseTemp(int temp) {
-
     }
 
     /**
@@ -120,28 +100,14 @@ public class AirCondition extends Device {
         }
     }
 
-    @Override
-    public void update(Event event, AirCondition airCondition) {
-
+    public void increaseTemp(int temp) {
+        temperature += temp;
+        System.out.println("Temperature increased by " + temp + "°C. Current temperature: " + temperature + "°C");
     }
 
-    @Override
-    public void update(Event event, Fridge fridge) {
-
+    public void decreaseTemp(int temp) {
+        temperature -= temp;
+        System.out.println("Temperature decreased by " + temp + "°C. Current temperature: " + temperature + "°C");
     }
 
-    @Override
-    public void update(Event event, FireSensor fireSensor) {
-
-    }
-
-    @Override
-    public void update(Event event, PowerOutageSensor powerOutageSensor) {
-
-    }
-
-    @Override
-    public void update(Event event, StrongWindSensor strongWindSensor) {
-
-    }
 }

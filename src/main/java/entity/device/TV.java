@@ -15,30 +15,6 @@ public class TV extends Device {
     public TV() {
     }
 
-    @Override
-    public void notifySystem() {
-
-    }
-
-    @Override
-    public void attach(WaterLeakSystem waterLeakSystem) {
-
-    }
-
-    @Override
-    public void increaseTemp(int temp) {
-
-    }
-
-    @Override
-    public void decreaseTemp(int temp) {
-
-    }
-
-    @Override
-    public void update(Event event, AirCondition airCondition) {
-
-    }
 
     public int getIndexOfCurrentChannel() {
         return indexOfCurrentChannel;
@@ -66,25 +42,5 @@ public class TV extends Device {
 
     public void watchTV() {
         getElectricityAPI().increaseCounter(getkWPerHour());
-    }
-
-    @Override
-    public void update(Event event, Fridge fridge) {
-
-    }
-
-    @Override
-    public void update(Event event, FireSensor fireSensor) {
-
-    }
-
-    @Override
-    public void update(Event event, PowerOutageSensor powerOutageSensor) {
-
-    }
-
-    @Override
-    public void update(Event event, StrongWindSensor strongWindSensor) {
-
     }
 }

@@ -1,5 +1,6 @@
 package entity.device;
 
+import entity.sensor.Sensor;
 import entity.sensor.WaterLeakSensor;
 import event.Event;
 import event.EventType;
@@ -27,50 +28,16 @@ public class Blinds extends Device implements Observer, Open {
     }
 
     /**
-     * Closes blinds because of strong wind.
+     * closes blinds because of strong wind.
      *
-     * @param event   The event that triggered the update
-     * @param sensor  The sensor associated with the event
+     * @param event
+     * @param sensor
      */
     @Override
-    public void update(Event event, WaterLeakSensor sensor) {
-        if (EventType.STRONG_WIND.equals(event.getEventType())) {
+    public void update(Event event, Sensor sensor) {
+        if (event.getEventType().equals(EventType.STRONG_WIND)) {
             isOpened = false;
             System.out.println("Blinds are closed cuz of strong wind");
-        }
-    }
-
-    @Override
-    public void update(Event event, Fridge fridge) {
-
-    }
-
-    @Override
-    public void notifySystem() {
-
-    }
-
-    @Override
-    public void attach(WaterLeakSystem waterLeakSystem) {
-
-    }
-
-
-    @Override
-    public void increaseTemp(int temp) {
-        if (temp > 25) {
-            open();
-        } else {
-            close();
-        }
-    }
-
-    @Override
-    public void decreaseTemp(int temp) {
-        if (temp < 15) {
-            open();
-        } else {
-            close();
         }
     }
 }

@@ -11,7 +11,6 @@ import systems.WaterLeakSystem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 public class Configuration {
@@ -70,7 +69,7 @@ public class Configuration {
         airConditions.add(airCondition2);
 
         SmartSpeaker smartSpeaker = new SmartSpeaker();
-        Oven oven = new Oven();
+        Oven oven = new Oven(idleConsumption, turnedOffConsumption);
         WashingMachine washingMachine = new WashingMachine();
         Microwave microwave = new Microwave();
         Light lightSystem = new Light();
@@ -86,7 +85,7 @@ public class Configuration {
                 .setSmartSpeakerApi(new SmartSpeakerAPI(smartSpeaker))
                 .setOvenApi(new OvenAPI(oven))
                 .setAirConditionApi(new AirConditionAPI(airConditions))
-                .setLightApi(new LightAPI(lightSystem))
+//                .setLightApi(new LightAPI(lightSystem))
                 .setWashingMachineApi(new WashingMachineAPI(washingMachine));
 
         initPeople(people, peopleNames, floor, livingRoom, carAPI, new BicycleAPI(new Bicycle()), electronicAPI);
@@ -104,7 +103,7 @@ public class Configuration {
 
         setUpWaterSensors(house.getWaterLeakSystem(), devicesWithConsumption, sensors, kitchen, bathRoom);
 
-        setUpFireSensors(house.getBackupGenerator(), devicesWithConsumption, sensors, kitchen, bathRoom, livingRoom, entertainmentRoom, bedRoom);
+//        setUpFireSensors(house.getBackupGenerator(), devicesWithConsumption, sensors, kitchen, bathRoom, livingRoom, entertainmentRoom, bedRoom);
 
         setUpStrongWindSensor(allBlinds, livingRoom, devicesWithConsumption, sensors);
 
