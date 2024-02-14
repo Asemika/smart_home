@@ -24,7 +24,7 @@ public abstract class Device implements Observer, Sensor {
     private final ElectricityAPI electricityAPI = new ElectricityAPI();
     private final EventAPI eventAPI = new EventAPI();
     private int kWPerHour;
-    private String type;
+    public String type;
     private String name;
 
     public Device(String s, DeviceType bicycle, int kWPerHour, int i, int i1) {
@@ -35,9 +35,6 @@ public abstract class Device implements Observer, Sensor {
         this.kWPerHour = 1;
     }
 
-//    public Device(SensorType type) {
-//        super(type);
-//    }
 
     public ActivityState getActivityState() {
         return activityState;
@@ -154,13 +151,6 @@ public abstract class Device implements Observer, Sensor {
         }
     }
 
-
-
-
-//    @Override
-//    public void attach(WaterLeakSystem waterLeakSystem) {
-//
-//    }
 
     public int getMAX_USAGE_CONSTANT() {
         return MAX_USAGE_CONSTANT;

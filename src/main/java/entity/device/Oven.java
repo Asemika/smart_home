@@ -1,33 +1,34 @@
 package entity.device;
 
-import API.ElectricityAPI;
 import API.OvenAPI;
 import entity.sensor.FireSensor;
 import entity.sensor.PowerOutageSensor;
 import entity.sensor.StrongWindSensor;
 import event.Event;
 import systems.WaterLeakSystem;
-//import entity.device.patterns.BakingModeStrategy;
-//import entity.device.patterns.DefrostModeStrategy;
-//import entity.device.patterns.GrillModeStrategy;
+
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Oven extends Device {
-    private boolean isTurnedOn;
-    private OvenAPI currentMode;
-    private int currentTemperature;
-    private Map<OvenAPI, OvenAPI> modeStrategies;
-    private boolean name;
 
-    public Oven(String name, DeviceType type, double activeConsumption, double idleConsumption, double turnedOffConsumption) {
-        super(name, type, activeConsumption, idleConsumption, turnedOffConsumption);
-        this.isTurnedOn = false;
-        this.modeStrategies = new HashMap<>();
-    }
 
-    @Override
+    public class Oven extends Device {
+        private static final int activeConsumption = 1000;
+        private boolean isTurnedOn;
+        private OvenAPI currentMode;
+        private int currentTemperature;
+        private Map<OvenAPI, OvenAPI> modeStrategies;
+        private boolean name;
+
+        public Oven(String name, String type, int idleConsumption, int turnedOffConsumption) {
+            super(name, DeviceType.valueOf(type), activeConsumption, idleConsumption, turnedOffConsumption);
+            this.isTurnedOn = false;
+            this.modeStrategies = new HashMap<>();
+        }
+
+
+        @Override
     public void notifySystem() {
 
     }
@@ -37,17 +38,28 @@ public class Oven extends Device {
 
     }
 
-    @Override
-    public void increaseTemp(int temp) {
+        @Override
+        public void increaseTemp(int temp) {
+            if (isTurnedOn) {
+                currentTemperature += temp;
+                System.out.println(getName() + " temperature increased to " + currentTemperature + "°C.");
+            } else {
+                System.out.println(getName() + " is turned off. Cannot increase temperature.");
+            }
+        }
 
-    }
 
-    @Override
-    public void decreaseTemp(int temp) {
+        @Override
+        public void decreaseTemp(int temp) {
+            if (isTurnedOn) {
+                currentTemperature -= temp;
+                System.out.println(getName() + " temperature decreased to " + currentTemperature + "°C.");
+            } else {
+                System.out.println(getName() + " is turned off. Cannot decrease temperature.");
+            }
+        }
 
-    }
-
-    @Override
+        @Override
     public void update(Event event, AirCondition airCondition) {
 
     }
@@ -71,15 +83,18 @@ public class Oven extends Device {
     public void update(Event event, StrongWindSensor strongWindSensor) {
 
     }
-    public void turnOn() {
-        isTurnedOn = true;
-        System.out.println(getName() + " is turned on.");
-    }
+        public void turnOn() {
+            isTurnedOn = true;
+            System.out.println(getName() + " is turned on.");
+        }
 
-    public void turnOff() {
-        isTurnedOn = false;
-        System.out.println(getName() + " is turned off.");
-    }
+        public void turnOff() {
+            isTurnedOn = false;
+            System.out.println(getName() + " is turned off.");
+        }
+        private boolean getName() { // Приватный метод, возвращающий значение поля name
+            return name;
+        }
 //
 //    @Override
 //    public void notifySystem() {
