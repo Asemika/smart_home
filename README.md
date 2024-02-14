@@ -7,16 +7,24 @@
 
 
 ## Functional requirements
-- **F1 +** <br/>
-- **F2 +** <br/>
-- **F3 +** <br/>
-- **F4 +** <br/>
-- **F5 +** <br/>
-- **F6 +** <br/>
-- **F7 +** <br/>
-- **F8 +** <br/>
-- **F9 +** <br/>
-- **F10 +** <br/>
+**F1** + All entities provided in the entities (devices, creatures) and home folders
+
+**F2** + Everything is provided in the API folder
+
+**F3** + Everything is provided in the device folder
+
+**F4** + Everything is provided in the API folder
+
+**F5** + Everything is provided in the creatures folder
+
+**F6** + Events are generated in the event folder
+
+**F7** + Events are implemented in the event folder and used for system and sensor folders
+
+**F8** + Report generation takes place in the report folder
+
+**F9** + Documentation is prescribed for each device
+
 
 ## Design patterns
 ### Singleton
