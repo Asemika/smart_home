@@ -37,8 +37,5 @@ public class WashingMachine extends Device {
 
     }
 
-    @Override
-    public void update(Event event, Fridge fridge) {
 
-    }
 }

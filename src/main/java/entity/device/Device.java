@@ -24,6 +24,8 @@ public abstract class Device implements Observer, Sensor {
     private final ElectricityAPI electricityAPI = new ElectricityAPI();
     private final EventAPI eventAPI = new EventAPI();
     private int kWPerHour;
+    private String type;
+    private String name;
 
     public Device(String s, DeviceType bicycle, int kWPerHour, int i, int i1) {
         this.kWPerHour = kWPerHour;
@@ -144,9 +146,9 @@ public abstract class Device implements Observer, Sensor {
         List<Observer> listeners = new ArrayList<>();
 
         if (observers.size() > 0) {
-            observers.get(0).update(event, sourceSensor);
+            observers.get(0).update(event, (WaterLeakSensor) sourceSensor);
             listeners.add(observers.get(0));
-            getEventAPI().addNewEventReportStruct(new EventReportStruct(event, sourceSensor, listeners));
+            getEventAPI().addNewEventReportStruct(new EventReportStruct(event, (WaterLeakSensor) sourceSensor, listeners));
         } else {
             System.out.println("No attached observers");
         }
@@ -176,6 +178,8 @@ public abstract class Device implements Observer, Sensor {
     public abstract void increaseTemp(int temp);
 
     public abstract void decreaseTemp(int temp);
+
+    public abstract void update(Event event, AirCondition airCondition);
 }
 
 //package entity.device;
