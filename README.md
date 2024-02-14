@@ -7,19 +7,31 @@ The Smart Home Simulation application is designed to virtually simulate the oper
 ## Functional requirements
 **F1** + All entities provided in the entities (devices, creatures) and home folders
 
-**F2** + Everything is provided in the API folder
+**F2** + Everything is provided in the API package
 
-**F3** + Everything is provided in the device folder
+**F3** + Everything is provided in the device package
 
-**F4** + Everything is provided in the API folder
+**F4** + Everything is provided in the API package
 
-**F5** + Everything is provided in the creatures folder
+**F5** + Everything is provided in the creatures package
 
-**F6** + Events are generated in the event folder
+**F6** + Events are generated in the event package
 
-**F7** + Events are implemented in the event folder and used for system and sensor folders
+**F7** + Events are implemented in the event package and used for system and sensor package
 
-**F8** + Report generation takes place in the report folder
+fire -> extinguishing a fire by fireSystem.
+
+water leak -> closing tubes by waterLeakSystem.
+
+strong wind -> closing blinds.
+
+power outage -> turning on devices by generator.
+
+empty fridge -> fridge can order food if fridge capacity < 54%.
+
+broken device -> person has to fix it but at first he must find the documentation.
+
+**F8** + reports for Configuration and Configuration2 are created in folders reports/1 and reports/2
 
 **F9** + Documentation is prescribed for each device
 
