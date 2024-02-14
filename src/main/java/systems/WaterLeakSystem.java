@@ -1,5 +1,6 @@
 package systems;
 
+import entity.device.AirCondition;
 import entity.device.Device;
 import entity.device.Fridge;
 import entity.device.Observer;
@@ -14,9 +15,8 @@ public class WaterLeakSystem extends Device implements Observer {
 
     @Override
     public void update(Event event, WaterLeakSensor sensor) {
-        if (EventType.WATER_LEAK == event.getEventType()) {
+        if (EventType.WATER_LEAK == event.getEventType())
             System.out.println("The water has stopped flowing into the house");
-        }
     }
 
     @Override
@@ -57,6 +57,11 @@ public class WaterLeakSystem extends Device implements Observer {
 
     @Override
     public void decreaseTemp(int temp) {
+
+    }
+
+    @Override
+    public void update(Event event, AirCondition airCondition) {
 
     }
 }

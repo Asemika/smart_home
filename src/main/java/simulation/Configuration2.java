@@ -89,7 +89,7 @@ public class Configuration2 {
         addDevicesWithConsumption(devicesWithConsumption, fridge, tv, airCondition, airCondition2, smartSpeaker,
                 oven, washingMachine, microwave, lightSystem, airCondition3);
 
-        ElectronicAPI electronicApiBuilder = new ElectronicAPI()
+        ElectronicAPI electronicAPI = new ElectronicAPI()
                 .setFridgeApi(new FridgeAPI(fridge))
                 .setTvApi(new TvAPI(tv))
                 .setBlindsApi(new BlindsAPI(allBlinds))
@@ -101,7 +101,7 @@ public class Configuration2 {
                 .setWashingMachineApi(new WashingMachineAPI(washingMachine));
 
 
-        init_people(people, peopleNames, floor, livingRoom, electronicApiBuilder, carAPI, new BicycleAPI(new Bicycle()));
+        initPeople(people, peopleNames, floor, livingRoom, carAPI, new BicycleAPI(new Bicycle()), electronicAPI);
         init_pets(pets, livingRoom);
         fillRoomWithDevices(kitchen, oven, fridge, microwave);
         fillRoomWithDevices(livingRoom, tv);
@@ -291,19 +291,18 @@ public class Configuration2 {
      * method for creating people
      *
      * @param people
-     * @param peopleNames
      * @param floor
      * @param livingRoom
-     * @param electronicApiBuilder
+     * @param electronicAPI
      * @param carAPI
      * @param bicycleAPI
      */
-    private void init_people(List<Person> people, String[] peopleNames, Floor floor, Room livingRoom, ElectronicAPI electronicApiBuilder, CarAPI carAPI, BicycleAPI bicycleAPI) {
-        for (int i = 0; i < peopleNames.length; i++) {
-            people.add(new Person(peopleNames[i], floor, livingRoom,
-                    carAPI, new BicycleAPI(new Bicycle())));
+    private void initPeople(List<Person> people, String[] peopleNames, Floor floor, Room livingRoom, CarAPI carAPI, BicycleAPI bicycleAPI,ElectronicAPI electronicAPI) {
+        for (String personName : peopleNames) {
+            people.add(new Person(personName, floor, livingRoom, carAPI, bicycleAPI,electronicAPI ));
         }
     }
+
 
     /**
      * factory method for creating a fridge with some food.
