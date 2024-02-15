@@ -35,6 +35,7 @@ broken device -> person has to fix it but at first he must find the documentatio
 
 **F9** + Documentation is prescribed for each device
 
+**F10** +
 
 ## Design patterns
 ### Singleton
