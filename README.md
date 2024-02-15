@@ -31,7 +31,7 @@ empty fridge -> fridge can order food if fridge capacity < 54%.
 
 broken device -> person has to fix it but at first he must find the documentation.
 
-**F8** + reports for Configuration and Configuration2 are created in folders reports/1 and reports/2
+**F8** + reports for Configuration and Configuration2 are created in package report
 
 **F9** + Documentation is prescribed for each device
 
